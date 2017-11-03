@@ -5,4 +5,4 @@
  * @author lchen
  *
  */
-package c02_primitive_types;
+package c08_dynamic_programming;

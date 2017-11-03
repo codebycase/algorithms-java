@@ -1,4 +1,4 @@
-package c01_bit_manipulation;
+package c01_primitive_types;
 
 /**
  * <h2>A few bit manipulation samples:</h2>
