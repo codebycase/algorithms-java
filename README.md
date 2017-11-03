@@ -3,7 +3,7 @@
 Conclude and sum up various programming questions & solutions. Let's brush up ourselves in a fun and efficient way!
 
 ## Table of Contents
- - **Chapter 01. Primitive Types** (Bit Manipulation, Operator, Compute)
+ - **Chapter 01. Primitive Types** (Bit Manipulation)
  - **Chapter 02. Arrays and Strings**
  - **Chapter 03. Linked Lists**
  - **Chapter 04. Stacks and Queues** (Stack, Queue, Heap/PriorityQueue)

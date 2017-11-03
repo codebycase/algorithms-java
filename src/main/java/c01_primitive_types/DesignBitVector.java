@@ -2,12 +2,14 @@ package c01_primitive_types;
 
 /**
  * <p>
- * Bit Vector is a perfect sample to demonstrate the common bit tasks: Sizing, Shifting, Getting and Setting.
+ * Bit Vector is a perfect sample to demonstrate the common bit tasks: Sizing, Shifting, Getting and
+ * Setting.
  * </p>
  * 
  * <p>
- * An array of int can be used to deal with array of bits. Assuming size of int to be 4 bytes, when we talk about an int, we are dealing with 32 bits.
- * Say we have int A[10], means we are working on 10 * 4 * 8 = 320 bits.
+ * An array of int can be used to deal with array of bits. Assuming size of int to be 4 bytes, when
+ * we talk about an int, we are dealing with 32 bits. Say we have int A[10], means we are working on
+ * 10 * 4 * 8 = 320 bits.
  * </p>
  * 
  * @author lchen

@@ -18,22 +18,26 @@ package c01_primitive_types;
  * </pre>
  * 
  * <h2>Arithmetic vs. Logical Right Shift
- * <h2>-75 (10110101) >>> 1 = 90 (01011010) // logical shift, put a 0 in the most significant bit. <br>
- * -75 (10110101) >> 1 = -38 (11011010) // arithmetic shift, fill in the new bits with the sign bit.<br>
+ * <h2>-75 (10110101) >>> 1 = 90 (01011010) // logical shift, put a 0 in the most significant bit.
+ * <br>
+ * -75 (10110101) >> 1 = -38 (11011010) // arithmetic shift, fill in the new bits with the sign
+ * bit.<br>
  * 
  * 
  * <h2>Character Encoding</h2>
  * <p>
- * Unicode can be implemented by different character encodings. The Unicode standard defines UTF-8, UTF-16, and UTF-32, and several other encodings
- * are in use.
+ * Unicode can be implemented by different character encodings. The Unicode standard defines UTF-8,
+ * UTF-16, and UTF-32, and several other encodings are in use.
  * </p>
  * <p>
- * UTF-8, the most widely used by websites, uses one byte for the first 128 code points, and <b>up to 4 bytes</b> for other characters. The first 128
- * Unicode code points are the ASCII characters; so an ASCII text is a UTF-8 text.
+ * UTF-8, the most widely used by websites, uses one byte for the first 128 code points, and <b>up
+ * to 4 bytes</b> for other characters. The first 128 Unicode code points are the ASCII characters;
+ * so an ASCII text is a UTF-8 text.
  * </p>
  * <p>
- * The same character converted to UTF-8 becomes the byte squence {@code BF BB BF}. The Unicode Standard allows that the BOM "can serve as signature
- * for UTF-8 encoded text where the character set is unmarked".
+ * The same character converted to UTF-8 becomes the byte squence {@code BF BB BF}. The Unicode
+ * Standard allows that the BOM "can serve as signature for UTF-8 encoded text where the character
+ * set is unmarked".
  * </p>
  * 
  * @author lchen
