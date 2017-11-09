@@ -1,4 +1,4 @@
-package c01_primitive_types;
+package a01_primitive_types;
 
 /**
  * <h2>A few bit manipulation samples:</h2>
@@ -9,7 +9,7 @@ package c01_primitive_types;
  * 1101 ^ (~1101) = 1101 ^ 0010 = 1111 // a ^ (~a) = 1
  * </pre>
  * 
- * <h2>To get the negation of a numer in two's complement.</h2> <br>
+ * <h2>To get the negation of a number in two's complement.</h2> <br>
  * Invert all the bits through the number, and add one.
  * 
  * <pre>
@@ -30,12 +30,12 @@ package c01_primitive_types;
  * UTF-16, and UTF-32, and several other encodings are in use.
  * </p>
  * <p>
- * UTF-8, the most widely used by websites, uses one byte for the first 128 code points, and <b>up
+ * UTF-8, the most widely used by web sites, uses one byte for the first 128 code points, and <b>up
  * to 4 bytes</b> for other characters. The first 128 Unicode code points are the ASCII characters;
  * so an ASCII text is a UTF-8 text.
  * </p>
  * <p>
- * The same character converted to UTF-8 becomes the byte squence {@code BF BB BF}. The Unicode
+ * The same character converted to UTF-8 becomes the byte sequence {@code BF BB BF}. The Unicode
  * Standard allows that the BOM "can serve as signature for UTF-8 encoded text where the character
  * set is unmarked".
  * </p>
