@@ -44,6 +44,28 @@ package a01_primitive_types;
  *
  */
 public class BitManipulation {
+	public boolean getBit(int num, int i) {
+		return (num & (1 << i)) != 0;
+	}
+
+	public int setBit(int num, int i) {
+		return num | (1 << i);
+	}
+
+	public int clearBit(int num, int i) {
+		return num & ~(1 << i);
+		// clear all bits from the most significant bit through i (inclusive)
+		// return num & ((1 << i) - 1);
+		// clear all bits from i through 0 (inclusive)
+		// return num & ((-1 << i + 1)); // NOTE: a sequence of 1 is -1
+	}
+
+	public int updateBit(int num, int i, boolean bitIs1) {
+		int value = bitIs1 ? 1 : 0;
+		int mask = ~(1 << i);
+		return (num & mask) | (value << i);
+	}
+
 	/**
 	 * 16 + 10 + 36 = 62 bits in total!
 	 * 

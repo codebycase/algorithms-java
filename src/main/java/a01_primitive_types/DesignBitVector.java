@@ -35,7 +35,7 @@ public class DesignBitVector {
 	public boolean get(int i) {
 		if (i < 0 || i >= length)
 			throw new ArrayIndexOutOfBoundsException(i);
-		return (vector[i / INT_SIZE] & (1 << (i % INT_SIZE))) == 1;
+		return (vector[i / INT_SIZE] & (1 << (i % INT_SIZE))) != 0;
 	}
 
 	public void set(int i, boolean flag) {
@@ -63,11 +63,14 @@ public class DesignBitVector {
 		bitVector.set(3, true);
 		bitVector.set(5, true);
 		bitVector.print();
+		assert bitVector.get(3);
+		assert !bitVector.get(4);
+		assert bitVector.get(5);
 		bitVector.set(1, false);
 		bitVector.set(3, true);
 		bitVector.set(5, false);
 		bitVector.print();
-		// bitVector.get(100); // out of range!
+		assert !bitVector.get(5);
 	}
 
 }
