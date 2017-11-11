@@ -72,5 +72,4 @@ public class DesignBitVector {
 		bitVector.print();
 		assert !bitVector.get(5);
 	}
-
 }
