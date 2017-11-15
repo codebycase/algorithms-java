@@ -1,4 +1,4 @@
-package c04_stacks_queues;
+package c05_trees_graphs_heaps;
 
 /**
  * Many applications require that we process items having keys in order, but not necessarily in full
