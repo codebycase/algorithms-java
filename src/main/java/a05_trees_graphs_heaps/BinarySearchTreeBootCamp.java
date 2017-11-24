@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.NavigableSet;
 import java.util.TreeSet;
 
+import util.Interval;
 import util.ListNode;
 import util.TreeNode;
 
@@ -76,6 +77,30 @@ public class BinarySearchTreeBootCamp {
 		prev = node;
 		minDiff = Math.min(minDiff, minDifference(node.right));
 		return minDiff;
+	}
+
+	/**
+	 * Write a program that takes as input a BST and an interval and returns the BST keys that lie
+	 * in the interval.
+	 */
+	public List<Integer> rangeLookupInBST(TreeNode tree, Interval interval) {
+		List<Integer> result = new ArrayList<>();
+		rangeLookupInBST(tree, interval, result);
+		return result;
+	}
+
+	private void rangeLookupInBST(TreeNode tree, Interval interval, List<Integer> result) {
+		if (tree == null)
+			return;
+		if (interval.left <= tree.val && tree.val <= interval.right) {
+			rangeLookupInBST(tree.left, interval, result);
+			result.add(tree.val);
+			rangeLookupInBST(tree.right, interval, result);
+		} else if (interval.left > tree.val) {
+			rangeLookupInBST(tree.right, interval, result);
+		} else {
+			rangeLookupInBST(tree.left, interval, result);
+		}
 	}
 
 	/**
@@ -254,7 +279,7 @@ public class BinarySearchTreeBootCamp {
 			this.val = val;
 		}
 	}
-
+	
 	public static void main(String[] args) {
 		BinarySearchTreeBootCamp bootCamp = new BinarySearchTreeBootCamp();
 		List<Integer> preorder = Arrays.asList(3, 2, 1, 5, 4, 6);
@@ -273,4 +298,5 @@ public class BinarySearchTreeBootCamp {
 		int result = bootCamp.minDistanceInKSortedArrays(sortedArrays);
 		assert result == 1;
 	}
+
 }
