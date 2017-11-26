@@ -1,4 +1,4 @@
-package a05_trees_graphs_heaps;
+package a05_graphs_trees_heaps;
 
 /**
  * Many applications require that we process items having keys in order, but not necessarily in full

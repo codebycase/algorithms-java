@@ -1,4 +1,4 @@
-package a05_trees_graphs_heaps;
+package a05_graphs_trees_heaps;
 
 import java.util.ArrayList;
 import java.util.Arrays;
