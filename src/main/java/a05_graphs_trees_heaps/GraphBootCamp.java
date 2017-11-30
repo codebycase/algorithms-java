@@ -1,11 +1,20 @@
 package a05_graphs_trees_heaps;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
+import java.util.Random;
+import java.util.Set;
 
 import util.Point;
+import util.State;
+import util.Vertex;
 
 public class GraphBootCamp {
 
@@ -90,6 +99,94 @@ public class GraphBootCamp {
 		}
 	}
 
+	/**
+	 * One deadlock detection algorithm makes use of a "wait-for" graph: Processes are represented
+	 * as nodes, and an edge from process P to Q implies P is waiting for Q to release its lock on
+	 * the resource. A cycle in this graph implies the possibility of a deadlock.
+	 * 
+	 * Write a program that takes as input a directed graph and checks if the graph contains a
+	 * cycle.
+	 * 
+	 * @param graph
+	 * @return
+	 */
+	public static boolean isDeadlocked(List<Vertex> graph) {
+		for (Vertex vertex : graph) {
+			if (vertex.state == State.UNVISITED && hasCycle(vertex)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private static boolean hasCycle(Vertex current) {
+		if (current.state == State.VISITING) {
+			return true;
+		}
+
+		current.state = State.VISITING;
+		for (Vertex next : current.edges) {
+			if (next.state != State.VISITED && hasCycle(next)) {
+				return true;
+			}
+		}
+		current.state = State.VISITED;
+
+		return false;
+	}
+
+	public static Vertex cloneGraph(Vertex graph) {
+		if (graph == null)
+			return null;
+
+		Map<Vertex, Vertex> map = new HashMap<>();
+		Queue<Vertex> queue = new LinkedList<>();
+		queue.add(graph);
+		map.put(graph, new Vertex(graph.label));
+		while (!queue.isEmpty()) {
+			Vertex v = queue.remove();
+			for (Vertex e : v.edges) {
+				if (!map.containsKey(e)) {
+					map.put(e, new Vertex(e.label));
+					queue.add(e);
+				}
+				map.get(v).edges.add(map.get(e));
+			}
+		}
+
+		return map.get(graph);
+	}
+
+	private static List<Integer> copyLabels(List<Vertex> edges) {
+		List<Integer> labels = new ArrayList<>();
+		for (Vertex e : edges) {
+			labels.add(e.label);
+		}
+		return labels;
+	}
+
+	private static void checkGraph(Vertex node, List<Vertex> g) {
+		Set<Vertex> vertexSet = new HashSet<>();
+		Queue<Vertex> q = new LinkedList<>();
+		q.add(node);
+		vertexSet.add(node);
+		while (!q.isEmpty()) {
+			Vertex vertex = q.remove();
+			assert (vertex.label < g.size());
+			List<Integer> label1 = copyLabels(vertex.edges), label2 = copyLabels(g.get(vertex.label).edges);
+			Collections.sort(label1);
+			Collections.sort(label2);
+			assert (label1.size() == label2.size());
+			assert (Arrays.equals(label1.toArray(), label2.toArray()));
+			for (Vertex e : vertex.edges) {
+				if (!vertexSet.contains(e)) {
+					vertexSet.add(e);
+					q.add(e);
+				}
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 		List<List<Character>> A = Arrays.asList(Arrays.asList('B', 'B', 'B', 'B'), Arrays.asList('W', 'B', 'W', 'B'),
 				Arrays.asList('B', 'W', 'W', 'B'), Arrays.asList('B', 'B', 'B', 'B'));
@@ -98,6 +195,42 @@ public class GraphBootCamp {
 				Arrays.asList('W', 'B', 'B', 'B'), Arrays.asList('B', 'B', 'B', 'B'),
 				Arrays.asList('B', 'B', 'B', 'B'));
 		assert (A.equals(golden));
+		// Test Clone Graph
+		Random r = new Random();
+		for (int times = 0; times < 1000; ++times) {
+			List<Vertex> G = new ArrayList<>();
+			int n;
+			if (args.length == 1) {
+				n = Integer.parseInt(args[0]);
+			} else {
+				n = r.nextInt(100) + 2;
+			}
+			for (int i = 0; i < n; ++i) {
+				G.add(new Vertex(i));
+			}
+			int m = r.nextInt(n * (n - 1) / 2) + 1;
+			boolean[][] doesEdgeExist = new boolean[n][n];
+			// Make the graph become connected.
+			for (int i = 1; i < n; ++i) {
+				G.get(i - 1).edges.add(G.get(i));
+				G.get(i).edges.add(G.get(i - 1));
+				doesEdgeExist[i - 1][i] = doesEdgeExist[i][i - 1] = true;
+			}
+			// Generate some edges randomly.
+			m -= (n - 1);
+			while (m-- > 0) {
+				int a, b;
+				do {
+					a = r.nextInt(n);
+					b = r.nextInt(n);
+				} while (a == b || doesEdgeExist[a][b]);
+				doesEdgeExist[a][b] = doesEdgeExist[b][a] = true;
+				G.get(a).edges.add(G.get(b));
+				G.get(b).edges.add(G.get(a));
+			}
+			Vertex res = cloneGraph(G.get(0));
+			checkGraph(res, G);
+		}
 	}
 
 }
