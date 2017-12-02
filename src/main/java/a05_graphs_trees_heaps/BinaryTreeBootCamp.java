@@ -2,9 +2,11 @@ package a05_graphs_trees_heaps;
 
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 
 import util.TreeNode;
 
@@ -21,9 +23,9 @@ import util.TreeNode;
  */
 public class BinaryTreeBootCamp {
 	/**
-	 * Given a binary tree, determine if it is height-balanced. A height-balanced binary tree is defined
-	 * as a binary tree in which the depth of the two subtrees of every node never differ by more than
-	 * 1.
+	 * Given a binary tree, determine if it is height-balanced. A height-balanced binary tree is
+	 * defined as a binary tree in which the depth of the two subtrees of every node never differ by
+	 * more than 1.
 	 *
 	 */
 	public boolean isBalanced(TreeNode root) {
@@ -142,14 +144,15 @@ public class BinaryTreeBootCamp {
 	}
 
 	/**
-	 * Given two nodes in a binary tree, design an algorithm that computes their LCA. Assume that each
-	 * node has a parent pointer.
+	 * Given two nodes in a binary tree, design an algorithm that computes their LCA. Assume that
+	 * each node has a parent pointer.
 	 * 
 	 * @param node0
 	 * @param node1
 	 * @return
 	 */
-	// If the nodes are at the same depth, we can move up the tree in tandem from both nodes, stopping
+	// If the nodes are at the same depth, we can move up the tree in tandem from both nodes,
+	// stopping
 	// at the first common node, which is the LCA.
 	public TreeNode lowestCommonAncestor(TreeNode node0, TreeNode node1) {
 		int depth0 = getDepth(node0);
@@ -183,9 +186,28 @@ public class BinaryTreeBootCamp {
 		return depth;
 	}
 
+	// We can also alternately moving upwards from the two nodes and storing the nodes visited in a
+	// hash table. Each time we visited a node we check to see if it has been visited before._
+	public TreeNode lowestCommonAncestor2(TreeNode node0, TreeNode node1) {
+		Set<TreeNode> hash = new HashSet<>();
+		while (node0 != null || node1 != null) {
+			if (node0 != null) {
+				if (!hash.add(node0))
+					return node0;
+				node0 = node0.parent;
+			}
+			if (node1 != null) {
+				if (!hash.add(node1))
+					return node1;
+				node1 = node1.parent;
+			}
+		}
+		throw new IllegalArgumentException("node0 and node1 are not in the same tree");
+	}
+
 	/**
-	 * Consider a binary tree in which each node contains a binary digit. Design an algorithm to compute
-	 * the sum of the binary numbers represented by the root-to-leaf paths.
+	 * Consider a binary tree in which each node contains a binary digit. Design an algorithm to
+	 * compute the sum of the binary numbers represented by the root-to-leaf paths.
 	 * 
 	 * @param root
 	 * @return
@@ -263,9 +285,9 @@ public class BinaryTreeBootCamp {
 	 * Assume nodes have parent fields.
 	 * 
 	 * Idea: To complete this algorithm, we need to know when we return to a parent if the just
-	 * completed subtree was the parent's left child (in which case we need to visit the parent and then
-	 * traverse its right subtree) or a right substree (in which case we have completed traversing the
-	 * parent).
+	 * completed subtree was the parent's left child (in which case we need to visit the parent and
+	 * then traverse its right subtree) or a right substree (in which case we have completed
+	 * traversing the parent).
 	 * 
 	 * @param root
 	 * @return
@@ -325,8 +347,8 @@ public class BinaryTreeBootCamp {
 
 	/**
 	 * We can compute the nodes on the path from the root to the leftmost leaf and the leaves in the
-	 * left subtree in one traversal. After that, we find the leaves in the right subtree followed by
-	 * the nodes from the rightmost leaf to the root with another traversal.
+	 * left subtree in one traversal. After that, we find the leaves in the right subtree followed
+	 * by the nodes from the rightmost leaf to the root with another traversal.
 	 * 
 	 * @param root
 	 * @return
