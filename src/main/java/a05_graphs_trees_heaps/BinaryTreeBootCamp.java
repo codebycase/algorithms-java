@@ -413,4 +413,8 @@ public class BinaryTreeBootCamp {
 			node = node.next;
 		}
 	}
+
+	public static void main(String[] args) {
+
+	}
 }

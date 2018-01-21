@@ -19,6 +19,29 @@ import java.util.List;
  */
 public class BacktrackBootCamp {
 	/**
+	 * This is the sample to generate permutation in order, no need for backtrace.
+	 * 
+	 * @param listOfLists
+	 * @return
+	 */
+	public List<String> enumerate(List<List<Object>> listOfLists) {
+		List<String> results = new ArrayList<>();
+		if (listOfLists.size() == 0)
+			return results;
+		results.add("");
+		for (List<Object> list : listOfLists) {
+			List<String> temp = new ArrayList<>();
+			for (String result : results) {
+				for (Object obj : list) {
+					temp.add(result + obj);
+				}
+			}
+			results = temp;
+		}
+		return results;
+	}
+
+	/**
 	 * When we generate a subset, each element can be either being chosen or not. <br>
 	 * The best case time is actually the total number of elements across all of the subsets. <br>
 	 * The solutions will be roughly O(n2^n) in space or time complexity.
@@ -226,6 +249,16 @@ public class BacktrackBootCamp {
 		System.out.println(solution.subsets(set));
 		System.out.println(solution.subsets2(set));
 		System.out.println(solution.subsetsWithDup(set));
+
+		List<List<Object>> listOfLists = new ArrayList<>();
+		listOfLists.add(Arrays.asList("a", "b", "c", "d"));
+		listOfLists.add(Arrays.asList(1, 2, 3, 4, 5));
+		listOfLists.add(Arrays.asList("Tom", "Mike", "Joe"));
+
+		List<String> results = solution.enumerate(listOfLists);
+		for (String result : results) {
+			System.out.println(result);
+		}
 	}
 
 }

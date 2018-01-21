@@ -208,6 +208,74 @@ public class BinarySearchTreeBootCamp {
 	}
 
 	/**
+	 * Given a BST which may be unbalanced. convert it into a balanced BST that has minimum possible
+	 * height.
+	 * 
+	 * <pre>
+	Input:
+	         4
+	        /
+	       3
+	      /
+	     2
+	    /
+	   1
+	Output:
+	      3            3           2
+	    /  \         /  \        /  \
+	   1    4   OR  2    4  OR  1    3   OR ..
+	    \          /                   \
+	     2        1                     4
+	
+	Input:
+	          4
+	        /   \
+	       3     5
+	      /       \
+	     2         6
+	    /           \
+	   1             7
+	Output:
+	       4
+	    /    \
+	   2      6
+	 /  \    /  \
+	1    3  5    7
+	 * </pre>
+	 * 
+	 * @param root
+	 * @return
+	 */
+	public TreeNode convertToBalancedTree(TreeNode root) {
+		List<TreeNode> nodes = new ArrayList<>();
+		storeBSTNodes(root, nodes);
+		return buildBalancedTree(nodes, 0, nodes.size() - 1);
+	}
+
+	// in-order traverse
+	private void storeBSTNodes(TreeNode node, List<TreeNode> nodes) {
+		if (node == null)
+			return;
+		storeBSTNodes(node.left, nodes);
+		nodes.add(node);
+		storeBSTNodes(node.right, nodes);
+	}
+
+	private TreeNode buildBalancedTree(List<TreeNode> nodes, int start, int end) {
+		if (start > end)
+			return null;
+		// get mid node and make it root
+		int mid = start + (end - start) / 2;
+		TreeNode node = nodes.get(mid);
+
+		// use index in in-order traverse
+		node.left = buildBalancedTree(nodes, start, mid - 1);
+		node.right = buildBalancedTree(nodes, mid + 1, end);
+
+		return node;
+	}
+	
+	/**
 	 * Suppose you are given the sequence in which keys are visited in an preorder traversal of a
 	 * BST, and all keys are distinct. Can you reconstruct the BST from the sequence?
 	 * 
@@ -297,6 +365,14 @@ public class BinarySearchTreeBootCamp {
 		sortedArrays.add(Arrays.asList(8, 16, 24));
 		int result = bootCamp.minDistanceInKSortedArrays(sortedArrays);
 		assert result == 1;
+		
+		tree = new TreeNode(10);
+		tree.left = new TreeNode(8);
+		tree.left.left = new TreeNode(7);
+		tree.left.left.left = new TreeNode(6);
+		tree.left.left.left.left = new TreeNode(5);
+		tree = bootCamp.convertToBalancedTree(tree);
+		assert tree.val == 7;
 	}
 
 }

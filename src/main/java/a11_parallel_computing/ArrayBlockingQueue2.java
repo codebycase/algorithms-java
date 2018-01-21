@@ -11,7 +11,6 @@ public class ArrayBlockingQueue2<E> implements BlockingQueue<E> {
 	private Object[] items;
 
 	private ReentrantLock lock = new ReentrantLock();
-	private ReentrantLock putLock = new ReentrantLock();
 	private Condition notEmpty = lock.newCondition();
 	private Condition notFull = lock.newCondition();
 
@@ -44,23 +43,22 @@ public class ArrayBlockingQueue2<E> implements BlockingQueue<E> {
 	@Override
 	public void put(E obj) throws Exception {
 		checkNotNull(obj);
-		putLock.lock();
-		lock.lock();
+		final ReentrantLock lock = this.lock;
+		lock.lockInterruptibly();
 		try {
 			while (count == items.length)
 				notFull.await();
 			enqueue(obj);
 		} finally {
 			lock.unlock();
-			putLock.lock();
 		}
 	}
 
 	@Override
 	public void putList(List<E> objs) throws Exception {
 		checkNotNull(objs);
-		putLock.lock();
-		lock.lock();
+		final ReentrantLock lock = this.lock;
+		lock.lockInterruptibly();
 		try {
 			for (E obj : objs) {
 				while (count == items.length)
@@ -69,7 +67,6 @@ public class ArrayBlockingQueue2<E> implements BlockingQueue<E> {
 			}
 		} finally {
 			lock.unlock();
-			putLock.lock();
 		}
 	}
 

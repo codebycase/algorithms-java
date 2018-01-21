@@ -3,6 +3,7 @@ package a06_sorting_searching;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -297,18 +298,21 @@ public class SearchingBootCamp {
 	 * the array. How would you compute the duplicate and missing numbers?
 	 * 
 	 */
-	public int[] findDupicateMissingNumber(int[] A) {
+	public int[] findDuplicateMissingNumber(int[] A) {
 		// Compute the XOR of all numbers from 0 to |A| - 1 and all entries in A.
+		// This will yield the missing number XOR the duplicate number (t xor m)
 		int missXorDup = 0;
 		for (int i = 0; i < A.length; i++) {
 			missXorDup ^= i ^ A[i];
 		}
 
 		// The bit-fiddling assignment below sets all of bits in differBit to 0 except for the least
-		// significatn bit in missXorDup that's 1.
+		// significant bit in missXorDup that's 1.
 		int differBit = missXorDup & (~(missXorDup - 1));
 
+		// Now we can focus our attention on entries where the LSB is 1.
 		// Compute the XOR of all numbers in which the differBit-th bit is 1.
+		// The result is either the missing or the duplicate entry.
 		int missOrDup = 0;
 		for (int i = 0; i < A.length; i++) {
 			if ((i & differBit) != 0)
@@ -326,6 +330,54 @@ public class SearchingBootCamp {
 		return new int[] { missOrDup ^ missXorDup, missOrDup };
 	}
 
+	/**
+	 * If car starts at A and can not reach B. Any station between A and B can not reach B. If the
+	 * total number of Gas is bigger than the total number of Cost, There must be a solution.
+	 * 
+	 * @param gas
+	 * @param cost
+	 * @return
+	 */
+	public int canCompleteCircuit(int[] gas, int[] cost) {
+		int sumGas = 0;
+		int sumCost = 0;
+		int start = 0;
+		int tank = 0;
+		for (int i = 0; i < gas.length; i++) {
+			sumGas += gas[i];
+			sumCost += cost[i];
+			tank += gas[i] - cost[i];
+			if (tank < 0) {
+				start = i + 1;
+				tank = 0;
+			}
+		}
+		if (sumGas < sumCost) {
+			return -1;
+		} else {
+			return start;
+		}
+	}
+
+	/**
+	 * Given service times for a set of queries, compute a schedule for processing the queries that
+	 * minimizes the total waiting time. The time a query waits before its turn comes is called its
+	 * waiting time. For example, if the service times are <2, 5, 1, 3>, the minimum waiting time is
+	 * 10 = (0 + (1) + (1 + 2) + (1 + 2 + 3))
+	 */
+	public int minimumTotalWaitingTime(List<Integer> serviceTimes) {
+		// Sort the service times in increasing order
+		Collections.sort(serviceTimes);
+
+		int totalWaitingTime = 0;
+		for (int i = 0; i < serviceTimes.size(); i++) {
+			int numRemainingQueries = serviceTimes.size() - i - 1;
+			totalWaitingTime += serviceTimes.get(i) * numRemainingQueries;
+		}
+
+		return totalWaitingTime;
+	}
+
 	public static void main(String[] args) {
 		SearchingBootCamp solution = new SearchingBootCamp();
 		List<Integer> A = new ArrayList<>(Arrays.asList(-14, -10, 2, 108, 108, 243, 285, 285, 285, 401));
@@ -336,7 +388,8 @@ public class SearchingBootCamp {
 		int[] nums = new int[] { 3, 2, 1, 5, 6, 4 };
 		assert solution.findKthLargest(nums, 2) == 5;
 		nums = new int[] { 5, 3, 0, 3, 1, 2 };
-		int[] result = solution.findDupicateMissingNumber(nums);
+		int[] result = solution.findDuplicateMissingNumber(nums);
 		assert Arrays.equals(result, new int[] { 3, 4 });
+		assert solution.minimumTotalWaitingTime(Arrays.asList(2, 5, 1, 3)) == 10;
 	}
 }
