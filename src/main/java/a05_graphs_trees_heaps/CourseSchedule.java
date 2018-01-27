@@ -116,8 +116,11 @@ public class CourseSchedule {
 		int numCourses = 4;
 		int[][] prerequisites = new int[][] { { 1, 0 }, { 2, 0 }, { 3, 1 }, { 3, 2 } };
 		int[] order = solution.findOrderInBFS(numCourses, prerequisites);
+		assert Arrays.toString(order).equals("[0, 1, 2, 3]");
 		System.out.println(Arrays.toString(order));
 		order = solution.findOrderInDFS(numCourses, prerequisites);
+		assert Arrays.toString(order).equals("[0, 2, 1, 3]");
 		System.out.println(Arrays.toString(order));
 	}
+
 }
