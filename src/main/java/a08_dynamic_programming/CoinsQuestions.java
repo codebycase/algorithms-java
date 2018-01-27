@@ -133,6 +133,32 @@ public class CoinsQuestions {
 		return maximumRevenue[a][b];
 	}
 
+	public int coinChangeFewest(int[] coins, int amount) {
+		if (amount < 1)
+			return 0;
+		return coinChangeFewest(coins, amount, new int[amount + 1]);
+	}
+
+	public int coinChangeFewest(int[] coins, int remain, int[] counts) {
+		if (remain < 0)
+			return -1;
+		if (remain == 0)
+			return 0;
+		if (counts[remain] != 0)
+			return counts[remain];
+
+		int min = Integer.MAX_VALUE;
+		for (int coin : coins) {
+			int count = coinChangeFewest(coins, remain - coin, counts);
+			if (count >= 0) {
+				min = Math.min(min, count + 1);
+			}
+		}
+		counts[remain] = min == Integer.MAX_VALUE ? -1 : min;
+
+		return counts[remain];
+	}
+
 	public static void main(String[] args) {
 		CoinsQuestions coinQuestions = new CoinsQuestions();
 		System.out.println(coinQuestions.coinChangeCombinations(new int[] { 1, 2, 5 }, 5));

@@ -2,7 +2,8 @@ package a08_dynamic_programming;
 
 /**
  * To illustrate the idea underlying DP, consider the problem of computing Fibonacci numbers. <br>
- * Mathematically, the nth Fibonacci number is given by the equation: F(n) = F(n-1) + F(n-2) with F(0) = 0 and F(1) = 1. <br>
+ * Mathematically, the nth Fibonacci number is given by the equation: F(n) = F(n-1) + F(n-2) with
+ * F(0) = 0 and F(1) = 1. <br>
  * The first few Fibonacci numbers are 0, 1, 1, 2, 3, 5, 8, 13, 21,... <br>
  * 
  * Let's walk through different approaches to compute the nth Fibonacci number.

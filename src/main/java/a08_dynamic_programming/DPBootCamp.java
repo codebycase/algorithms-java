@@ -206,26 +206,26 @@ public class DPBootCamp {
 		if (maze == null || maze.length == 0)
 			return null;
 		List<Point> path = new ArrayList<>();
-		Set<Point> failedPoints = new HashSet<>();
-		if (findOnePathInGrid(maze, maze.length - 1, maze[0].length - 1, path, failedPoints))
+		Set<Point> visitedPoints = new HashSet<>();
+		if (findOnePathInGrid(maze, maze.length - 1, maze[0].length - 1, path, visitedPoints))
 			return path;
 		return null;
 	}
 
-	private boolean findOnePathInGrid(boolean[][] maze, int row, int col, List<Point> path, Set<Point> failedPoints) {
+	private boolean findOnePathInGrid(boolean[][] maze, int row, int col, List<Point> path, Set<Point> visitedPoints) {
 		if (col < 0 || row < 0 || !maze[row][col]) // Out of bounds or not available
 			return false;
 		Point p = new Point(row, col);
-		if (failedPoints.contains(p)) // Already visited this cell
+		if (visitedPoints.contains(p)) // Already visited this cell
 			return false;
 		boolean isAtOrigin = (row == 0) && (col == 0);
 		// If there's a path from the start to my current location, add my location.
-		if (isAtOrigin || findOnePathInGrid(maze, row, col - 1, path, failedPoints)
-				|| findOnePathInGrid(maze, row - 1, col, path, failedPoints)) {
+		if (isAtOrigin || findOnePathInGrid(maze, row, col - 1, path, visitedPoints)
+				|| findOnePathInGrid(maze, row - 1, col, path, visitedPoints)) {
 			path.add(p);
 			return true;
 		}
-		failedPoints.add(p); // Cache result
+		visitedPoints.add(p); // Cache result
 		return false;
 	}
 

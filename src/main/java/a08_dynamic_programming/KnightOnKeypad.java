@@ -28,7 +28,7 @@ public class KnightOnKeypad {
 	// The valid movements from any number 0 through 9!
 	int[][] nexts = { { 4, 6 }, { 6, 8 }, { 7, 9 }, { 4, 8 }, { 0, 3, 9 }, {}, { 1, 7, 0 }, { 2, 6 }, { 1, 3 }, { 2, 4 } };
 
-	// iterative
+	// iterative, needs to calculate all digits for each length
 	public int countIterative(int digit, int length) {
 		int[][] matrix = new int[length][10];
 		Arrays.fill(matrix[0], 1);
@@ -46,13 +46,11 @@ public class KnightOnKeypad {
 		return matrix[length - 1][digit];
 	}
 
-	// recursive
+	// recursive, DFS, just calculate the reached ones.
 	public int countRecursive(int digit, int length, int[][] matrix) {
-		if (matrix[length - 1][digit] > 0)
-			return matrix[length - 1][digit];
-		int sum = 0;
 		if (length == 1)
 			return 1;
+		int sum = 0;
 		for (int i : nexts[digit]) {
 			sum += countRecursive(i, length - 1, matrix);
 		}
@@ -60,7 +58,7 @@ public class KnightOnKeypad {
 		return sum;
 	}
 
-	public void permute(int digit, int length, List<String> temp, List<String> results) {
+	public void permuteRecursive(int digit, int length, List<String> temp, List<String> results) {
 		if (length == 0) {
 			results.addAll(temp);
 			return;
@@ -70,7 +68,22 @@ public class KnightOnKeypad {
 			for (String number : temp) {
 				list.add(number + dig);
 			}
-			permute(dig, length - 1, list, results);
+			permuteRecursive(dig, length - 1, list, results);
+		}
+	}
+
+	public void permuteRecursive2(int digit, int length, List<String> temp, List<String> results) {
+		List<String> list = new ArrayList<>();
+		for (String number : temp) {
+			list.add(number + digit);
+		}
+		length = length - 1;
+		if (length == 0) {
+			results.addAll(list);
+			return;
+		}
+		for (int dig : nexts[digit]) {
+			permuteRecursive2(dig, length, list, results);
 		}
 	}
 
@@ -79,7 +92,10 @@ public class KnightOnKeypad {
 		assert solution.countIterative(1, 10) == 1424;
 		assert solution.countRecursive(1, 10, new int[10][10]) == 1424;
 		List<String> results = new ArrayList<>();
-		solution.permute(1, 10 - 1, Arrays.asList("1"), results);
+		solution.permuteRecursive(1, 10 - 1, Arrays.asList("1"), results);
+		assert results.size() == 1424;
+		results = new ArrayList<>();
+		solution.permuteRecursive2(1, 10, Arrays.asList(""), results);
 		assert results.size() == 1424;
 	}
 
