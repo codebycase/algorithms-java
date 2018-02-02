@@ -2,7 +2,9 @@ package a08_dynamic_programming;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Given a set of distinct integers, nums, return all possible subsets. also called the Powerset
@@ -72,6 +74,7 @@ public class BacktrackBootCamp {
 	public List<List<Integer>> subsets2(int[] nums) {
 		List<List<Integer>> list = new ArrayList<>();
 		backtrack(list, new ArrayList<>(), nums, 0);
+		// recursive(list, new ArrayList<>(), nums, 0);
 		return list;
 	}
 
@@ -81,6 +84,15 @@ public class BacktrackBootCamp {
 			temp.add(nums[i]);
 			backtrack(list, temp, nums, i + 1);
 			temp.remove(temp.size() - 1);
+		}
+	}
+
+	protected void recursive(List<List<Integer>> list, List<Integer> temp, int[] nums, int start) {
+		list.add(temp);
+		for (int i = start; i < nums.length; i++) {
+			List<Integer> clone = new ArrayList<>(temp);
+			clone.add(nums[i]);
+			recursive(list, clone, nums, i + 1);
 		}
 	}
 
@@ -159,6 +171,33 @@ public class BacktrackBootCamp {
 				backtrack(list, temp, nums, used);
 				used[i] = false;
 				temp.remove(temp.size() - 1);
+			}
+		}
+	}
+
+	public List<List<Integer>> permuteUnique2(int[] nums) {
+		List<List<Integer>> list = new ArrayList<>();
+		Map<Integer, Integer> map = new HashMap<>();
+		for (int num : nums) {
+			map.put(num, map.getOrDefault(num, 0) + 1);
+		}
+		permutateWithMap(list, new ArrayList<>(), nums.length, map);
+		return list;
+	}
+
+	private void permutateWithMap(List<List<Integer>> list, List<Integer> temp, int remain, Map<Integer, Integer> map) {
+		if (remain == 0) {
+			list.add(new ArrayList<>(temp));
+		} else {
+			for (Integer key : map.keySet()) {
+				int count = map.get(key);
+				if (count > 0) {
+					map.put(key, count - 1);
+					temp.add(key);
+					permutateWithMap(list, temp, remain - 1, map);
+					map.put(key, count);
+					temp.remove(temp.size() - 1);
+				}
 			}
 		}
 	}
@@ -245,10 +284,12 @@ public class BacktrackBootCamp {
 
 	public static void main(String[] args) {
 		BacktrackBootCamp solution = new BacktrackBootCamp();
-		int[] set = new int[] { 1, 2, 3, 2 };
-		System.out.println(solution.subsets(set));
-		System.out.println(solution.subsets2(set));
-		System.out.println(solution.subsetsWithDup(set));
+		int[] nums = new int[] { 1, 2, 3, 2 };
+		assert solution.subsets(nums).size() == 16;
+		assert solution.subsets2(nums).size() == 16;
+		assert solution.subsetsWithDup(nums).size() == 14;
+
+		assert solution.permuteUnique(nums).toString().equals(solution.permuteUnique2(nums).toString());
 
 		List<List<Object>> listOfLists = new ArrayList<>();
 		listOfLists.add(Arrays.asList("a", "b", "c", "d"));
@@ -256,9 +297,7 @@ public class BacktrackBootCamp {
 		listOfLists.add(Arrays.asList("Tom", "Mike", "Joe"));
 
 		List<String> results = solution.enumerate(listOfLists);
-		for (String result : results) {
-			System.out.println(result);
-		}
+		assert results.size() == 60;
 	}
 
 }

@@ -355,7 +355,7 @@ public class DPBootCamp {
 	 * </pre>
 	 * 
 	 * The idea is to use two arrays len[n] and cnt[n] to record the maximum length of Increasing
-	 * Subsequence and the coresponding number of these sequence which ends with nums[i],
+	 * Subsequence and the corresponding number of these sequence which ends with nums[i],
 	 * respectively. O(n^2) complexity.
 	 * 
 	 * @param nums
@@ -425,6 +425,85 @@ public class DPBootCamp {
 	}
 
 	/**
+	 * A magic index in an array A[1...n-1] is defined to be an index such that A[i] = i. Given a
+	 * sorted array of integers those could be not distinct, write a method to find a magic index,
+	 * if one exists, in array A.
+	 * 
+	 */
+	public int magicIndexWithDups(int[] array) {
+		return magicIndexWithDups(array, 0, array.length - 1);
+	}
+
+	private int magicIndexWithDups(int[] array, int start, int end) {
+		if (end < start) {
+			return -1;
+		}
+
+		int midIndex = (start + end) / 2;
+		int midValue = array[midIndex];
+		if (midValue == midIndex)
+			return midIndex;
+
+		// Search Left
+		int leftIndex = Math.min(midIndex - 1, midValue);
+		int left = magicIndexWithDups(array, 0, leftIndex);
+		if (left >= 0)
+			return left;
+
+		// Search Right
+		int rightIndex = Math.max(midIndex + 1, midValue);
+		int right = magicIndexWithDups(array, rightIndex, end);
+		return right;
+	}
+
+	/**
+	 * Write a recursive function to multiply two positive integers without using the * operator (or
+	 * / operator). You can use addition, subtraction, and bit shifting, but you should minimize the
+	 * number of those operations.
+	 */
+	public int multiplyByUsingAddition(int a, int b) {
+		int smaller = a > b ? b : a;
+		int bigger = a > b ? a : b;
+		return minProductRecursive(smaller, bigger);
+	}
+
+	private int minProductRecursive(int smaller, int bigger) {
+		if (smaller == 0)
+			return 0;
+		if (smaller == 1)
+			return bigger;
+
+		int s = smaller >> 1; // Divide by 2
+		int halfProduct = minProductRecursive(s, bigger);
+
+		if ((smaller & 1) == 0)
+			return halfProduct + halfProduct;
+		else
+			return halfProduct + halfProduct + bigger;
+	}
+
+	public List<String> generateParentheses(int count) {
+		char[] str = new char[count * 2];
+		List<String> list = new ArrayList<>();
+		generateParentheses(list, count, count, str, 0);
+		return list;
+	}
+
+	private void generateParentheses(List<String> list, int leftRem, int rightRem, char[] str, int index) {
+		if (leftRem < 0 || rightRem < leftRem)
+			return; // invalid state
+
+		if (leftRem == 0 && rightRem == 0) {
+			list.add(String.copyValueOf(str));
+		} else {
+			str[index] = '('; // Add left and recurse
+			generateParentheses(list, leftRem - 1, rightRem, str, index + 1);
+			str[index] = ')'; // Add right and recurse
+			generateParentheses(list, leftRem, rightRem - 1, str, index + 1);
+		}
+	}
+
+	/**
 	 *
 	 * Given a triangle, find the minimum path sum from top to bottom. Each step you may move to
 	 * adjacent numbers on the row below.
@@ -472,6 +551,11 @@ public class DPBootCamp {
 		Assert.assertTrue(1 == combinationsForFinalScore(5, playScores));
 		Assert.assertTrue(solution.canPartitionArray(new int[] { 1, 5, 11, 5 }));
 
+		int[] array = new int[] { -10, -5, 2, 2, 2, 3, 4, 7, 9, 12, 13 };
+		assert solution.magicIndexWithDups(array) == 2;
+
+		System.out.println(solution.multiplyByUsingAddition(8, 15));
+		System.out.println(solution.generateParentheses(3));
 	}
 
 }

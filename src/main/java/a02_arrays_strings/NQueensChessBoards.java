@@ -1,9 +1,12 @@
 package a02_arrays_strings;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
- * The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
+ * The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two
+ * queens attack each other.
  * 
  * @author lchen
  *
@@ -16,7 +19,7 @@ public class NQueensChessBoards {
 	 * in the same row because the calling placeQueen only attempts to place one queen at
 	 * a time. We know this row is empty. 
 	 */
-	public static boolean checkValid(Integer[] columns, int row1, int column1) {
+	public static boolean checkValid(int[] columns, int row1, int column1) {
 		for (int row2 = 0; row2 < row1; row2++) {
 			if (columns[row2] != -1) {
 				int column2 = columns[row2];
@@ -39,26 +42,27 @@ public class NQueensChessBoards {
 		return true;
 	}
 
-	public static void placeQueens(int row, Integer[] columns, ArrayList<Integer[]> results) {
+	public static void placeQueens(int row, int[] columns, List<int[]> results) {
 		if (row == GRID_SIZE) { // Found valid placement
 			results.add(columns.clone());
 		} else {
 			for (int col = 0; col < GRID_SIZE; col++) {
 				if (checkValid(columns, row, col)) {
 					columns[row] = col; // Place queen
+					// Why don't we need to clone columns here?!
 					placeQueens(row + 1, columns, results);
 				}
 			}
 		}
 	}
 
-	public static void clear(Integer[] columns) {
+	public static void clear(int[] columns) {
 		for (int i = 0; i < GRID_SIZE; i++) {
 			columns[i] = -1;
 		}
 	}
 
-	public static void printBoard(Integer[] columns) {
+	public static void printBoard(int[] columns) {
 		drawLine();
 		for (int i = 0; i < GRID_SIZE; i++) {
 			System.out.print("|");
@@ -82,19 +86,20 @@ public class NQueensChessBoards {
 		System.out.println(line.toString());
 	}
 
-	public static void printBoards(ArrayList<Integer[]> boards) {
+	public static void printBoards(ArrayList<int[]> boards) {
 		for (int i = 0; i < boards.size(); i++) {
-			Integer[] board = boards.get(i);
+			int[] board = boards.get(i);
 			printBoard(board);
 		}
 	}
 
 	public static void main(String[] args) {
-		ArrayList<Integer[]> results = new ArrayList<Integer[]>();
-		Integer[] columns = new Integer[GRID_SIZE];
-		clear(columns);
+		ArrayList<int[]> results = new ArrayList<int[]>();
+		int[] columns = new int[GRID_SIZE];
+		Arrays.fill(columns, -1);
 		placeQueens(0, columns, results);
 		printBoards(results);
 		System.out.println(results.size());
 	}
+
 }

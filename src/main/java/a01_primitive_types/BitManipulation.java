@@ -1,5 +1,7 @@
 package a01_primitive_types;
 
+import java.util.Random;
+
 /**
  * <h2>A few bit manipulation samples:</h2>
  * 
@@ -44,6 +46,8 @@ package a01_primitive_types;
  *
  */
 public class BitManipulation {
+	private static Random random = new Random();
+
 	public boolean getBit(int num, int i) {
 		return (num & (1 << i)) != 0;
 	}
@@ -112,6 +116,21 @@ public class BitManipulation {
 	}
 
 	/**
+	 * Write a program which takes an integer and returns the integer corresponding to the digits of
+	 * the input written in reverse order. For example, the reverse of 42 is 24, and the reverse of
+	 * -314 is -413.
+	 */
+	public static long reverseDigits(int x) {
+		long result = 0;
+		int remain = Math.abs(x);
+		while (remain > 0) {
+			result = result * 10 + remain % 10;
+			remain /= 10;
+		}
+		return x < 0 ? -result : result;
+	}
+
+	/**
 	 * Find a closest integer with the same weight (number of bits set to 1)
 	 * 
 	 * @param x
@@ -158,11 +177,26 @@ public class BitManipulation {
 		return true;
 	}
 
+	public static int uniformRandom(int lowerBound, int upperBound) {
+		int result, numberOfOutcomes = upperBound - lowerBound + 1;
+
+		do {
+			result = 0;
+			for (int i = 0; (1 << i) < numberOfOutcomes; i++) {
+				result = (result << 1) | random.nextInt(2);
+			}
+		} while (result >= numberOfOutcomes);
+
+		return result + lowerBound;
+	}
+
 	public static void main(String[] args) {
 		assert closestIntSameBitCount(6L) == 5L;
 		assert isPalindromeNumber(6) == true;
 		assert isPalindromeNumber(12) == false;
 		assert isPalindromeNumber(2147447412) == true;
+		assert reverseDigits(-314) == -413;
+		assert uniformRandom(1, 6) >= 1 && uniformRandom(1, 6) <= 6;
 	}
 
 }

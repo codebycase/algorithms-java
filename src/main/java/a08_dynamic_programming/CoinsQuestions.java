@@ -33,7 +33,8 @@ public class CoinsQuestions {
 	 * @return
 	 */
 	// dp[i][j]: the number of combinations to make up amount j by using the first i types of coins.
-	// dp[i][j] only rely on dp[i-1][j] and dp[i][j-coins[i]], we can just using one-dimension array.
+	// dp[i][j] only rely on dp[i-1][j] and dp[i][j-coins[i]], we can just using one-dimension
+	// array.
 	public int coinChangeCombinations(int[] coins, int amount) {
 		int[] dp = new int[amount + 1];
 		dp[0] = 1;
