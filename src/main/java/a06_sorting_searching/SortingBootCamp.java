@@ -76,13 +76,13 @@ public class SortingBootCamp {
 		List<Interval> results = new ArrayList<>();
 		int i = 0;
 
-		while (i < intervals.size() && intervals.get(i).end < newInterval.start) {
+		while (i < intervals.size() && intervals.get(i).right < newInterval.left) {
 			results.add(intervals.get(i++));
 		}
 
-		while (i < intervals.size() && intervals.get(i).start <= newInterval.end) {
-			int start = Math.min(intervals.get(i).start, newInterval.start);
-			int end = Math.max(intervals.get(i).end, newInterval.end);
+		while (i < intervals.size() && intervals.get(i).left <= newInterval.right) {
+			int start = Math.min(intervals.get(i).left, newInterval.left);
+			int end = Math.max(intervals.get(i).right, newInterval.right);
 			newInterval = new Interval(start, end);
 			i++;
 		}
@@ -105,19 +105,19 @@ public class SortingBootCamp {
 		if (intervals.size() <= 1)
 			return intervals;
 
-		Collections.sort(intervals, (a, b) -> (a.start - b.start));
+		Collections.sort(intervals, (a, b) -> (a.left - b.left));
 
 		List<Interval> result = new LinkedList<Interval>();
-		int start = intervals.get(0).start;
-		int end = intervals.get(0).end;
+		int start = intervals.get(0).left;
+		int end = intervals.get(0).right;
 
 		for (Interval interval : intervals) {
-			if (interval.start <= end) {
-				end = Math.max(end, interval.end);
+			if (interval.left <= end) {
+				end = Math.max(end, interval.right);
 			} else {
 				result.add(new Interval(start, end));
-				start = interval.start;
-				end = interval.end;
+				start = interval.left;
+				end = interval.right;
 			}
 		}
 
@@ -134,13 +134,13 @@ public class SortingBootCamp {
 			return new ArrayList<>(treeMap.values());
 		Integer l = treeMap.lowerKey(val);
 		Integer h = treeMap.higherKey(val);
-		if (l != null && h != null && treeMap.get(l).end + 1 == val && h == val + 1) {
-			treeMap.get(l).end = treeMap.get(h).end;
+		if (l != null && h != null && treeMap.get(l).right + 1 == val && h == val + 1) {
+			treeMap.get(l).right = treeMap.get(h).right;
 			treeMap.remove(h);
-		} else if (l != null && treeMap.get(l).end + 1 >= val) {
-			treeMap.get(l).end = Math.max(treeMap.get(l).end, val);
+		} else if (l != null && treeMap.get(l).right + 1 >= val) {
+			treeMap.get(l).right = Math.max(treeMap.get(l).right, val);
 		} else if (h != null && h == val + 1) {
-			treeMap.put(val, new Interval(val, treeMap.get(h).end));
+			treeMap.put(val, new Interval(val, treeMap.get(h).right));
 			treeMap.remove(h);
 		} else {
 			treeMap.put(val, new Interval(val, val));

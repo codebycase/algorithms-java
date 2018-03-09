@@ -97,6 +97,29 @@ public class BacktrackBootCamp {
 	}
 
 	/**
+	 * There are a number of testing applications in which it's required to compute all subsets of a
+	 * given size for a specified set.
+	 */
+	public List<List<Integer>> subsetsK(int[] nums, int k) {
+		List<List<Integer>> list = new ArrayList<>();
+		backtrackK(list, new ArrayList<>(), nums, 0, k);
+		return list;
+	}
+
+	private void backtrackK(List<List<Integer>> list, List<Integer> temp, int[] nums, int start, int k) {
+		if (temp.size() == k) {
+			list.add(new ArrayList<>(temp));
+		}
+		int numRemaining = k - temp.size();
+		// Just skip if not enough nums left!
+		for (int i = start; i < nums.length && numRemaining <= nums.length - i; i++) {
+			temp.add(nums[i]);
+			backtrackK(list, temp, nums, i + 1, k);
+			temp.remove(temp.size() - 1);
+		}
+	}
+
+	/**
 	 * Given a collection of integers that might contain duplicates, nums, return all possible
 	 * subsets.
 	 * 
@@ -287,6 +310,7 @@ public class BacktrackBootCamp {
 		int[] nums = new int[] { 1, 2, 3, 2 };
 		assert solution.subsets(nums).size() == 16;
 		assert solution.subsets2(nums).size() == 16;
+		assert solution.subsetsK(nums, 3).size() == 4;
 		assert solution.subsetsWithDup(nums).size() == 14;
 
 		assert solution.permuteUnique(nums).toString().equals(solution.permuteUnique2(nums).toString());

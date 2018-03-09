@@ -1,14 +1,14 @@
 package util;
 
 public class Interval {
-	public int start;
-	public int end;
+	public int left;
+	public int right;
 
 	public Interval() {
 	}
 
 	public Interval(int left, int right) {
-		this.start = left;
-		this.end = right;
+		this.left = left;
+		this.right = right;
 	}
 }

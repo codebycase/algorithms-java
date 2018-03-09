@@ -92,11 +92,11 @@ public class BinarySearchTreeBootCamp {
 	private void rangeLookupInBST(TreeNode tree, Interval interval, List<Integer> result) {
 		if (tree == null)
 			return;
-		if (interval.start <= tree.val && tree.val <= interval.end) {
+		if (interval.left <= tree.val && tree.val <= interval.right) {
 			rangeLookupInBST(tree.left, interval, result);
 			result.add(tree.val);
 			rangeLookupInBST(tree.right, interval, result);
-		} else if (interval.start > tree.val) {
+		} else if (interval.left > tree.val) {
 			rangeLookupInBST(tree.right, interval, result);
 		} else {
 			rangeLookupInBST(tree.left, interval, result);
