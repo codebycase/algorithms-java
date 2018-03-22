@@ -135,6 +135,46 @@ public class DPBootCamp {
 	}
 
 	/**
+	 * Given a 2D binary matrix filled with 0's and 1's, find the largest square containing only 1's
+	 * and return its area.
+	 */
+	public int maximalSquare(char[][] matrix) {
+		int rows = matrix.length, cols = rows > 0 ? matrix[0].length : 0;
+		int[][] dp = new int[rows + 1][cols + 1];
+		int maxLen = 0;
+		// starts with 1 instead of 0 in favor of coding
+		for (int i = 1; i <= rows; i++) {
+			for (int j = 1; j <= cols; j++) {
+				if (matrix[i - 1][j - 1] == '1') {
+					dp[i][j] = Math.min(Math.min(dp[i][j - 1], dp[i - 1][j]), dp[i - 1][j - 1]) + 1;
+					maxLen = Math.max(maxLen, dp[i][j]);
+				}
+			}
+		}
+		return maxLen * maxLen;
+	}
+
+	// we can also use 1D array with the equation: dp[j] = min(dp[j−1],dp[j],prev)
+	public int maximalSquare2(char[][] matrix) {
+		int rows = matrix.length, cols = rows > 0 ? matrix[0].length : 0;
+		int[] dp = new int[cols + 1];
+		int prev = 0, maxLen = 0;
+		for (int i = 1; i <= rows; i++) {
+			for (int j = 1; j <= cols; j++) {
+				int temp = dp[j];
+				if (matrix[i - 1][j - 1] == '1') {
+					dp[j] = Math.min(Math.min(prev, dp[j - 1]), dp[j]) + 1;
+					maxLen = Math.max(maxLen, dp[j]);
+				} else {
+					dp[j] = 0;
+				}
+				prev = temp;
+			}
+		}
+		return maxLen * maxLen;
+	}
+
+	/**
 	 * A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram
 	 * below).
 	 * 
@@ -339,6 +379,36 @@ public class DPBootCamp {
 	}
 
 	/**
+	 * Given an unsorted array of integers, find the length of the longest consecutive elements
+	 * sequence.
+	 * 
+	 * For example, Given [100, 4, 200, 1, 3, 2], The longest consecutive elements sequence is [1,
+	 * 2, 3, 4]. Return its length: 4.
+	 * 
+	 * Your algorithm should run in O(n) complexity.
+	 */
+	public int longestConsecutiveSequence(int[] nums) {
+		Set<Integer> set = new HashSet<>();
+		for (int num : nums)
+			set.add(num);
+		int longestStreak = 0;
+		for (int num : nums) {
+			// only check the beginning number of the sequence
+			if (!set.contains(num - 1)) {
+				int currentNum = num;
+				int currentStreak = 1;
+				// loop until reach the end of the sequence
+				while (set.contains(currentNum + 1)) {
+					currentNum += 1;
+					currentStreak += 1;
+				}
+				longestStreak = Math.max(longestStreak, currentStreak);
+			}
+		}
+		return longestStreak;
+	}
+
+	/**
 	 * Given an unsorted array of integers, find the number of longest increasing subsequence.
 	 * 
 	 * <pre>
@@ -357,18 +427,18 @@ public class DPBootCamp {
 	 * The idea is to use two arrays len[n] and cnt[n] to record the maximum length of Increasing
 	 * Subsequence and the corresponding number of these sequence which ends with nums[i],
 	 * respectively. O(n^2) complexity.
-	 * 
-	 * @param nums
-	 * @return
 	 */
-	public int findNumberOfLongestIncreasingSequence(int[] nums) {
+	public int longestIncreasingSequence(int[] nums) {
 		int result = 0, maxLen = 0;
+		// lengths[i] = length of longest ending in nums[i]
+		// counts[i] = number of longest ending in nums[i]
 		int[] lengths = new int[nums.length];
 		int[] counts = new int[nums.length];
 		for (int i = 0; i < nums.length; i++) {
 			lengths[i] = counts[i] = 1;
 			for (int j = 0; j < i; j++) {
 				if (nums[i] > nums[j]) {
+					// nums[i] can be appended to a longest sequence ending at nums[j].
 					int newLen = lengths[j] + 1;
 					if (lengths[i] == newLen)
 						counts[i] += counts[j];

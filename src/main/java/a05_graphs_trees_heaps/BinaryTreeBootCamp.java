@@ -1,5 +1,6 @@
 package a05_graphs_trees_heaps;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashSet;
@@ -228,26 +229,44 @@ public class BinaryTreeBootCamp {
 	}
 
 	/**
-	 * Implement an in-order traversal without recursive
+	 * Implement a preorder traversal without recursion
 	 * 
-	 * @param root
-	 * @return
 	 */
-	public List<Integer> inOrderTraverse(TreeNode root) {
+	public List<Integer> preorderTraverse(TreeNode root) {
+		List<Integer> result = new ArrayList<>();
+		Deque<TreeNode> stack = new LinkedList<>();
+
+		if (root != null) {
+			stack.push(root);
+		}
+
+		while (!stack.isEmpty()) {
+			TreeNode node = stack.pop();
+			result.add(node.val); // add before going to children
+			if (node.right != null)
+				stack.push(node.right);
+			if (node.left != null)
+				stack.push(node.left);
+		}
+
+		return result;
+	}
+
+	/**
+	 * Implement an in-order traversal without recursion
+	 */
+	public List<Integer> inorderTraverse(TreeNode root) {
 		List<Integer> result = new ArrayList<>();
 		Deque<TreeNode> stack = new LinkedList<>();
 
 		TreeNode node = root;
 		while (!stack.isEmpty() || node != null) {
 			if (node != null) {
-				stack.addFirst(node);
-				// going left
+				stack.push(node);
 				node = node.left;
 			} else {
-				// going up
-				node = stack.removeFirst();
-				result.add(node.val);
-				// going right
+				node = stack.pop();
+				result.add(node.val); // add after all left children
 				node = node.right;
 			}
 		}
@@ -256,27 +275,22 @@ public class BinaryTreeBootCamp {
 	}
 
 	/**
-	 * Implement a preorder traversal without recursive
-	 * 
-	 * @param root
-	 * @return
+	 * Implement a postorder traversal without recursion
 	 */
-	public List<Integer> preOrderTraverse(TreeNode root) {
-		List<Integer> result = new ArrayList<>();
-		Deque<TreeNode> stack = new LinkedList<>();
-
-		if (root != null)
-			stack.push(root);
-
-		while (!stack.isEmpty()) {
-			TreeNode node = stack.pop();
-			result.add(node.val);
-			if (node.right != null)
-				stack.push(node.right);
-			if (node.left != null)
-				stack.push(node.left);
+	public List<Integer> postorderTraversal(TreeNode root) {
+		LinkedList<Integer> result = new LinkedList<>();
+		Deque<TreeNode> stack = new ArrayDeque<>();
+		TreeNode p = root;
+		while (!stack.isEmpty() || p != null) {
+			if (p != null) {
+				stack.push(p);
+				result.addFirst(p.val); // Reverse the process of preorder
+				p = p.right; // Reverse the process of preorder
+			} else {
+				TreeNode node = stack.pop();
+				p = node.left; // Reverse the process of preorder
+			}
 		}
-
 		return result;
 	}
 

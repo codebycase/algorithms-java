@@ -1,5 +1,7 @@
 package a02_arrays_strings;
 
+import java.util.Arrays;
+
 /**
  * <pre>
 Say you have an array for which the ith element is the price of a given stock on day i.
@@ -98,6 +100,25 @@ public class BestTimeToBuyAndSellStock {
 		return t[k][len - 1];
 	}
 
+	public int maxProfitWithMaxKTransactions2(int k, int[] prices) {
+		int len = prices.length;
+		if (k >= len / 2)
+			return quickSolve(prices);
+
+		int[] minPrices = new int[k + 1];
+		Arrays.fill(minPrices, Integer.MAX_VALUE);
+		int[] maxProfits = new int[k + 1];
+
+		for (int price : prices) {
+			for (int i = k; i > 0; i--) {
+				maxProfits[i] = Math.max(maxProfits[i], price - minPrices[i]);
+				minPrices[i] = Math.min(minPrices[i], price - (i > 0 ? maxProfits[i - 1] : 0));
+			}
+		}
+
+		return maxProfits[maxProfits.length - 1];
+	}
+
 	private int quickSolve(int[] prices) {
 		int len = prices.length, profit = 0;
 		for (int i = 1; i < len; i++) {
@@ -146,5 +167,7 @@ public class BestTimeToBuyAndSellStock {
 
 		prices = new int[] { 12, 11, 13, 9, 12, 8, 14, 13, 15 };
 		assert solution.maxProfitWithMax2Transactions(prices) == solution.maxProfitWithMax2Transactions2(prices);
+		assert solution.maxProfitWithMax2Transactions(prices) == solution.maxProfitWithMaxKTransactions(2, prices);
+		assert solution.maxProfitWithMaxKTransactions(3, prices) == solution.maxProfitWithMaxKTransactions2(3, prices);
 	}
 }

@@ -333,6 +333,82 @@ public class LinkedListBootCamp {
 		return l1;
 	}
 
+	/**
+	 * Let L be a singly linked list. Assume its nodes are numbered starting at 0, Define the zip of
+	 * L to be the list consisting of the interleaving of the nodes numbered 0, 1, 2,..with the
+	 * nodes numbered n - 1, n - 2, n - 3,... Implement the zip function.
+	 */
+	public ListNode zipLinkedList(ListNode list) {
+		if (list == null || list.next == null)
+			return list;
+
+		// find the second half of list
+		ListNode slow = list, fast = list;
+		while (fast != null && fast.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+
+		ListNode firstHalfHead = list;
+		ListNode secondHalfHead = slow.next;
+		slow.next = null; // split the list
+
+		// reverse the second half
+		secondHalfHead = reverseList(secondHalfHead);
+
+		// interleave the 2 lists
+		ListNode firstHalfIter = firstHalfHead;
+		ListNode secondHalfIter = secondHalfHead;
+		while (secondHalfIter != null) {
+			ListNode temp = secondHalfIter.next;
+			secondHalfIter.next = firstHalfIter.next;
+			firstHalfIter.next = secondHalfIter;
+			firstHalfIter = firstHalfIter.next.next;
+			secondHalfIter = temp;
+		}
+
+		return list;
+	}
+
+	/**
+	 * A posting list is a single linked list with an additional "jump" field at each node. The jump
+	 * field points to any other node. Implement a function which takes a postings list and returns
+	 * a copy of it.
+	 */
+	public ListNode copyPostingList(ListNode list) {
+		if (list == null)
+			return list;
+
+		// make a copy without assigning the jump field
+		ListNode iter = list;
+		while (iter != null) {
+			ListNode newNode = new ListNode(iter.val, iter.next, null);
+			iter.next = newNode;
+			iter = newNode.next;
+		}
+
+		// assign the jump field in the copied list
+		iter = list;
+		while (iter != null) {
+			if (iter.jump != null) {
+				// iter.jump.next is the copied node!
+				iter.next.jump = iter.jump.next;
+			}
+			iter = iter.next.next;
+		}
+
+		// revert original list and assign the next field of copied list
+		iter = list;
+		ListNode newListHead = iter.next;
+		while (iter.next != null) {
+			ListNode temp = iter.next;
+			iter.next = temp.next;
+			iter = temp;
+		}
+
+		return newListHead;
+	}
+
 	private int distance(ListNode start, ListNode end) {
 		int distance = 0;
 		while (start != end) {

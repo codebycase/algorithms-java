@@ -23,6 +23,16 @@ public class ArrayBootCamp {
 	}
 
 	/**
+	 * Write an function, left rotate an array of size n by d.
+	 */
+	public void rightRotate(int[] nums, int d) {
+		d %= nums.length;
+		reverse(nums, 0, nums.length - 1);
+		reverse(nums, 0, d - 1);
+		reverse(nums, d, nums.length - 1);
+	}
+
+	/**
 	 * Reorder an array of integers so that even entries appear first. Solve it without allocating
 	 * additional storage.
 	 * 
@@ -370,7 +380,7 @@ public class ArrayBootCamp {
 		return true;
 	}
 
-	// Approach1: Simulation Spiral
+	// Approach 1: Simulation Spiral
 	public List<Integer> spiralOrder(int[][] matrix) {
 		List<Integer> result = new ArrayList<>();
 		if (matrix.length == 0)
@@ -394,7 +404,7 @@ public class ArrayBootCamp {
 		return result;
 	}
 
-	// Approach2: Layer-by-Layer
+	// Approach 2: Layer-by-Layer
 	public List<Integer> spiralOrder2(int[][] matrix) {
 		List<Integer> result = new ArrayList<>();
 		if (matrix.length == 0)
@@ -426,7 +436,9 @@ public class ArrayBootCamp {
 
 		int[] nums = { 1, 2, 3, 4, 5, 6, 7 };
 		camp.leftRotate(nums, 2, 7);
-		assert Arrays.toString(nums).equals("[ 3, 4, 5, 6, 7, 1, 2]");
+		assert Arrays.toString(nums).equals("[3, 4, 5, 6, 7, 1, 2]");
+		camp.rightRotate(nums, 2);
+		assert Arrays.toString(nums).equals("[1, 2, 3, 4, 5, 6, 7]");
 
 		nums = new int[] { 3, 5, 2, 1, 6, 4, 9, 7 };
 		camp.evenOddSort(nums);

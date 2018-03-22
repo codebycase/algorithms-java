@@ -232,7 +232,8 @@ public class SearchingBootCamp {
 	public int findKthLargest(int[] nums, int k) {
 		if (nums == null || k < 1 || k > nums.length)
 			return Integer.MAX_VALUE;
-		return findKthSmallest(nums, 0, nums.length - 1, nums.length - k);
+		return findKthLargest(nums, 0, nums.length - 1, k);
+		// return findKthSmallest(nums, 0, nums.length - 1, nums.length - k);
 	}
 
 	private int findKthSmallest(int[] nums, int start, int end, int k) {
@@ -253,6 +254,27 @@ public class SearchingBootCamp {
 			return findKthSmallest(nums, left + 1, end, k);
 		else
 			return findKthSmallest(nums, start, left - 1, k);
+	}
+
+	private int findKthLargest(int[] nums, int start, int end, int k) {
+		if (start > end)
+			return Integer.MAX_VALUE;
+		int left = start;
+		// Pick the last value as pivot or randomize a pivot index and swap with the end index.
+		int pivot = nums[end];
+		for (int i = start; i <= end; i++) {
+			if (nums[i] > pivot) {
+				swap(nums, left++, i);
+			}
+		}
+		swap(nums, left, end);
+
+		if (left == k - 1)
+			return nums[left];
+		else if (left < k - 1)
+			return findKthLargest(nums, left + 1, end, k);
+		else
+			return findKthLargest(nums, start, left - 1, k);
 	}
 
 	private void swap(int[] nums, int i, int j) {
@@ -330,6 +352,22 @@ public class SearchingBootCamp {
 		return new int[] { missOrDup ^ missXorDup, missOrDup };
 	}
 
+	public int findElementAppearsOnce(int[] nums) {
+		int[] counts = new int[32];
+		for (int num : nums) {
+			for (int i = 0; i < 32; i++) {
+				counts[i] += num & 1;
+				num >>= 1;
+			}
+		}
+
+		int result = 0;
+		for (int i = 0; i < 32; i++) {
+			result |= (counts[i] % 3) << i;
+		}
+		return result;
+	}
+
 	/**
 	 * If car starts at A and can not reach B. Any station between A and B can not reach B. If the
 	 * total number of Gas is bigger than the total number of Cost, There must be a solution.
@@ -390,6 +428,8 @@ public class SearchingBootCamp {
 		nums = new int[] { 5, 3, 0, 3, 1, 2 };
 		int[] result = solution.findDuplicateMissingNumber(nums);
 		assert Arrays.equals(result, new int[] { 3, 4 });
+		nums = new int[] { 2, 4, 2, 5, 2, 5, 5 };
+		assert solution.findElementAppearsOnce(nums) == 4;
 		assert solution.minimumTotalWaitingTime(Arrays.asList(2, 5, 1, 3)) == 10;
 	}
 }
