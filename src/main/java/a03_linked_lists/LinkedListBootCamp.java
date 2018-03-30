@@ -382,7 +382,7 @@ public class LinkedListBootCamp {
 		// make a copy without assigning the jump field
 		ListNode iter = list;
 		while (iter != null) {
-			ListNode newNode = new ListNode(iter.val, iter.next, null);
+			ListNode newNode = new ListNode(iter.val, null, iter.next, null);
 			iter.next = newNode;
 			iter = newNode.next;
 		}

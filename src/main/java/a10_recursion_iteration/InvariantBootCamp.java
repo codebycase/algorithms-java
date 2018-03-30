@@ -1,12 +1,30 @@
 package a10_recursion_iteration;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class InvariantBootCamp {
+	public static String majoritySearch(Iterator<String> sequence) {
+		String candidate = null;
+		int candidateCount = 0;
+		while (sequence.hasNext()) {
+			String current = sequence.next();
+			if (candidateCount == 0) {
+				candidate = current;
+				candidateCount = 1;
+			} else {
+				if (current.equals(candidate))
+					candidateCount++;
+				else
+					candidateCount--;
+			}
+		}
+		return candidate;
+	}
 
 	/**
 	 * There are N gas stations along a circular route, where the amount of gas at station i is
@@ -83,5 +101,10 @@ public class InvariantBootCamp {
 		}
 
 		return result;
+	}
+
+	public static void main(String[] args) {
+		assert majoritySearch(Arrays.asList("a", "b", "c", "a", "a", "b", "a", "a", "d").iterator()) == "a";
+		assert majoritySearch(Arrays.asList("a", "b").iterator()) == "b";
 	}
 }

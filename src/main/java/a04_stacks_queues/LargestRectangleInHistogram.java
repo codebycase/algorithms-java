@@ -51,7 +51,7 @@ public class LargestRectangleInHistogram {
 	private static boolean isNewPillarOrReachEnd(List<Integer> heights, int currIdx, int prevIdx) {
 		return currIdx < heights.size() ? heights.get(currIdx) <= heights.get(prevIdx) : true;
 	}
-
+	
 	public static void main(String[] args) {
 		assert largestRectangleArea(new int[] { 6, 2, 5, 4, 5, 1, 6 }) == 12;
 		assert largestRectangleArea(new int[] { 2, 1, 5, 6, 2, 3 }) == 10;

@@ -3,6 +3,7 @@ package a18_the_honors_question;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -160,6 +161,38 @@ public class ChallengingArrayQuestions {
 			return findKthLargest(nums, start, left - 1, k);
 	}
 
+	public static int maxSubarraySumInCircular(List<Integer> A) {
+		int accumulate = 0;
+		for (int a : A) {
+			accumulate += a;
+		}
+		return Math.max(findOptimumSubarraySum(A, new MaxComparator()),
+				accumulate - findOptimumSubarraySum(A, new MinComparator()));
+	}
+
+	private static int findOptimumSubarraySum(List<Integer> A, Comparator<Integer> compator) {
+		int till = 0, overall = 0;
+		for (int a : A) {
+			till = compator.compare(a, a + till);
+			overall = compator.compare(overall, till);
+		}
+		return overall;
+	}
+	
+	private static class MaxComparator implements Comparator<Integer> {
+		@Override
+		public int compare(Integer o1, Integer o2) {
+			return o1 > o2 ? o1 : o2;
+		}
+	}
+
+	private static class MinComparator implements Comparator<Integer> {
+		@Override
+		public int compare(Integer o1, Integer o2) {
+			return o1 > o2 ? o2 : o1;
+		}
+	}
+
 	public static void main(String[] args) {
 		assert circularArrayLoop(new int[] { 2, -1, 1, 2, 2 }) == true;
 		assert calculateBonus(new int[] { 300, 400, 200, 500, 500 }) == 7;
@@ -167,5 +200,7 @@ public class ChallengingArrayQuestions {
 		assert searchUnboundArray(array, 243) == 5;
 		List<Integer> list = Arrays.asList(3, 2, 1, 5, 6, 4, 3, 2, 5, 4, 1);
 		System.out.println(findKthLargestUnknownLength(list.iterator(), 3));
+		list = Arrays.asList(904, 40, 523, 12, -335, -385, -124, 481, -31);
+		assert maxSubarraySumInCircular(list) == 1929;
 	}
 }

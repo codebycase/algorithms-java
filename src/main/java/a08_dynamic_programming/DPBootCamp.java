@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 
 import org.junit.Assert;
 
@@ -172,6 +173,51 @@ public class DPBootCamp {
 			}
 		}
 		return maxLen * maxLen;
+	}
+
+	/**
+	 * Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only
+	 * 1's and return its area.
+	 */
+	public int maximalRectangle(char[][] matrix) {
+		if (matrix == null || matrix.length == 0 || matrix[0].length == 0)
+			return 0;
+		int[] heights = new int[matrix[0].length];
+		// first row heights
+		for (int i = 0; i < matrix[0].length; i++) {
+			if (matrix[0][i] == '1')
+				heights[i] = 1;
+		}
+		int maxArea = maxAreaInLine(heights);
+		// rest row heights
+		for (int i = 1; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				if (matrix[i][j] == '1')
+					heights[j] += 1;
+				else
+					heights[j] = 0;
+			}
+			maxArea = Math.max(maxArea, maxAreaInLine(heights));
+		}
+		return maxArea;
+	}
+
+	private int maxAreaInLine(int[] heights) {
+		if (heights == null || heights.length == 0)
+			return 0;
+		Stack<Integer> stack = new Stack<>();
+		int maxArea = 0;
+		for (int i = 0; i <= heights.length; i++) {
+			int height = i == heights.length ? 0 : heights[i];
+			if (stack.isEmpty() || height >= heights[stack.peek()]) {
+				stack.push(i);
+			} else {
+				int tp = stack.pop();
+				maxArea = Math.max(maxArea, heights[tp] * (stack.isEmpty() ? i : i - 1 - stack.peek()));
+				i--; // keep trying until!
+			}
+		}
+		return maxArea;
 	}
 
 	/**

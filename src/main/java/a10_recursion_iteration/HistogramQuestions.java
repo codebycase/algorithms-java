@@ -10,18 +10,21 @@ public class HistogramQuestions {
 	 * Given n non-negative integers representing the histogram's bar height where the width of each
 	 * bar is 1, find the area of largest rectangle in the histogram.
 	 */
-	public int largestRectangleArea(int[] heights) {
-		Stack<Integer> stack = new Stack<>();
-		stack.push(-1);
+	public static int largestRectangleArea(int[] heights) {
+		int len = heights.length;
+		Stack<Integer> s = new Stack<Integer>();
 		int maxArea = 0;
-		for (int i = 0; i < heights.length; ++i) {
-			while (stack.peek() != -1 && heights[stack.peek()] >= heights[i]) {
-				maxArea = Math.max(maxArea, heights[stack.pop()] * (i - stack.peek() - 1));
+		for (int i = 0; i <= len; i++) {
+			int h = (i == len ? 0 : heights[i]);
+			if (s.isEmpty() || h >= heights[s.peek()]) {
+				s.push(i);
+			} else {
+				int tp = s.pop();
+				maxArea = Math.max(maxArea, heights[tp] * (s.isEmpty() ? i : i - 1 - s.peek()));
+				i--; // keep trying until!
 			}
-			stack.push(i);
+
 		}
-		while (stack.peek() != -1)
-			maxArea = Math.max(maxArea, heights[stack.pop()] * (heights.length - stack.peek() - 1));
 		return maxArea;
 	}
 
@@ -29,7 +32,7 @@ public class HistogramQuestions {
 	 * Write a program which takes as an input an integer array and returns the pair of entries that
 	 * trap the maximum amount of water.
 	 */
-	public int maxTrappedWaterInLines(List<Integer> heights) {
+	public static int maxTrappedWaterInLines(List<Integer> heights) {
 		int i = 0, j = heights.size() - 1, maxWater = 0;
 		while (i < j) {
 			int width = i - j;
