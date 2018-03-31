@@ -236,7 +236,7 @@ public class SearchingBootCamp {
 		// return findKthSmallest(nums, 0, nums.length - 1, nums.length - k);
 	}
 
-	private int findKthSmallest(int[] nums, int start, int end, int k) {
+	protected int findKthSmallest(int[] nums, int start, int end, int k) {
 		if (start > end)
 			return Integer.MAX_VALUE;
 		int left = start;

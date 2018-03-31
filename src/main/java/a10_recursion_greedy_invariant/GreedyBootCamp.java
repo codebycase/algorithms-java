@@ -1,4 +1,4 @@
-package a10_recursion_iteration;
+package a10_recursion_greedy_invariant;
 
 import java.util.Arrays;
 import java.util.Collections;

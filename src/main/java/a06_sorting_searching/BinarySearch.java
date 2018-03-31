@@ -56,6 +56,32 @@ public class BinarySearch {
 		}
 	}
 
+	/**
+	 * Given a contiguous sequence of numbers in which each number repeats thrice, there is exactly
+	 * one missing number. <br>
+	 * Find the missing number. <br>
+	 * eg: 11122333 : Missing number 2 <br>
+	 * 11122233344455666 Missing number 5
+	 */
+	public static int tripleBinarySearch(int[] nums) {
+		int i = 0, j = nums.length - 1;
+		while (i < j - 1) { // skip loop if less than 3 nums
+			int mid = i + (j - i) / 2;
+			int inI = mid, inJ = mid;
+			while (inI >= 0 && nums[inI] == nums[mid])
+				inI--;
+			while (inJ < nums.length && nums[inJ] == nums[mid])
+				inJ++;
+			if (inJ - inI == 3) // 2 nums between
+				return nums[mid];
+			if (inI > 0 && (inI + 1) % 3 != 0)
+				j = inI;
+			else
+				i = inJ;
+		}
+		return nums[i];
+	}
+
 	public static void main(String[] args) {
 		int[] array = { 3, 6, 9, 12, 15, 18 };
 		for (int i = 0; i < 20; i++) {
@@ -64,5 +90,7 @@ public class BinarySearch {
 			int loc3 = binarySearchRecursiveClosest(array, i, 0, array.length - 1);
 			System.out.println(i + ": " + loc + " " + loc2 + " " + loc3);
 		}
+		int[] nums = new int[] { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 6 };
+		assert tripleBinarySearch(nums) == 5;
 	}
 }

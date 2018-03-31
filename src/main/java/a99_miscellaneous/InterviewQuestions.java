@@ -17,7 +17,7 @@ public class InterviewQuestions {
 				inI--;
 			while (inJ < nums.length && nums[inJ] == nums[mid])
 				inJ++;
-			if (inJ - inI == 3)
+			if (inJ - inI == 3) // 2 nums between
 				return nums[mid];
 			if (inI > 0 && (inI + 1) % 3 != 0)
 				j = inI;
