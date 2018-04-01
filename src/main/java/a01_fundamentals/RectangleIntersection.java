@@ -1,4 +1,4 @@
-package a01_primitive_types;
+package a01_fundamentals;
 
 /**
  * This problem is concerned with rectangles whose sides are parallel to the X-axis and Y axis.

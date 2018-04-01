@@ -91,7 +91,7 @@ public class ArrayBlockingQueue<E> implements BlockingQueue<E> {
 	private synchronized E dequeue() {
 		@SuppressWarnings("unchecked")
 		E x = (E) elements[takeIndex];
-		elements[takeIndex] = null;
+		elements[takeIndex] = null; // avoid loitering
 		if (++takeIndex == elements.length)
 			takeIndex = 0;
 		count--;

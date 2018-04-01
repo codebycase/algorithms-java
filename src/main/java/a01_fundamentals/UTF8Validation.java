@@ -1,4 +1,4 @@
-package a01_primitive_types;
+package a01_fundamentals;
 
 /**
  * A character in UTF8 can be from 1 to 4 bytes long, subjected to the following rules:

@@ -1,4 +1,4 @@
-package a01_primitive_types;
+package a01_fundamentals;
 
 /**
  * <p>

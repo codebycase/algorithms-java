@@ -1,4 +1,4 @@
-package a01_primitive_types;
+package a01_fundamentals;
 
 /**
  * Given two binary strings, return their sum (also a binary string).
