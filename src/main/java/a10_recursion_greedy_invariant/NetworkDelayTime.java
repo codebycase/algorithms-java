@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  * There are N network nodes, labelled 1 to N.
@@ -26,29 +27,30 @@ import java.util.PriorityQueue;
 public class NetworkDelayTime {
 	public int networkDelayTime(int[][] times, int N, int K) {
 		Map<Integer, List<int[]>> graph = new HashMap<>();
-
 		for (int[] edge : times) {
 			if (!graph.containsKey(edge[0]))
 				graph.put(edge[0], new ArrayList<int[]>());
 			graph.get(edge[0]).add(new int[] { edge[1], edge[2] });
 		}
 
-		PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[0] - b[0]);
-		heap.offer(new int[] { 0, K });
+		Queue<int[]> heap = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+		heap.offer(new int[] { K, 0 }); // node -> distance
 
+		// distance of shortest s -> v path
 		Map<Integer, Integer> distances = new HashMap<>();
 		while (!heap.isEmpty()) {
 			int[] item = heap.poll();
-			int delay = item[0], node = item[1];
+			int node = item[0], delay = item[1];
 			if (distances.containsKey(node))
 				continue;
 			distances.put(node, delay);
-			if (graph.containsKey(node))
+			if (graph.containsKey(node)) {
 				for (int[] edge : graph.get(node)) {
-					int vertex = edge[0], delay2 = edge[1];
-					if (!distances.containsKey(vertex))
-						heap.offer(new int[] { delay + delay2, vertex });
+					int node2 = edge[0], delay2 = edge[1];
+					if (!distances.containsKey(node2))
+						heap.offer(new int[] { node2, delay + delay2 });
 				}
+			}
 		}
 
 		if (distances.size() != N)

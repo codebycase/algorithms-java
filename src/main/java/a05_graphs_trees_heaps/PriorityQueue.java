@@ -62,6 +62,7 @@ public class PriorityQueue {
 			return;
 		}
 		Task newJob = new Task(job, priority);
+		// start index with 1
 		heap[++heapSize] = newJob;
 		int pos = heapSize;
 		while (pos > 1 && newJob.priority > heap[pos / 2].priority) {

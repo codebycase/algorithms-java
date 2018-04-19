@@ -42,4 +42,18 @@ public class ParityOfWord {
 		x ^= x >>> 1;
 		return (short) (x & 0x1); // extract the last bit
 	}
+
+	// Especially for a long stream of words, like to compute CRC, we can cache precomputed parity.
+	// Complexity: O(n/L)
+	public short parity4(long x) {
+		final int MASK_SIZE = 16;
+		final int BIT_MASK = 0xFFFF;
+		// feed in the precomputed parity
+		final short[] precomputedParity = new short[10];
+		return (short) (precomputedParity[(int) ((x >>> (3 * MASK_SIZE)) & BIT_MASK)]
+				^ precomputedParity[(int) ((x >>> (2 * MASK_SIZE)) & BIT_MASK)]
+				^ precomputedParity[(int) ((x >>> (MASK_SIZE)) & BIT_MASK)] 
+				^ precomputedParity[(int) (x & BIT_MASK)]);
+	}
+
 }
