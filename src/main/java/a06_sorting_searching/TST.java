@@ -241,7 +241,6 @@ public class TST<Value> {
 			throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
 		}
 		Queue<String> queue = new LinkedList<>();
-		;
 		Node<Value> x = get(root, prefix, 0);
 		if (x == null)
 			return queue;
@@ -274,7 +273,6 @@ public class TST<Value> {
 	 */
 	public Iterable<String> keysThatMatch(String pattern) {
 		Queue<String> queue = new LinkedList<>();
-		;
 		collect(root, new StringBuilder(), 0, pattern, queue);
 		return queue;
 	}
