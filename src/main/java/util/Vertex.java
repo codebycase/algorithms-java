@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vertex {
-	public int label;
+	public int id;
+	public int depth;
 	public State state;
 	public List<Vertex> edges;
 
@@ -13,8 +14,13 @@ public class Vertex {
 		edges = new ArrayList<>();
 	}
 
-	public Vertex(int label) {
+	public Vertex(int id) {
 		this();
-		this.label = label;
+		this.id = id;
+	}
+
+	public Vertex(int id, int depth) {
+		this(id);
+		this.depth = depth;
 	}
 }

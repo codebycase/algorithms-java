@@ -19,8 +19,8 @@ import util.Vertex;
 public class GraphBootCamp {
 
 	/**
-	 * Implement a routine that takes an n x m boolean array A together with an entry (x, y) and
-	 * flips the color of the region associated with (x, y).
+	 * Implement a routine that takes an n x m boolean array A together with an entry (x, y) and flips
+	 * the color of the region associated with (x, y).
 	 * 
 	 */
 	// Deep-first Search
@@ -100,12 +100,11 @@ public class GraphBootCamp {
 	}
 
 	/**
-	 * One deadlock detection algorithm makes use of a "wait-for" graph: Processes are represented
-	 * as nodes, and an edge from process P to Q implies P is waiting for Q to release its lock on
-	 * the resource. A cycle in this graph implies the possibility of a deadlock.
+	 * One deadlock detection algorithm makes use of a "wait-for" graph: Processes are represented as
+	 * nodes, and an edge from process P to Q implies P is waiting for Q to release its lock on the
+	 * resource. A cycle in this graph implies the possibility of a deadlock.
 	 * 
-	 * Write a program that takes as input a directed graph and checks if the graph contains a
-	 * cycle.
+	 * Write a program that takes as input a directed graph and checks if the graph contains a cycle.
 	 * 
 	 * @param graph
 	 * @return
@@ -135,6 +134,44 @@ public class GraphBootCamp {
 		return false;
 	}
 
+	/**
+	 * In a directed graph, we start at some node and every turn, walk along a directed edge of the
+	 * graph. If we reach a node that is terminal, We say our starting node is eventually safe.
+	 * 
+	 * @param graph
+	 * @return
+	 */
+	// This is a classic "white-gray-black" DFS algorithm
+	public List<Integer> eventualSafeNodes(int[][] graph) {
+		int N = graph.length;
+		int[] color = new int[N];
+		List<Integer> ans = new ArrayList<>();
+
+		for (int i = 0; i < N; i++) {
+			if (hasNoCycle(i, color, graph))
+				ans.add(i);
+		}
+
+		return ans;
+	}
+
+	// colors: WHITE 0, GRAY 1, BLACK 2;
+	private boolean hasNoCycle(int node, int[] color, int[][] graph) {
+		if (color[node] > 0)
+			return color[node] == 2;
+
+		color[node] = 1;
+		for (int nei : graph[node]) {
+			if (color[nei] == 2)
+				continue;
+			if (color[nei] == 1 || !hasNoCycle(nei, color, graph))
+				return false;
+		}
+
+		color[node] = 2;
+		return true;
+	}
+
 	public static Vertex cloneGraph(Vertex graph) {
 		if (graph == null)
 			return null;
@@ -142,12 +179,12 @@ public class GraphBootCamp {
 		Map<Vertex, Vertex> map = new HashMap<>();
 		Queue<Vertex> queue = new LinkedList<>();
 		queue.add(graph);
-		map.put(graph, new Vertex(graph.label));
+		map.put(graph, new Vertex(graph.id));
 		while (!queue.isEmpty()) {
 			Vertex v = queue.remove();
 			for (Vertex e : v.edges) {
 				if (!map.containsKey(e)) {
-					map.put(e, new Vertex(e.label));
+					map.put(e, new Vertex(e.id));
 					queue.add(e);
 				}
 				map.get(v).edges.add(map.get(e));
@@ -160,7 +197,7 @@ public class GraphBootCamp {
 	private static List<Integer> copyLabels(List<Vertex> edges) {
 		List<Integer> labels = new ArrayList<>();
 		for (Vertex e : edges) {
-			labels.add(e.label);
+			labels.add(e.id);
 		}
 		return labels;
 	}
@@ -172,8 +209,8 @@ public class GraphBootCamp {
 		vertexSet.add(node);
 		while (!q.isEmpty()) {
 			Vertex vertex = q.remove();
-			assert (vertex.label < g.size());
-			List<Integer> label1 = copyLabels(vertex.edges), label2 = copyLabels(g.get(vertex.label).edges);
+			assert (vertex.id < g.size());
+			List<Integer> label1 = copyLabels(vertex.edges), label2 = copyLabels(g.get(vertex.id).edges);
 			Collections.sort(label1);
 			Collections.sort(label2);
 			assert (label1.size() == label2.size());

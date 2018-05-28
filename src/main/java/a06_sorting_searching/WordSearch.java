@@ -44,7 +44,8 @@ public class WordSearch {
 		if (board[row][col] != word.charAt(start))
 			return false;
 		board[row][col] ^= 256;
-		boolean exist = exist(board, row + 1, col, word, start + 1) || exist(board, row, col + 1, word, start + 1) || exist(board, row - 1, col, word, start + 1) || exist(board, row, col - 1, word, start + 1);
+		boolean exist = exist(board, row + 1, col, word, start + 1) || exist(board, row, col + 1, word, start + 1)
+				|| exist(board, row - 1, col, word, start + 1) || exist(board, row, col - 1, word, start + 1);
 		board[row][col] ^= 256;
 		return exist;
 
@@ -74,7 +75,7 @@ public class WordSearch {
 	 */
 	public List<String> findWords(char[][] board, String[] words) {
 		List<String> result = new ArrayList<>();
-		TrieNode trie = buildTrie(words);
+		Node trie = buildTrie(words);
 		for (int row = 0; row < board.length; row++) {
 			for (int col = 0; col < board[row].length; col++) {
 				dfs(board, row, col, trie, result);
@@ -83,7 +84,7 @@ public class WordSearch {
 		return result;
 	}
 
-	private void dfs(char[][] board, int row, int col, TrieNode node, List<String> result) {
+	private void dfs(char[][] board, int row, int col, Node node, List<String> result) {
 		char c = board[row][col];
 
 		if (c == '#' || node.next[c - 'a'] == null)
@@ -107,14 +108,16 @@ public class WordSearch {
 		board[row][col] = c;
 	}
 
-	private TrieNode buildTrie(String[] words) {
-		TrieNode root = new TrieNode();
+	private Node buildTrie(String[] words) {
+		Node root = new Node();
 		for (String word : words) {
-			TrieNode node = root;
+			Node node = root;
 			for (char c : word.toCharArray()) {
 				int i = c - 'a';
-				if (node.next[i] == null)
-					node.next[i] = new TrieNode();
+				if (node.next[i] == null) {
+					node.next[i] = new Node();
+					node.count++;
+				}
 				node = node.next[i];
 			}
 			node.word = word;
@@ -122,8 +125,10 @@ public class WordSearch {
 		return root;
 	}
 
-	class TrieNode {
-		TrieNode[] next = new TrieNode[26];
+	class Node {
+		Node[] next = new Node[26];
+		int count = 0; // count children nodes, zero means a leave
 		String word = null;
 	}
+
 }

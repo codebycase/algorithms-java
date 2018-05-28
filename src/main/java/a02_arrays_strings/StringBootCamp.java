@@ -48,8 +48,8 @@ public class StringBootCamp {
 	 * Given an input string, reverse the string word by word. A word is defined as a sequence of
 	 * non-space characters.
 	 * 
-	 * The input string does not contain leading or trailing spaces and the words are always
-	 * separated by a single space.
+	 * The input string does not contain leading or trailing spaces and the words are always separated
+	 * by a single space.
 	 * 
 	 * For example, Given s = "the sky is blue", return "blue is sky the".
 	 * 
@@ -78,17 +78,53 @@ public class StringBootCamp {
 	}
 
 	/**
+	 * S and T are strings composed of lowercase letters. In S, no letter occurs more than once.
+	 * 
+	 * S was sorted in some custom order previously. We want to permute the characters of T so that they
+	 * match the order that S was sorted. More specifically, if x occurs before y in S, then x should
+	 * occur before y in the returned string.
+	 * 
+	 * Return any permutation of T (as a string) that satisfies this property.
+	 * 
+	 * <pre>
+	Example :
+	Input: 
+	S = "cba"
+	T = "abcd"
+	Output: "cbad"
+	Explanation: 
+	"a", "b", "c" appear in S, so the order of "a", "b", "c" should be "c", "b", and "a". 
+	Since "d" does not appear in S, it can be at any position in T. "dcba", "cdba", "cbda" are also valid outputs.
+	 * </pre>
+	 */
+	public String customSortString(String S, String T) {
+		int[] count = new int[26];
+		for (char c : T.toCharArray())
+			count[c - 'a']++;
+		StringBuilder sb = new StringBuilder();
+		for (char c : S.toCharArray()) {
+			for (int i = 0; i < count[c - 'a']; i++)
+				sb.append(c);
+			count[c - 'a'] = 0;
+		}
+		for (char c = 'a'; c <= 'z'; c++) {
+			for (int i = 0; i < count[c - 'a']; i++)
+				sb.append(c);
+		}
+		return sb.toString();
+	}
+
+	/**
 	 * Given an encoded string, return it's decoded string.
 	 * 
-	 * The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets
-	 * is being repeated exactly k times. Note that k is guaranteed to be a positive integer.
+	 * The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is
+	 * being repeated exactly k times. Note that k is guaranteed to be a positive integer.
 	 * 
-	 * You may assume that the input string is always valid; No extra white spaces, square brackets
-	 * are well-formed, etc.
+	 * You may assume that the input string is always valid; No extra white spaces, square brackets are
+	 * well-formed, etc.
 	 * 
-	 * Furthermore, you may assume that the original data does not contain any digits and that
-	 * digits are only for those repeat numbers, k. For example, there won't be input like 3a or
-	 * 2[4].
+	 * Furthermore, you may assume that the original data does not contain any digits and that digits
+	 * are only for those repeat numbers, k. For example, there won't be input like 3a or 2[4].
 	 * 
 	 * Examples:
 	 * 
@@ -130,16 +166,16 @@ public class StringBootCamp {
 	}
 
 	/**
-	 * Given two non-negative integers num1 and num2 represented as string, return the sum of num1
-	 * and num2. <br>
-	 * Given two non-negative integers num1 and num2 represented as strings, return the product of
-	 * num1 and num2.
+	 * Given two non-negative integers num1 and num2 represented as string, return the sum of num1 and
+	 * num2. <br>
+	 * Given two non-negative integers num1 and num2 represented as strings, return the product of num1
+	 * and num2.
 	 * 
 	 * Note:
 	 * 
 	 * The length of both num1 and num2 is < 5100. Both num1 and num2 contains only digits 0-9. Both
-	 * num1 and num2 does not contain any leading zero. You must not use any built-in BigInteger
-	 * library or convert the inputs to integer directly.
+	 * num1 and num2 does not contain any leading zero. You must not use any built-in BigInteger library
+	 * or convert the inputs to integer directly.
 	 * 
 	 * @author lchen
 	 *
@@ -186,8 +222,8 @@ public class StringBootCamp {
 	}
 
 	/**
-	 * Given two strings s (the search string) and t (the text), find the first occurrence of s in
-	 * t. Return the index of the first character of the substring if found, -1 otherwise.
+	 * Given two strings s (the search string) and t (the text), find the first occurrence of s in t.
+	 * Return the index of the first character of the substring if found, -1 otherwise.
 	 * 
 	 */
 	public int rabinKarp(String t, String s) {

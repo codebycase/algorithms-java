@@ -69,11 +69,11 @@ public class DPBootCamp {
 	}
 
 	/**
-	 * Given a non-empty array containing only positive integers, find if the array can be
-	 * partitioned into two subsets such that the sum of elements in both subsets is equal.
+	 * Given a non-empty array containing only positive integers, find if the array can be partitioned
+	 * into two subsets such that the sum of elements in both subsets is equal.
 	 * 
-	 * Note: Each of the array element will not exceed 100. The array size will not exceed 200.
-	 * Example 1:
+	 * Note: Each of the array element will not exceed 100. The array size will not exceed 200. Example
+	 * 1:
 	 * 
 	 * Input: [1, 5, 11, 5]
 	 * 
@@ -81,11 +81,10 @@ public class DPBootCamp {
 	 * 
 	 * Base case: dp[0][0] is true; (zero number consists of sum 0 is true)
 	 * 
-	 * Transition function: For each number, if we don't pick it, dp[i][j] = dp[i-1][j], which means
-	 * if the first i-1 elements has made it to j, dp[i][j] would also make it to j (we can just
-	 * ignore nums[i]). If we pick nums[i]. dp[i][j] = dp[i-1][j-nums[i]], which represents that j
-	 * is composed of the current value nums[i] and the remaining composed of other previous
-	 * numbers. <br>
+	 * Transition function: For each number, if we don't pick it, dp[i][j] = dp[i-1][j], which means if
+	 * the first i-1 elements has made it to j, dp[i][j] would also make it to j (we can just ignore
+	 * nums[i]). If we pick nums[i]. dp[i][j] = dp[i-1][j-nums[i]], which represents that j is composed
+	 * of the current value nums[i] and the remaining composed of other previous numbers. <br>
 	 * Thus, the transition function is dp[i][j] = dp[i-1][j] || dp[i-1][j-nums[i]]
 	 * 
 	 * @author lchen
@@ -114,8 +113,8 @@ public class DPBootCamp {
 	}
 
 	/**
-	 * Write a program that takes a final score and scores for individual plays, and returns the
-	 * number of combinations of plays that result in the final score.
+	 * Write a program that takes a final score and scores for individual plays, and returns the number
+	 * of combinations of plays that result in the final score.
 	 * 
 	 * @author lchen
 	 * 
@@ -136,8 +135,46 @@ public class DPBootCamp {
 	}
 
 	/**
-	 * Given a 2D binary matrix filled with 0's and 1's, find the largest square containing only 1's
-	 * and return its area.
+	 * We partition a row of numbers A into at most K adjacent (non-empty) groups, then our score is the
+	 * sum of the average of each group. What is the largest score we can achieve?
+	 * 
+	 * Note that our partition must use every number in A, and that scores are not necessarily integers.
+	 * 
+	 * <pre>
+	Example:
+	Input: 
+	A = [9,1,2,3,9]
+	K = 3
+	Output: 20
+	Explanation: 
+	The best choice is to partition A into [9], [1, 2, 3], [9]. The answer is 9 + (1 + 2 + 3) / 3 + 9 = 20.
+	We could have also partitioned A into [9, 1], [2], [3, 9], for example.
+	That partition would lead to a score of 5 + 2 + 6 = 13, which is worse.
+	 * </pre>
+	 */
+	public double largestSumOfAverages(int[] A, int K) {
+		int N = A.length;
+		double[] P = new double[N + 1];
+		for (int i = 0; i < N; i++)
+			P[i + 1] = P[i] + A[i];
+
+		// starts with base case
+		double[] dp = new double[N];
+		for (int i = 0; i < N; i++)
+			dp[i] = (P[N] - P[i]) / (N - i);
+
+		// sum up to K - 1 times
+		for (int k = 0; k < K - 1; k++)
+			for (int i = 0; i < N; i++)
+				for (int j = i + 1; j < N; j++)
+					dp[i] = Math.max(dp[i], (P[j] - P[i]) / (j - i) + dp[j]);
+
+		return dp[0];
+	}
+
+	/**
+	 * Given a 2D binary matrix filled with 0's and 1's, find the largest square containing only 1's and
+	 * return its area.
 	 */
 	public int maximalSquare(char[][] matrix) {
 		int rows = matrix.length, cols = rows > 0 ? matrix[0].length : 0;
@@ -176,8 +213,8 @@ public class DPBootCamp {
 	}
 
 	/**
-	 * Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only
-	 * 1's and return its area.
+	 * Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's
+	 * and return its area.
 	 */
 	public int maximalRectangle(char[][] matrix) {
 		if (matrix == null || matrix.length == 0 || matrix[0].length == 0)
@@ -221,11 +258,10 @@ public class DPBootCamp {
 	}
 
 	/**
-	 * A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram
-	 * below).
+	 * A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
 	 * 
-	 * The robot can only move either down or right at any point in time. The robot is trying to
-	 * reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+	 * The robot can only move either down or right at any point in time. The robot is trying to reach
+	 * the bottom-right corner of the grid (marked 'Finish' in the diagram below).
 	 * 
 	 * How many possible unique paths are there?
 	 * 
@@ -316,16 +352,16 @@ public class DPBootCamp {
 	}
 
 	/**
-	 * There is a ball in a maze with empty spaces and walls. The ball can go through empty spaces
-	 * by rolling up, down, left or right, but it won't stop rolling until hitting a wall. When the
-	 * ball stops, it could choose the next direction.
+	 * There is a ball in a maze with empty spaces and walls. The ball can go through empty spaces by
+	 * rolling up, down, left or right, but it won't stop rolling until hitting a wall. When the ball
+	 * stops, it could choose the next direction.
 	 * 
-	 * Given the ball's start position, the destination and the maze, determine whether the ball
-	 * could stop at the destination.
+	 * Given the ball's start position, the destination and the maze, determine whether the ball could
+	 * stop at the destination.
 	 * 
-	 * The maze is represented by a binary 2D array. 1 means the wall and 0 means the empty space.
-	 * You may assume that the borders of the maze are all walls. The start and destination
-	 * coordinates are represented by row and column indexes.
+	 * The maze is represented by a binary 2D array. 1 means the wall and 0 means the empty space. You
+	 * may assume that the borders of the maze are all walls. The start and destination coordinates are
+	 * represented by row and column indexes.
 	 * 
 	 * <pre>
 	Example 1
@@ -383,12 +419,12 @@ public class DPBootCamp {
 	}
 
 	/**
-	 * Find the shortest distance for the ball to stop at the destination. The distance is defined
-	 * by the number of empty spaces traveled by the ball from the start position (excluded) to the
+	 * Find the shortest distance for the ball to stop at the destination. The distance is defined by
+	 * the number of empty spaces traveled by the ball from the start position (excluded) to the
 	 * destination (included). If the ball cannot stop at the destination, return -1.
 	 * 
-	 * Use Dijkstra Algorithm with PriorityQueue to track which is the unvisited node at the
-	 * shortest distance from the start node.
+	 * Use Dijkstra Algorithm with PriorityQueue to track which is the unvisited node at the shortest
+	 * distance from the start node.
 	 * 
 	 * Time complexity: O(mn*log(mn)); Space complexity: O(mn)
 	 */
@@ -428,8 +464,8 @@ public class DPBootCamp {
 	 * Given an unsorted array of integers, find the length of the longest consecutive elements
 	 * sequence.
 	 * 
-	 * For example, Given [100, 4, 200, 1, 3, 2], The longest consecutive elements sequence is [1,
-	 * 2, 3, 4]. Return its length: 4.
+	 * For example, Given [100, 4, 200, 1, 3, 2], The longest consecutive elements sequence is [1, 2, 3,
+	 * 4]. Return its length: 4.
 	 * 
 	 * Your algorithm should run in O(n) complexity.
 	 */
@@ -471,8 +507,8 @@ public class DPBootCamp {
 	 * </pre>
 	 * 
 	 * The idea is to use two arrays len[n] and cnt[n] to record the maximum length of Increasing
-	 * Subsequence and the corresponding number of these sequence which ends with nums[i],
-	 * respectively. O(n^2) complexity.
+	 * Subsequence and the corresponding number of these sequence which ends with nums[i], respectively.
+	 * O(n^2) complexity.
 	 */
 	public int longestIncreasingSequence(int[] nums) {
 		int result = 0, maxLen = 0;
@@ -505,8 +541,8 @@ public class DPBootCamp {
 	}
 
 	/**
-	 * Given two words word1 and word2, find the minimum number of steps required to convert word1
-	 * to word2. (each operation is counted as 1 step.)
+	 * Given two words word1 and word2, find the minimum number of steps required to convert word1 to
+	 * word2. (each operation is counted as 1 step.)
 	 * 
 	 * You have the following 3 operations permitted on a word:
 	 * 
@@ -541,9 +577,9 @@ public class DPBootCamp {
 	}
 
 	/**
-	 * A magic index in an array A[1...n-1] is defined to be an index such that A[i] = i. Given a
-	 * sorted array of integers those could be not distinct, write a method to find a magic index,
-	 * if one exists, in array A.
+	 * A magic index in an array A[1...n-1] is defined to be an index such that A[i] = i. Given a sorted
+	 * array of integers those could be not distinct, write a method to find a magic index, if one
+	 * exists, in array A.
 	 * 
 	 */
 	public int magicIndexWithDups(int[] array) {
@@ -573,8 +609,8 @@ public class DPBootCamp {
 	}
 
 	/**
-	 * Write a recursive function to multiply two positive integers without using the * operator (or
-	 * / operator). You can use addition, subtraction, and bit shifting, but you should minimize the
+	 * Write a recursive function to multiply two positive integers without using the * operator (or /
+	 * operator). You can use addition, subtraction, and bit shifting, but you should minimize the
 	 * number of those operations.
 	 */
 	public int multiplyByUsingAddition(int a, int b) {
@@ -635,8 +671,8 @@ public class DPBootCamp {
 	The minimum path sum from top to bottom is 11 (i.e., 2 + 3 + 5 + 1 = 11).
 	 * </pre>
 	 * 
-	 * Note: Bonus point if you are able to do this using only O(n) extra space, where n is the
-	 * total number of rows in the triangle.
+	 * Note: Bonus point if you are able to do this using only O(n) extra space, where n is the total
+	 * number of rows in the triangle.
 	 * 
 	 * <br />
 	 * 
@@ -658,6 +694,115 @@ public class DPBootCamp {
 		return minLens[0];
 	}
 
+	/**
+	 * We have two integer sequences A and B of the same non-zero length.
+	 * 
+	 * We are allowed to swap elements A[i] and B[i]. Note that both elements are in the same index
+	 * position in their respective sequences.
+	 * 
+	 * At the end of some number of swaps, A and B are both strictly increasing. (A sequence is strictly
+	 * increasing if and only if A[0] < A[1] < A[2] < ... < A[A.length - 1].)
+	 * 
+	 * Given A and B, return the minimum number of swaps to make both sequences strictly increasing. It
+	 * is guaranteed that the given input always makes it possible.
+	 * 
+	 * <pre>
+	Example:
+	Input: A = [1,3,5,4], B = [1,2,3,7]
+	Output: 1
+	Explanation: 
+	Swap A[3] and B[3].  Then the sequences are:
+	A = [1, 3, 5, 7] and B = [1, 2, 3, 4]
+	which are both strictly increasing.
+	 * </pre>
+	 */
+	public int minSwap(int[] A, int[] B) {
+		int swapRecord = 1, fixRecord = 0;
+		for (int i = 1; i < A.length; i++) {
+			if (A[i - 1] >= B[i] || B[i - 1] >= A[i]) {
+				// The ith manipulation should be same as the i-1th manipulation fixRecord = fixRecord;
+				swapRecord++;
+			} else if (A[i - 1] >= A[i] || B[i - 1] >= B[i]) {
+				// The ith manipulation should be the opposite of the i-1th manipulation
+				int temp = swapRecord;
+				swapRecord = fixRecord + 1;
+				fixRecord = temp;
+			} else {
+				// Either swap or fix is OK. Let's keep the minimum one
+				int min = Math.min(swapRecord, fixRecord);
+				swapRecord = min + 1;
+				fixRecord = min;
+			}
+		}
+		return Math.min(swapRecord, fixRecord);
+	}
+
+	public int minSwap2(int[] A, int[] B) {
+		// n: natural, s: swapped
+		int n1 = 0, s1 = 1;
+		for (int i = 1; i < A.length; ++i) {
+			int n2 = Integer.MAX_VALUE, s2 = Integer.MAX_VALUE;
+			// if a1 < a2 and b1 < b2, then it is allowed to have both of these columns natural (unswapped), or
+			// both of these columns swapped. This possibility leads to n2 = min(n2, n1) and s2 = min(s2, s1 +
+			// 1).
+			if (A[i - 1] < A[i] && B[i - 1] < B[i]) {
+				n2 = Math.min(n2, n1);
+				s2 = Math.min(s2, s1 + 1);
+			}
+			// if a1 < b2 and b1 < a2. This means that it is allowed to have exactly one of these columns
+			// swapped. This possibility leads to n2 = min(n2, s1) or s2 = min(s2, n1 + 1).
+			if (A[i - 1] < B[i] && B[i - 1] < A[i]) {
+				n2 = Math.min(n2, s1);
+				s2 = Math.min(s2, n1 + 1);
+			}
+			n1 = n2;
+			s1 = s2;
+		}
+		return Math.min(n1, s1);
+	}
+
+	public double champagneTower(int poured, int queryRow, int queryGlass) {
+		double[][] A = new double[102][102];
+		A[0][0] = (double) poured;
+		for (int r = 0; r <= queryRow; r++) {
+			for (int c = 0; c <= r; c++) {
+				double q = (A[r][c] - 1.0) / 2.0;
+				if (q > 0) {
+					A[r + 1][c] += q;
+					A[r + 1][c + 1] += q;
+				}
+			}
+		}
+		return Math.min(1, A[queryRow][queryGlass]);
+	}
+
+	public int countByBoundedMax(int[] A, int bound) {
+		int ans = 0, cur = 0;
+		for (int x : A) {
+			cur = x <= bound ? cur + 1 : 0;
+			ans += cur;
+		}
+		return ans;
+	}
+
+	public int numSubarrayBoundedMax(int[] A, int min, int max) {
+		int i = 0, count = 0, result = 0;
+		for (int j = 0; j < A.length; j++) {
+			if (A[j] >= min && A[j] <= max) {
+				count = (j - i) + 1;
+				result += count;
+			} else if (A[j] < min) {
+				result += count;
+			} else {
+				i = j + 1;
+				count = 0;
+			}
+
+		}
+		return result;
+	}
+
+
 	public static void main(String[] args) {
 		DPBootCamp solution = new DPBootCamp();
 		Assert.assertEquals(climbStairs(4, 2), 5);
@@ -672,6 +817,10 @@ public class DPBootCamp {
 
 		System.out.println(solution.multiplyByUsingAddition(8, 15));
 		System.out.println(solution.generateParentheses(3));
+
+		int[] A = { 2, 1, 4, 3 };
+		System.out.println(solution.countByBoundedMax(A, 3));
+		System.out.println(solution.countByBoundedMax(A, 2 - 1));
 	}
 
 }

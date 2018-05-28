@@ -57,13 +57,13 @@ public class TrieSET implements Iterable<String> {
 		return x.isString;
 	}
 
-	private Node get(Node x, String key, int d) {
+	private Node get(Node x, String prefix, int d) {
 		if (x == null)
 			return null;
-		if (d == key.length())
+		if (d == prefix.length())
 			return x;
-		char c = key.charAt(d);
-		return get(x.next[c], key, d + 1);
+		char c = prefix.charAt(d);
+		return get(x.next[c], prefix, d + 1);
 	}
 
 	/**

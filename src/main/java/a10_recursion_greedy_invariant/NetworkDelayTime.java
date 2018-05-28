@@ -26,10 +26,11 @@ import java.util.Queue;
  */
 public class NetworkDelayTime {
 	public int networkDelayTime(int[][] times, int N, int K) {
-		Map<Integer, List<int[]>> graph = new HashMap<>();
+		List<List<int[]>> graph = new ArrayList<>();
+		for (int i = 0; i <= N; i++) {
+			graph.add(new ArrayList<>());
+		}
 		for (int[] edge : times) {
-			if (!graph.containsKey(edge[0]))
-				graph.put(edge[0], new ArrayList<int[]>());
 			graph.get(edge[0]).add(new int[] { edge[1], edge[2] });
 		}
 
@@ -44,12 +45,10 @@ public class NetworkDelayTime {
 			if (distances.containsKey(node))
 				continue;
 			distances.put(node, delay);
-			if (graph.containsKey(node)) {
-				for (int[] edge : graph.get(node)) {
-					int node2 = edge[0], delay2 = edge[1];
-					if (!distances.containsKey(node2))
-						heap.offer(new int[] { node2, delay + delay2 });
-				}
+			for (int[] edge : graph.get(node)) {
+				int node2 = edge[0], delay2 = edge[1];
+				if (!distances.containsKey(node2))
+					heap.offer(new int[] { node2, delay + delay2 });
 			}
 		}
 
