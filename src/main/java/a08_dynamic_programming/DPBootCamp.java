@@ -173,6 +173,27 @@ public class DPBootCamp {
 	}
 
 	/**
+	 * Given a triangle, find the minimum path sum from top to bottom. Each step you may move to
+	 * adjacent numbers on the row below.
+	 */
+	public int minPathSum(int[][] grid) {
+		int[] dp = new int[grid[0].length];
+		for (int i = grid.length - 1; i >= 0; i--) {
+			for (int j = grid[0].length - 1; j >= 0; j--) {
+				if (i == grid.length - 1 && j != grid[0].length - 1)
+					dp[j] = grid[i][j] + dp[j + 1];
+				else if (j == grid[0].length - 1 && i != grid.length - 1)
+					dp[j] = grid[i][j] + dp[j];
+				else if (j != grid[0].length - 1 && i != grid.length - 1)
+					dp[j] = grid[i][j] + Math.min(dp[j], dp[j + 1]);
+				else
+					dp[j] = grid[i][j];
+			}
+		}
+		return dp[0];
+	}
+
+	/**
 	 * Given a 2D binary matrix filled with 0's and 1's, find the largest square containing only 1's and
 	 * return its area.
 	 */
@@ -802,6 +823,120 @@ public class DPBootCamp {
 		return result;
 	}
 
+	public boolean isScramble(String s1, String s2) {
+		if (s1.equals(s2))
+			return true;
+
+		int[] count = new int[26];
+		for (int i = 0; i < s1.length(); i++) {
+			count[s1.charAt(i) - 'a']++;
+			count[s2.charAt(i) - 'a']--;
+		}
+		for (int i = 0; i < count.length; i++) {
+			if (count[i] != 0)
+				return false;
+		}
+
+		for (int i = 1; i < s1.length(); i++) {
+			if (isScramble(s1.substring(0, i), s2.substring(0, i)) && isScramble(s1.substring(i), s2.substring(i)))
+				return true;
+			if (isScramble(s1.substring(0, i), s2.substring(s2.length() - i))
+					&& isScramble(s1.substring(i), s2.substring(0, s2.length() - i)))
+				return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Given s1, s2, s3, find whether s3 is formed by the interleaving of s1 and s2.
+	 * 
+	 * <pre>
+	Example 1:
+	
+	Input: s1 = "aabcc", s2 = "dbbca", s3 = "aadbbcbcac"
+	Output: true
+	Example 2:
+	
+	Input: s1 = "aabcc", s2 = "dbbca", s3 = "aadbbbaccc"
+	Output: false
+	 * </pre>
+	 */
+	public boolean isInterleave(String s1, String s2, String s3) {
+		if (s3.length() != s1.length() + s2.length())
+			return false;
+		boolean dp[][] = new boolean[s1.length() + 1][s2.length() + 1];
+
+		dp[0][0] = true;
+		for (int i = 1; i < dp.length; i++)
+			dp[i][0] = dp[i - 1][0] && s1.charAt(i - 1) == s3.charAt(i - 1);
+		for (int j = 1; j < dp[0].length; j++)
+			dp[0][j] = dp[0][j - 1] && s2.charAt(j - 1) == s3.charAt(j - 1);
+
+		for (int i = 1; i <= s1.length(); i++) {
+			for (int j = 1; j <= s2.length(); j++) {
+				dp[i][j] = (dp[i - 1][j] && s1.charAt(i - 1) == s3.charAt(i + j - 1))
+						|| (dp[i][j - 1] && s2.charAt(j - 1) == s3.charAt(i + j - 1));
+			}
+		}
+		return dp[s1.length()][s2.length()];
+
+	}
+
+	public int numDistinct(String s, String t) {
+		if (s == null || t == null)
+			return 0;
+		int[][] dp = new int[s.length() + 1][t.length() + 1];
+
+		// if both t and s are ""
+		dp[0][0] = 1;
+		// always 1 if t is "" and s can be any char
+		for (int i = 1; i < dp.length; i++)
+			dp[i][0] = 1;
+		// always 0 if s is "" and t can be any char
+		for (int j = 1; j < dp[0].length; j++)
+			dp[0][j] = 0;
+
+		// main process goes here!
+		for (int i = 1; i < dp.length; i++) {
+			for (int j = 1; j < dp[0].length; j++) {
+				// carry forward previous number
+				dp[i][j] = dp[i - 1][j];
+				if (s.charAt(i - 1) == t.charAt(j - 1))
+					// increase when also match
+					dp[i][j] += dp[i - 1][j - 1];
+			}
+		}
+
+		return dp[s.length()][t.length()];
+	}
+
+	// Scanning from left to right, our force decays by 1 every iteration, and resets to N if we meet an
+	// 'R', so that force[i] is higher (than force[j]) if and only if dominoes[i] is closer (looking
+	// leftward) to 'R' (than dominoes[j]).
+	public String pushDominoes(String S) {
+		int N = S.length();
+		char[] A = S.toCharArray();
+		int[] forces = new int[N];
+
+		int force = 0;
+		for (int i = 0; i < N; i++) {
+			force = A[i] == 'R' ? N : A[i] == 'L' ? 0 : Math.max(force - 1, 0);
+			forces[i] += force;
+		}
+
+		force = 0;
+		for (int i = N - 1; i >= 0; i--) {
+			force = A[i] == 'L' ? N : A[i] == 'R' ? 0 : Math.max(force - 1, 0);
+			forces[i] -= force;
+		}
+
+		StringBuilder ans = new StringBuilder();
+		for (int f : forces) {
+			ans.append(f > 0 ? 'R' : f < 0 ? 'L' : '.');
+		}
+		return ans.toString();
+	}
 
 	public static void main(String[] args) {
 		DPBootCamp solution = new DPBootCamp();

@@ -26,7 +26,8 @@ import java.util.List;
  */
 public class KnightOnKeypad {
 	// The valid movements from any number 0 through 9!
-	int[][] nexts = { { 4, 6 }, { 6, 8 }, { 7, 9 }, { 4, 8 }, { 0, 3, 9 }, {}, { 1, 7, 0 }, { 2, 6 }, { 1, 3 }, { 2, 4 } };
+	int[][] nexts = { { 4, 6 }, { 6, 8 }, { 7, 9 }, { 4, 8 }, { 0, 3, 9 }, {}, { 1, 7, 0 }, { 2, 6 }, { 1, 3 },
+			{ 2, 4 } };
 
 	// iterative, needs to calculate all digits for each length
 	public int countIterative(int digit, int length) {
@@ -58,6 +59,7 @@ public class KnightOnKeypad {
 		return sum;
 	}
 
+	// BFS
 	public void permuteRecursive(int digit, int length, List<String> temp, List<String> results) {
 		if (length == 0) {
 			results.addAll(temp);
@@ -72,19 +74,63 @@ public class KnightOnKeypad {
 		}
 	}
 
+	// BFS
 	public void permuteRecursive2(int digit, int length, List<String> temp, List<String> results) {
 		List<String> list = new ArrayList<>();
 		for (String number : temp) {
 			list.add(number + digit);
 		}
 		length = length - 1;
+
 		if (length == 0) {
 			results.addAll(list);
 			return;
 		}
+
 		for (int dig : nexts[digit]) {
 			permuteRecursive2(dig, length, list, results);
 		}
+	}
+
+	// DFS
+	public List<String> permuteRecursive3(int digit, int length) {
+		List<String> results = new ArrayList<>();
+
+		if (length == 1) {
+			results.add("" + digit);
+			return results;
+		}
+
+		for (int dig : nexts[digit]) {
+			for (String number : permuteRecursive3(dig, length - 1)) {
+				results.add(digit + number);
+			}
+		}
+
+		return results;
+	}
+
+	// All paths from source to target in a given directed, acyclic graph of N nodes.
+	public List<List<Integer>> allPathsWithinDAG(int[][] graph, int node) {
+		int N = graph.length;
+		List<List<Integer>> results = new ArrayList<>();
+
+		if (node == N - 1) {
+			List<Integer> path = new ArrayList<>();
+			path.add(node);
+			results.add(path);
+			// results.add(Arrays.asList(node)); // not working as the returned list is immutable
+			return results;
+		}
+
+		for (int neighbor : graph[node]) {
+			for (List<Integer> path : allPathsWithinDAG(graph, neighbor)) {
+				path.add(0, node);
+				results.add(path);
+			}
+		}
+
+		return results;
 	}
 
 	public static void main(String[] args) {
@@ -97,6 +143,10 @@ public class KnightOnKeypad {
 		results = new ArrayList<>();
 		solution.permuteRecursive2(1, 10, Arrays.asList(""), results);
 		assert results.size() == 1424;
+		results = solution.permuteRecursive3(1, 10);
+		assert results.size() == 1424;
+		int[][] graph = { { 1, 2 }, { 3 }, { 3 }, {} };
+		System.out.println(solution.allPathsWithinDAG(graph, 0));
 	}
 
 }
