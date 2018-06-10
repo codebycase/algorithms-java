@@ -89,6 +89,25 @@ public class BitManipulation {
 	}
 
 	/**
+	 * Given a non negative integer number num. For every numbers i in the range 0 ≤ i ≤ num calculate
+	 * the number of 1's in their binary representation and return them as an array.
+	 */
+	public static int[] countBits2(int x) {
+		int[] ans = new int[x + 1];
+		// solution 1: last set bit
+		for (int i = 1; i <= x; i++) {
+			ans[i] = ans[i & (i - 1)] + 1;
+		}
+		// solution 2: least significant bit
+		/*
+		for (int i = 0; i <= x; i++) {
+			ans[i] = ans[i >> 1] + (i & 1); // P(x) = P(x/2) + (x mod 2)
+		}
+		*/
+		return ans;
+	}
+
+	/**
 	 * 16 + 10 + 36 = 62 bits in total!
 	 * 
 	 * @param shardId
@@ -144,8 +163,8 @@ public class BitManipulation {
 	}
 
 	/**
-	 * Given two positive integers, compute their quotient, using only the addition, subtraction,
-	 * and shifting operators.
+	 * Given two positive integers, compute their quotient, using only the addition, subtraction, and
+	 * shifting operators.
 	 */
 	public static int divide(int x, int y) {
 		if (y == 0)
@@ -212,9 +231,9 @@ public class BitManipulation {
 	}
 
 	/**
-	 * Write a program which takes an integer and returns the integer corresponding to the digits of
-	 * the input written in reverse order. For example, the reverse of 42 is 24, and the reverse of
-	 * -314 is -413.
+	 * Write a program which takes an integer and returns the integer corresponding to the digits of the
+	 * input written in reverse order. For example, the reverse of 42 is 24, and the reverse of -314 is
+	 * -413.
 	 */
 	public static long reverseDigits(int x) {
 		long result = 0;
@@ -250,8 +269,8 @@ public class BitManipulation {
 	 * Write a program that takes an integer and determines if that integer's representation as a
 	 * decimal string is a palindrome.
 	 * 
-	 * For example, return true for the inputs 0, 1, 7, 11, 121, 333, and 2147447412, and false for
-	 * the inputs -1, 12, 100.
+	 * For example, return true for the inputs 0, 1, 7, 11, 121, 333, and 2147447412, and false for the
+	 * inputs -1, 12, 100.
 	 * 
 	 * @param x
 	 * @return
