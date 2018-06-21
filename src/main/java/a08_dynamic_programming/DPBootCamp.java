@@ -2,9 +2,11 @@ package a08_dynamic_programming;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
@@ -66,6 +68,32 @@ public class DPBootCamp {
 		}
 
 		return memo[n];
+	}
+
+	public int minCostClimbingStairs(int[] cost) {
+		int prevCost = 0, currCost = 0;
+		for (int c : cost) {
+			int newCost = c + Math.min(prevCost, currCost);
+			prevCost = currCost;
+			currCost = newCost;
+		}
+		return Math.min(prevCost, currCost);
+	}
+
+	public int deleteAndEarn(int[] nums) {
+		int[] sum = new int[10002];
+
+		// perform a radix sort
+		for (int i = 0; i < nums.length; i++) {
+			sum[nums[i]] += nums[i];
+		}
+
+		// depends on previous sum or the prior plus the current.
+		for (int i = 2; i < sum.length; i++) {
+			sum[i] = Math.max(sum[i - 1], sum[i - 2] + sum[i]);
+		}
+
+		return sum[10001];
 	}
 
 	/**
@@ -170,6 +198,109 @@ public class DPBootCamp {
 					dp[i] = Math.max(dp[i], (P[j] - P[i]) / (j - i) + dp[j]);
 
 		return dp[0];
+	}
+
+	public int orderOfLargestPlusSign(int N, int[][] mines) {
+		Set<Integer> banned = new HashSet<>();
+		int[][] dp = new int[N][N];
+
+		for (int[] mine : mines)
+			banned.add(mine[0] * N + mine[1]);
+		int ans = 0, count;
+
+		for (int r = 0; r < N; ++r) {
+			count = 0;
+			for (int c = 0; c < N; ++c) {
+				count = banned.contains(r * N + c) ? 0 : count + 1;
+				dp[r][c] = count;
+			}
+
+			count = 0;
+			for (int c = N - 1; c >= 0; --c) {
+				count = banned.contains(r * N + c) ? 0 : count + 1;
+				dp[r][c] = Math.min(dp[r][c], count);
+			}
+		}
+
+		for (int c = 0; c < N; ++c) {
+			count = 0;
+			for (int r = 0; r < N; ++r) {
+				count = banned.contains(r * N + c) ? 0 : count + 1;
+				dp[r][c] = Math.min(dp[r][c], count);
+			}
+
+			count = 0;
+			for (int r = N - 1; r >= 0; --r) {
+				count = banned.contains(r * N + c) ? 0 : count + 1;
+				dp[r][c] = Math.min(dp[r][c], count);
+				ans = Math.max(ans, dp[r][c]);
+			}
+		}
+
+		return ans;
+	}
+
+	/**
+	 * Given a grid where each entry is only 0 or 1, find the number of corner rectangles.
+	 * 
+	 * A corner rectangle is 4 distinct 1s on the grid that form an axis-aligned rectangle. Note that
+	 * only the corners need to have the value 1. Also, all four 1s used must be distinct.
+	 * 
+	 * Example 1:
+	 * 
+	 * <pre>
+	Input: grid = 
+	[[1, 0, 0, 1, 0],
+	 [0, 0, 1, 0, 1],
+	 [0, 0, 0, 1, 0],
+	 [1, 0, 1, 0, 1]]
+	Output: 1
+	Explanation: There is only one corner rectangle, with corners grid[1][2], grid[1][4], grid[3][2], grid[3][4].
+	 * </pre>
+	 * 
+	 */
+	public int countCornerRectangles(int[][] grid) {
+		List<List<Integer>> rows = new ArrayList<>();
+		int N = 0;
+		for (int r = 0; r < grid.length; ++r) {
+			rows.add(new ArrayList<>());
+			for (int c = 0; c < grid[r].length; ++c)
+				if (grid[r][c] == 1) {
+					rows.get(r).add(c);
+					N++;
+				}
+		}
+
+		int sqrtN = (int) Math.sqrt(N);
+		int ans = 0;
+		Map<Integer, Integer> count = new HashMap<>();
+
+		for (int r = 0; r < grid.length; ++r) {
+			if (rows.get(r).size() >= sqrtN) {
+				Set<Integer> target = new HashSet<>(rows.get(r));
+
+				for (int r2 = 0; r2 < grid.length; ++r2) {
+					if (r2 <= r && rows.get(r2).size() >= sqrtN)
+						continue;
+					int found = 0;
+					for (int c2 : rows.get(r2))
+						if (target.contains(c2))
+							found++;
+					ans += found * (found - 1) / 2;
+				}
+			} else {
+				for (int i1 = 0; i1 < rows.get(r).size(); ++i1) {
+					int c1 = rows.get(r).get(i1);
+					for (int i2 = i1 + 1; i2 < rows.get(r).size(); ++i2) {
+						int c2 = rows.get(r).get(i2);
+						int ct = count.getOrDefault(200 * c1 + c2, 0);
+						ans += ct;
+						count.put(200 * c1 + c2, ct + 1);
+					}
+				}
+			}
+		}
+		return ans;
 	}
 
 	/**
@@ -348,6 +479,38 @@ public class DPBootCamp {
 	}
 
 	/**
+	 * There is an m by n grid with a ball. Given the start coordinate (i,j) of the ball, you can move
+	 * the ball to adjacent cell or cross the grid boundary in four directions (up, down, left, right).
+	 * However, you can at most move N times. Find out the number of paths to move the ball out of grid
+	 * boundary. The answer may be very large, return it after mod 10^9 + 7.
+	 */
+	int M = 1000000007;
+
+	public int findHowManyOutOfBoundaryPaths(int m, int n, int N, int i, int j) {
+		int[][][] memo = new int[m][n][N];
+		for (int[][] a : memo) {
+			for (int[] b : a) {
+				Arrays.fill(b, -1);
+			}
+		}
+		return findHowManyOutOfBoundaryPaths(m, n, N, i, j, memo);
+	}
+
+	public int findHowManyOutOfBoundaryPaths(int m, int n, int N, int i, int j, int[][][] memo) {
+		if (i == m || j == n || i < 0 || j < 0)
+			return 1;
+		if (N == 0)
+			return 0;
+		if (memo[i][j][N] >= 0)
+			return memo[i][j][N];
+		memo[i][j][N] = findHowManyOutOfBoundaryPaths(m, n, N - 1, i - 1, j, memo);
+		memo[i][j][N] = (memo[i][j][N] + findHowManyOutOfBoundaryPaths(m, n, N - 1, i + 1, j, memo)) % M;
+		memo[i][j][N] = (memo[i][j][N] + findHowManyOutOfBoundaryPaths(m, n, N - 1, i, j - 1, memo)) % M;
+		memo[i][j][N] = (memo[i][j][N] + findHowManyOutOfBoundaryPaths(m, n, N - 1, i, j + 1, memo)) % M;
+		return memo[i][j][N];
+	}
+
+	/**
 	 * 
 	 * Now consider if some obstacles are added to the grids. How many unique paths would there be?
 	 * 
@@ -512,6 +675,50 @@ public class DPBootCamp {
 		}
 
 		return lens[destination[0]][destination[1]] == Integer.MAX_VALUE ? -1 : lens[destination[0]][destination[1]];
+	}
+
+	// dp[i][j] means minimum HP required to survive from point [i, j] to the end
+	public int calculateMinimumHP(int[][] dungeon) {
+		return calculate(dungeon, 0, 0, new int[dungeon.length][dungeon[0].length]);
+	}
+
+	public int calculate(int[][] dungeon, int i, int j, int[][] dp) {
+		if (i >= dungeon.length || j >= dungeon[0].length)
+			return Integer.MAX_VALUE;
+
+		if (dp[i][j] != 0)
+			return dp[i][j];
+
+		// initialization
+		if (i == dungeon.length - 1 && j == dungeon[0].length - 1)
+			return dp[i][j] = Math.max(-dungeon[i][j], 0) + 1;
+
+		// transition formula
+		int diff = Math.min(calculate(dungeon, i + 1, j, dp), calculate(dungeon, i, j + 1, dp)) - dungeon[i][j];
+
+		// if no larger than 0, set to 1
+		return dp[i][j] = diff > 0 ? diff : 1;
+	}
+
+	public int calculateMinimumHP2(int[][] dungeon) {
+		int m = dungeon.length;
+		int n = dungeon[0].length;
+		int[][] dp = new int[m][n];
+		dp[m - 1][n - 1] = Math.max(-dungeon[m - 1][n - 1], 0) + 1;
+		for (int i = m - 1; i >= 0; i--) {
+			for (int j = n - 1; j >= 0; j--) {
+				if (i + 1 <= m - 1 && j + 1 <= n - 1) {
+					dp[i][j] = Math.min(dp[i + 1][j], dp[i][j + 1]) - dungeon[i][j];
+				} else if (i + 1 <= m - 1) {
+					dp[i][j] = dp[i + 1][j] - dungeon[i][j];
+				} else if (j + 1 <= n - 1) {
+					dp[i][j] = dp[i][j + 1] - dungeon[i][j];
+				}
+				if (dp[i][j] <= 0)
+					dp[i][j] = 1;
+			}
+		}
+		return dp[0][0];
 	}
 
 	/**
@@ -969,6 +1176,33 @@ public class DPBootCamp {
 			ans.append(f > 0 ? 'R' : f < 0 ? 'L' : '.');
 		}
 		return ans.toString();
+	}
+
+	public int findMaxForm(String[] strs, int m, int n) {
+		int[][][] memo = new int[strs.length][m + 1][n + 1];
+		return calculate(strs, 0, m, n, memo);
+	}
+
+	private int calculate(String[] strs, int i, int zeroes, int ones, int[][][] memo) {
+		if (i == strs.length)
+			return 0;
+		if (memo[i][zeroes][ones] != 0)
+			return memo[i][zeroes][ones];
+		int[] count = countZeroesOnes(strs[i]);
+		int taken = -1;
+		if (zeroes - count[0] >= 0 && ones - count[1] >= 0)
+			taken = calculate(strs, i + 1, zeroes - count[0], ones - count[1], memo) + 1;
+		int not_token = calculate(strs, i + 1, zeroes, ones, memo);
+		memo[i][zeroes][ones] = Math.max(taken, not_token);
+		return memo[i][zeroes][ones];
+	}
+
+	private int[] countZeroesOnes(String s) {
+		int[] count = new int[2];
+		for (char c : s.toCharArray()) {
+			count[c - '0']++;
+		}
+		return count;
 	}
 
 	public static void main(String[] args) {
