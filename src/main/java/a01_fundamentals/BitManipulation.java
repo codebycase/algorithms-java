@@ -183,7 +183,7 @@ public class BitManipulation {
 		}
 		return result;
 	}
-
+	
 	/**
 	 * Write a program that takes a double x and an integer y and returns $$x^y$$. You can ignore
 	 * overflow and underflow.
@@ -307,8 +307,8 @@ public class BitManipulation {
 
 	public int findIntegers(int num) {
 		int[] f = new int[32];
-		f[0] = 1;
-		f[1] = 2;
+		f[0] = 1; // first bit: 1
+		f[1] = 2; // second bit: 10 01
 		for (int i = 2; i < f.length; i++)
 			f[i] = f[i - 1] + f[i - 2];
 		int i = 30, sum = 0, prev_bit = 0;
@@ -316,7 +316,7 @@ public class BitManipulation {
 			if ((num & (1 << i)) != 0) {
 				sum += f[i];
 				if (prev_bit == 1) {
-					sum--;
+					sum--; // without including itself since it's invalid
 					break;
 				}
 				prev_bit = 1;
@@ -327,7 +327,6 @@ public class BitManipulation {
 		return sum + 1;
 	}
 
-	
 	public static void main(String[] args) {
 		assert closestIntSameBitCount(6L) == 5L;
 		assert isPalindromeNumber(6) == true;

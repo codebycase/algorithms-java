@@ -7,9 +7,8 @@ public class ReverseBits {
 	/**
 	 * Reverse bits of a given 32 bits unsigned integer.
 	 * 
-	 * For example, given input 43261596 (represented in binary as
-	 * 00000010100101000001111010011100), return 964176192 (represented in binary as
-	 * 00111001011110000010100101000000).
+	 * For example, given input 43261596 (represented in binary as 00000010100101000001111010011100),
+	 * return 964176192 (represented in binary as 00111001011110000010100101000000).
 	 * 
 	 */
 	public int reverseBits(int n) {
@@ -24,19 +23,16 @@ public class ReverseBits {
 	}
 
 	/**
-	 * How to optimize if this function is called multiple times? We can divide an int into 4 bytes,
-	 * and reverse each byte then combine into an int. For each byte, we can use cache to improve
+	 * How to optimize if this function is called multiple times? We can divide an int into 4 bytes, and
+	 * reverse each byte then combine into an int. For each byte, we can use cache to improve
 	 * performance.
 	 */
 	private final Map<Byte, Integer> cache = new HashMap<Byte, Integer>();
 
 	public int reverseBits2(int n) {
-		byte[] bytes = new byte[4];
-		for (int i = 0; i < 4; i++) // convert int into 4 bytes
-			bytes[i] = (byte) ((n >>> 8 * i) & 0xFF);
 		int result = 0;
 		for (int i = 0; i < 4; i++) {
-			result += reverseByte(bytes[i]); // reverse per byte
+			result += reverseByte((byte) ((n >>> 8 * i) & 0xFF)); // reverse per byte
 			if (i < 3)
 				result <<= 8;
 		}
@@ -56,5 +52,10 @@ public class ReverseBits {
 		}
 		cache.put(b, value);
 		return value;
+	}
+
+	public static void main(String[] args) {
+		ReverseBits solution = new ReverseBits();
+		assert solution.reverseBits(43261596) == solution.reverseBits2(43261596);
 	}
 }

@@ -79,8 +79,8 @@ public class LinkedListBootCamp {
 	}
 
 	/**
-	 * Write a program that takes as input a singly linked list and a nonnegative integer k, and
-	 * return s the list cyclically shifted to the right by k.
+	 * Write a program that takes as input a singly linked list and a nonnegative integer k, and return
+	 * s the list cyclically shifted to the right by k.
 	 */
 	public ListNode rightShiftList(ListNode list, int k) {
 		if (list == null)
@@ -146,8 +146,8 @@ public class LinkedListBootCamp {
 	}
 
 	/**
-	 * The loop runs n * k times. In every iteration of loop, we call heapify which takes O(Logk)
-	 * time. Therefore, the time complexity is O(nkLog(k)).
+	 * The loop runs n * k times. In every iteration of loop, we call heapify which takes O(Logk) time.
+	 * Therefore, the time complexity is O(nkLog(k)).
 	 * 
 	 */
 	public ListNode mergeKSortedLists(ListNode[] lists) {
@@ -206,8 +206,8 @@ public class LinkedListBootCamp {
 	}
 
 	/**
-	 * Implement a function which takes as input a singly linked list and integer k and perform a
-	 * pivot of the list respect to k.
+	 * Implement a function which takes as input a singly linked list and integer k and perform a pivot
+	 * of the list respect to k.
 	 */
 	public ListNode listPivoting(ListNode l, int x) {
 		ListNode lessHead = new ListNode(0);
@@ -238,9 +238,9 @@ public class LinkedListBootCamp {
 	}
 
 	/**
-	 * You are given two non-empty linked lists representing two non-negative integers. The digits
-	 * are stored in reverse order and each of their nodes contain a single digit. Add the two
-	 * numbers and return it as a linked list.
+	 * You are given two non-empty linked lists representing two non-negative integers. The digits are
+	 * stored in reverse order and each of their nodes contain a single digit. Add the two numbers and
+	 * return it as a linked list.
 	 * 
 	 * You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 	 * 
@@ -268,8 +268,8 @@ public class LinkedListBootCamp {
 	}
 
 	/**
-	 * Write a program that takes two singly linked lists, and determines if there exists a node
-	 * that is common to both lists. The 2 lists may each or both have a cycle.
+	 * Write a program that takes two singly linked lists, and determines if there exists a node that is
+	 * common to both lists. The 2 lists may each or both have a cycle.
 	 */
 	public ListNode overlappingLists(ListNode l1, ListNode l2) {
 		// store the start of cycle if any
@@ -313,6 +313,8 @@ public class LinkedListBootCamp {
 		// overlapping node is not unique, we can return any node on the cycle.
 		return l1 == l2 ? l1 : root1;
 	}
+	
+	
 
 	private ListNode overlappingNoCycleLists(ListNode l1, ListNode l2) {
 		int l1Len = length(l1), l2Len = length(l2);
@@ -334,9 +336,9 @@ public class LinkedListBootCamp {
 	}
 
 	/**
-	 * Let L be a singly linked list. Assume its nodes are numbered starting at 0, Define the zip of
-	 * L to be the list consisting of the interleaving of the nodes numbered 0, 1, 2,..with the
-	 * nodes numbered n - 1, n - 2, n - 3,... Implement the zip function.
+	 * Let L be a singly linked list. Assume its nodes are numbered starting at 0, Define the zip of L
+	 * to be the list consisting of the interleaving of the nodes numbered 0, 1, 2,..with the nodes
+	 * numbered n - 1, n - 2, n - 3,... Implement the zip function.
 	 */
 	public ListNode zipLinkedList(ListNode list) {
 		if (list == null || list.next == null)
@@ -372,8 +374,8 @@ public class LinkedListBootCamp {
 
 	/**
 	 * A posting list is a single linked list with an additional "jump" field at each node. The jump
-	 * field points to any other node. Implement a function which takes a postings list and returns
-	 * a copy of it.
+	 * field points to any other node. Implement a function which takes a postings list and returns a
+	 * copy of it.
 	 */
 	public ListNode copyPostingList(ListNode list) {
 		if (list == null)
@@ -487,5 +489,6 @@ public class LinkedListBootCamp {
 		// L2: 7->8---
 		l2.next.next = l1.next.next;
 		assert (camp.overlappingLists(l1, l2).val == 3);
+
 	}
 }

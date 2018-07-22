@@ -32,7 +32,7 @@ public class PrimeNumbers {
 		int prime = 2;
 		while (prime <= Math.sqrt(max)) {
 			// Cross off remaining multiples of prime
-			// Starts with (prime*prime) because if we have a k * prime, where k < prime, this value
+			// Starts with (prime * prime) because if we have a k * prime, where k < prime, this value
 			// would have already been crossed off in a prior iteraton
 			for (int i = prime * prime; i < flags.length; i += prime) {
 				flags[i] = false;

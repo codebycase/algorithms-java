@@ -1205,6 +1205,35 @@ public class DPBootCamp {
 		return count;
 	}
 
+	public int maxA(int N) {
+		int[] dp = new int[N + 1];
+		for (int i = 1; i < dp.length; i++) {
+			dp[i] = dp[i - 1] + 1;
+			// reserve 2 key presses for Ctrl+A and Ctrl+C
+			for (int j = 0; j < i - 1; j++) {
+				dp[i] = Math.max(dp[i], dp[j] * (i - j - 1));
+			}
+		}
+		return dp[N];
+	}
+
+	public int maxA2(int N) {
+		int[] dp = new int[N + 1];
+		if (N <= 3)
+			return N;
+		dp[0] = 0;
+		dp[1] = 1;
+		dp[2] = 2;
+		dp[3] = 3;
+		for (int i = 4; i <= N; i++) {
+			dp[i] = dp[i - 1] + 1;
+			for (int j = i - 4; j >= 3; j--) {
+				dp[i] = Math.max(dp[i], dp[j] * (i - j - 1));
+			}
+		}
+		return dp[N];
+	}
+
 	public static void main(String[] args) {
 		DPBootCamp solution = new DPBootCamp();
 		Assert.assertEquals(climbStairs(4, 2), 5);

@@ -54,6 +54,7 @@ public class HuffmanEncoding {
 			if (tree.symbol != null) {
 				// this node is a leaf
 				huffmanEncoding.put(tree.symbol.chr, code.toString());
+				tree.symbol.code = code.toString();
 			} else {
 				assignHuffmanCode(tree.left, code.append('0'), huffmanEncoding);
 				code.setLength(code.length() - 1); // backtrack

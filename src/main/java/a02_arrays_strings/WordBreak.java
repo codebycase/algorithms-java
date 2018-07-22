@@ -125,6 +125,19 @@ public class WordBreak {
 		return dp[word.length()];
 	}
 
+	public List<String> findAllConcatenateWords2(String[] words) {
+		List<String> result = new ArrayList<>();
+		Set<String> preWords = new HashSet<>();
+		Arrays.sort(words, (a, b) -> (a.length() - b.length()));
+		for (String word : words) {
+			if (canForm(word, preWords)) {
+				result.add(word);
+			}
+			preWords.add(word);
+		}
+		return result;
+	}
+
 	public static void main(String[] args) {
 		String s = "applepenapple";
 		List<String> wordDict = Arrays.asList("apple", "pen");
