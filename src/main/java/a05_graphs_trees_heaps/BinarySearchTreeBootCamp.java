@@ -73,7 +73,7 @@ public class BinarySearchTreeBootCamp {
 			return Integer.MAX_VALUE;
 		int minDiff = minDifference(node.left);
 		if (prev != null)
-			minDiff = Math.min(minDiff, node.val - prev.val);
+			minDiff = Math.min(minDiff, Math.abs(node.val - prev.val));
 		prev = node;
 		minDiff = Math.min(minDiff, minDifference(node.right));
 		return minDiff;

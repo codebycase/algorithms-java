@@ -21,19 +21,19 @@ public class NormalizePathnames {
 
 		Deque<String> pathNames = new LinkedList<>();
 		if (path.startsWith("/")) // special case: starts with "/"
-			pathNames.addFirst("/");
+			pathNames.push("/");
 
 		for (String token : path.split("/")) {
 			if (token.equals("..")) {
-				if (pathNames.isEmpty() || pathNames.peekFirst().equals(".."))
-					pathNames.addFirst(token);
+				if (pathNames.isEmpty() || pathNames.peek().equals(".."))
+					pathNames.push(token);
 				else {
-					if (pathNames.peekFirst().equals("/"))
+					if (pathNames.peek().equals("/"))
 						throw new IllegalArgumentException("Path error, trying to go up root " + path);
-					pathNames.removeFirst();
+					pathNames.pop();
 				}
 			} else if (!token.equals(".") && !token.isEmpty()) // must be a name
-				pathNames.addFirst(token);
+				pathNames.push(token);
 		}
 
 		StringBuilder result = new StringBuilder();

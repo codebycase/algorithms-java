@@ -93,21 +93,19 @@ public class WordLadder {
 
 			char[] chs = word.toCharArray();
 			for (int i = 0; i < chs.length; i++) {
+				char old = chs[i];
 				for (char c = 'a'; c <= 'z'; c++) {
-					char old = chs[i];
-					if (chs[i] != c)
-						chs[i] = c;
-
+					chs[i] = c;
 					String target = new String(chs);
 					if (wordList.contains(target)) {
 						queue.add(new WordNode(target, top.steps + 1));
 						wordList.remove(target);
 					}
-
-					chs[i] = old;
 				}
+				chs[i] = old;
 			}
 		}
+
 		return 0;
 	}
 
@@ -125,7 +123,7 @@ public class WordLadder {
 		WordLadder solution = new WordLadder();
 		List<String> wordList = new ArrayList<>();
 		wordList.addAll(Arrays.asList("hot", "dot", "dog", "lot", "log"));
-		int steps = solution.ladderLength("hit", "cog", wordList);
+		int steps = solution.ladderLength2("hit", "cog", wordList);
 		System.out.println(steps);
 		assert steps == 5;
 	}

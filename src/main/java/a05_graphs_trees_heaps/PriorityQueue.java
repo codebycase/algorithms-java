@@ -5,23 +5,20 @@ package a05_graphs_trees_heaps;
  * sorted order and not necessarily all at once. Often, we collect a set of items, then process the
  * one with the largest key, then perhaps collect more items, then process the one with the current
  * largest key, and so forth. An appropriate data type in such an environment supports two
- * operations: remove the maximum and insert. Such a data type is called a priority queue.
- * <br>
+ * operations: remove the maximum and insert. Such a data type is called a priority queue. <br>
  * 
  * A priority queue is an abstract data type which is like a regular queue or stack data structure,
  * but where additionally each element has a "priority" associated with it. In a priority queue, an
  * element with high priority is served before an element with low priority. If two elements have
  * the same priority, they are served according to their order in the queue. Here priority queue is
- * implemented using a max heap.
- * <br>
+ * implemented using a max heap. <br>
  * 
  * A binary heap is a set of nodes with keys arranged in a complete heap-ordered binary tree,
  * represented in level order in an array (not using the first entry). In a heap, the parent of the
  * node in position k is in position k/2; and, conversely, the two children of the node in position
  * k are in positions 2k and 2k + 1. We can travel up and down by doing simple arithmetic on array
  * indices: to move up the tree from a[k] we set k to k/2; to move down the tree we set k to 2*k or
- * 2*k+1.
- * <br>
+ * 2*k+1. <br>
  * 
  * https://algs4.cs.princeton.edu/24pq/
  * 

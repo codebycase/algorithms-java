@@ -66,14 +66,16 @@ public class BusRoutes {
 		Queue<Vertex> queue = new ArrayDeque<>();
 
 		for (int i = 0; i < N; i++) {
+			// all source buses through S stop
 			if (Arrays.binarySearch(routes[i], S) >= 0) {
 				queue.offer(new Vertex(i, 0));
 				visited.add(i);
 			}
+			// all target buses through T stop
 			if (Arrays.binarySearch(routes[i], T) >= 0)
 				targets.add(i);
 		}
-
+		
 		while (!queue.isEmpty()) {
 			Vertex vertex = queue.poll();
 			if (targets.contains(vertex.id))

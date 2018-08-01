@@ -194,7 +194,7 @@ public class GraphBootCamp {
 		return map.get(graph);
 	}
 
-	private static List<Integer> copyLabels(List<Vertex> edges) {
+	private static List<Integer> copyIds(List<Vertex> edges) {
 		List<Integer> labels = new ArrayList<>();
 		for (Vertex e : edges) {
 			labels.add(e.id);
@@ -210,7 +210,7 @@ public class GraphBootCamp {
 		while (!q.isEmpty()) {
 			Vertex vertex = q.remove();
 			assert (vertex.id < g.size());
-			List<Integer> label1 = copyLabels(vertex.edges), label2 = copyLabels(g.get(vertex.id).edges);
+			List<Integer> label1 = copyIds(vertex.edges), label2 = copyIds(g.get(vertex.id).edges);
 			Collections.sort(label1);
 			Collections.sort(label2);
 			assert (label1.size() == label2.size());

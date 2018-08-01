@@ -38,16 +38,11 @@ package a06_sorting_searching;
  * @author Kevin Wayne
  */
 public class MSD {
-	private static final int BITS_PER_BYTE = 8;
-	private static final int BITS_PER_INT = 32; // each Java int is 32 bits
 	private static final int R = 256; // extended ASCII alphabet size
 	private static final int CUTOFF = 15; // cutoff to insertion sort
 
 	/**
 	 * Rearranges the array of extended ASCII strings in ascending order.
-	 *
-	 * @param a
-	 *            the array to be sorted
 	 */
 	public static void sort(String[] a) {
 		int n = a.length;
@@ -55,8 +50,7 @@ public class MSD {
 		sort(a, 0, n - 1, 0, aux);
 	}
 
-	// return dth character of s, -1 if d = length of string, plus 1 to be 0, the first entry of
-	// count
+	// return dth character of s, -1 if d = length of string, plus 1 to be 0, the first entry of count
 	private static int charAt(String s, int d) {
 		assert d >= 0 && d <= s.length();
 		if (d == s.length())
@@ -66,7 +60,6 @@ public class MSD {
 
 	// sort from a[lo] to a[hi], starting at the dth character
 	private static void sort(String[] a, int lo, int hi, int d, String[] aux) {
-
 		// cutoff to insertion sort for small subarrays
 		if (hi <= lo + CUTOFF) {
 			insertion(a, lo, hi, d);
@@ -126,9 +119,12 @@ public class MSD {
 		return v.length() < w.length();
 	}
 
+	private static final int BITS_PER_BYTE = 8;
+	private static final int BITS_PER_INT = 32; // each Java int is 32 bits
+
 	/**
-	 * Rearranges the array of 32-bit integers in ascending order. Currently assumes that the
-	 * integers are nonnegative.
+	 * Rearranges the array of 32-bit integers in ascending order. Currently assumes that the integers
+	 * are nonnegative.
 	 *
 	 * @param a
 	 *            the array to be sorted

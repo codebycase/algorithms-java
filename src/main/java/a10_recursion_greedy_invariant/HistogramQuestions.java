@@ -7,12 +7,12 @@ import java.util.Stack;
 
 public class HistogramQuestions {
 	/**
-	 * Given n non-negative integers representing the histogram's bar height where the width of each
-	 * bar is 1, find the area of largest rectangle in the histogram.
+	 * Given n non-negative integers representing the histogram's bar height where the width of each bar
+	 * is 1, find the area of largest rectangle in the histogram.
 	 */
 	public static int largestRectangleArea(int[] heights) {
 		int len = heights.length;
-		Stack<Integer> s = new Stack<Integer>();
+		Stack<Integer> s = new Stack<>();
 		int maxArea = 0;
 		for (int i = 0; i <= len; i++) {
 			int h = (i == len ? 0 : heights[i]);
@@ -27,7 +27,7 @@ public class HistogramQuestions {
 		}
 		return maxArea;
 	}
-
+	
 	/**
 	 * Write a program which takes as an input an integer array and returns the pair of entries that
 	 * trap the maximum amount of water.

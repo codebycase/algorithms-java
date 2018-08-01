@@ -300,7 +300,7 @@ public class SearchingBootCamp {
 				while (s.hasNext()) {
 					int x = s.next();
 					if (i == (x >>> 16)) {
-						bitSet.set(((NUM_BUCKET) - 1) & x); // Gets the lower 16 bits of x.
+						bitSet.set((NUM_BUCKET - 1) & x); // Gets the lower 16 bits of x.
 					}
 				}
 
