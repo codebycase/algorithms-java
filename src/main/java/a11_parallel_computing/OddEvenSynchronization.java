@@ -7,8 +7,8 @@ public class OddEvenSynchronization {
 		private boolean turn = ODD_TURN;
 
 		// Need synchronized in order to call wait()
-		public synchronized void waitTurn(boolean oldTurn) {
-			while (turn != oldTurn) {
+		public synchronized void waitTurn(boolean myTurn) {
+			while (turn != myTurn) {
 				try {
 					wait();
 				} catch (InterruptedException e) {

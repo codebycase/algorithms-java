@@ -89,6 +89,7 @@ public class ParallelComputingBootCamp {
 	public static void main(String[] args) {
 		ParallelComputingBootCamp solution = new ParallelComputingBootCamp();
 		solution.demonstrateInvokeAll();
+		System.out.println("-----------------");
 		solution.demonstrateCompleteService();		
 	}
 

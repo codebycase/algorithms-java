@@ -25,13 +25,13 @@ public class LockOrderingBug {
 			}
 		}
 
-		// 
+		// The id can be used as a global ordering on locks. 
+		// Does not matter if lock1 equals lock2: since
+		// Java locks are reentrant, we willre-acquire lock2.
 		public boolean move2(Account to, int amount) {
 			Account lock1 = (id < to.id) ? this : to;
 			Account lock2 = (id < to.id) ? to : this;
 			synchronized (lock1) {
-				// Does not matter if lock1 equals lock2: since Java locks are reentrant, we will
-				// re-acquire lock2.
 				synchronized (lock2) {
 					if (amount > balance) {
 						return false;

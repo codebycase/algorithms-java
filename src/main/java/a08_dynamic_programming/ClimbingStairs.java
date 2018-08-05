@@ -33,9 +33,7 @@ public class ClimbingStairs {
 			return 1;
 
 		if (memo[n] == 0) {
-			// for (int i = 1; i <= k; i++) {
-			// use n - i >= 0 to reduce call times!
-			for (int i = 1; i <= k && n - i >= 0; i++) {
+			for (int i = 1; i <= Math.min(k, n); i++) {
 				memo[n] += climbStairs(n - i, k, memo);
 			}
 		}

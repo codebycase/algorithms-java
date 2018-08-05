@@ -1252,6 +1252,9 @@ public class DPBootCamp {
 		int[] A = { 2, 1, 4, 3 };
 		System.out.println(solution.countByBoundedMax(A, 3));
 		System.out.println(solution.countByBoundedMax(A, 2 - 1));
+
+		A = new int[] { 9, 1, 2, 3, 9 };
+		System.out.println(solution.largestSumOfAverages(A, 3));
 	}
 
 }
