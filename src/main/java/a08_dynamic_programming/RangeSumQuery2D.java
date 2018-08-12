@@ -43,4 +43,38 @@ public class RangeSumQuery2D {
 	public int sumRegion(int row1, int col1, int row2, int col2) {
 		return dp[row2 + 1][col2 + 1] - dp[row1][col2 + 1] - dp[row2 + 1][col1] + dp[row1][col1];
 	}
+
+	class RangeSumQuery2DII {
+		int[][] matrix;
+		int[][] colSums;
+
+		public RangeSumQuery2DII(int[][] matrix) {
+			if (matrix == null || matrix.length == 0 || matrix[0].length == 0)
+				return;
+			this.matrix = matrix;
+			// add one more row in favor of easy coding
+			this.colSums = new int[matrix.length + 1][matrix[0].length];
+			for (int r = 1; r < colSums.length; r++) {
+				for (int c = 0; c < colSums[0].length; c++) {
+					colSums[r][c] = colSums[r - 1][c] + matrix[r - 1][c];
+				}
+			}
+		}
+
+		public void update(int row, int col, int val) {
+			// just update the bottom rows with the same col
+			for (int r = row + 1; r < colSums.length; r++) {
+				colSums[r][col] = colSums[r][col] - matrix[row][col] + val;
+			}
+			matrix[row][col] = val;
+		}
+
+		public int sumRegion(int row1, int col1, int row2, int col2) {
+			int sum = 0;
+			for (int c = col1; c <= col2; c++) {
+				sum += colSums[row2 + 1][c] - colSums[row1][c];
+			}
+			return sum;
+		}
+	}
 }

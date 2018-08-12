@@ -149,12 +149,13 @@ public class DPBootCamp {
 	 */
 	public static int combinationsForFinalScore(int finalScore, List<Integer> playScores) {
 		int[] dp = new int[finalScore + 1];
-		dp[0] = 1; // One way to reach 0.
+		dp[0] = 1; // One way to reach 0 score without any of plays.
 
 		for (int i = 0; i < playScores.size(); ++i) {
+			int playScore = playScores.get(i);
 			for (int j = 1; j <= finalScore; ++j) {
-				int withoutThisPlay = i - 1 >= 0 ? dp[j] : 0;
-				int withThisPlay = j >= playScores.get(i) ? dp[j - playScores.get(i)] : 0;
+				int withoutThisPlay = i == 0 ? 0 : dp[j];
+				int withThisPlay = j >= playScore ? dp[j - playScore] : 0;
 				dp[j] = withoutThisPlay + withThisPlay;
 			}
 		}
@@ -275,11 +276,11 @@ public class DPBootCamp {
 		int ans = 0;
 		Map<Integer, Integer> count = new HashMap<>();
 
-		for (int r = 0; r < grid.length; ++r) {
+		for (int r = 0; r < rows.size(); ++r) {
 			if (rows.get(r).size() >= sqrtN) {
 				Set<Integer> target = new HashSet<>(rows.get(r));
 
-				for (int r2 = 0; r2 < grid.length; ++r2) {
+				for (int r2 = 0; r2 < rows.size(); ++r2) {
 					if (r2 <= r && rows.get(r2).size() >= sqrtN)
 						continue;
 					int found = 0;
@@ -372,14 +373,8 @@ public class DPBootCamp {
 		if (matrix == null || matrix.length == 0 || matrix[0].length == 0)
 			return 0;
 		int[] heights = new int[matrix[0].length];
-		// first row heights
-		for (int i = 0; i < matrix[0].length; i++) {
-			if (matrix[0][i] == '1')
-				heights[i] = 1;
-		}
-		int maxArea = maxAreaInLine(heights);
-		// rest row heights
-		for (int i = 1; i < matrix.length; i++) {
+		int maxArea = 0;
+		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix[i].length; j++) {
 				if (matrix[i][j] == '1')
 					heights[j] += 1;
@@ -479,38 +474,6 @@ public class DPBootCamp {
 	}
 
 	/**
-	 * There is an m by n grid with a ball. Given the start coordinate (i,j) of the ball, you can move
-	 * the ball to adjacent cell or cross the grid boundary in four directions (up, down, left, right).
-	 * However, you can at most move N times. Find out the number of paths to move the ball out of grid
-	 * boundary. The answer may be very large, return it after mod 10^9 + 7.
-	 */
-	int M = 1000000007;
-
-	public int findHowManyOutOfBoundaryPaths(int m, int n, int N, int i, int j) {
-		int[][][] memo = new int[m][n][N];
-		for (int[][] a : memo) {
-			for (int[] b : a) {
-				Arrays.fill(b, -1);
-			}
-		}
-		return findHowManyOutOfBoundaryPaths(m, n, N, i, j, memo);
-	}
-
-	public int findHowManyOutOfBoundaryPaths(int m, int n, int N, int i, int j, int[][][] memo) {
-		if (i == m || j == n || i < 0 || j < 0)
-			return 1;
-		if (N == 0)
-			return 0;
-		if (memo[i][j][N] >= 0)
-			return memo[i][j][N];
-		memo[i][j][N] = findHowManyOutOfBoundaryPaths(m, n, N - 1, i - 1, j, memo);
-		memo[i][j][N] = (memo[i][j][N] + findHowManyOutOfBoundaryPaths(m, n, N - 1, i + 1, j, memo)) % M;
-		memo[i][j][N] = (memo[i][j][N] + findHowManyOutOfBoundaryPaths(m, n, N - 1, i, j - 1, memo)) % M;
-		memo[i][j][N] = (memo[i][j][N] + findHowManyOutOfBoundaryPaths(m, n, N - 1, i, j + 1, memo)) % M;
-		return memo[i][j][N];
-	}
-
-	/**
 	 * 
 	 * Now consider if some obstacles are added to the grids. How many unique paths would there be?
 	 * 
@@ -533,6 +496,38 @@ public class DPBootCamp {
 			}
 		}
 		return dp[width - 1];
+	}
+
+	/**
+	 * There is an m by n grid with a ball. Given the start coordinate (i,j) of the ball, you can move
+	 * the ball to adjacent cell or cross the grid boundary in four directions (up, down, left, right).
+	 * However, you can at most move N times. Find out the number of paths to move the ball out of grid
+	 * boundary. The answer may be very large, return it after mod 10^9 + 7.
+	 */
+	int M = 1000000007;
+
+	public int findHowManyOutOfBoundaryPaths(int m, int n, int N, int i, int j) {
+		int[][][] memo = new int[m][n][N];
+		for (int[][] a : memo) {
+			for (int[] b : a) {
+				Arrays.fill(b, -1);
+			}
+		}
+		return findHowManyOutOfBoundaryPaths(m, n, N, i, j, memo);
+	}
+
+	private int findHowManyOutOfBoundaryPaths(int m, int n, int N, int i, int j, int[][][] memo) {
+		if (i == m || j == n || i < 0 || j < 0)
+			return 1;
+		if (N == 0)
+			return 0;
+		if (memo[i][j][N] >= 0)
+			return memo[i][j][N];
+		memo[i][j][N] = findHowManyOutOfBoundaryPaths(m, n, N - 1, i - 1, j, memo);
+		memo[i][j][N] = (memo[i][j][N] + findHowManyOutOfBoundaryPaths(m, n, N - 1, i + 1, j, memo)) % M;
+		memo[i][j][N] = (memo[i][j][N] + findHowManyOutOfBoundaryPaths(m, n, N - 1, i, j - 1, memo)) % M;
+		memo[i][j][N] = (memo[i][j][N] + findHowManyOutOfBoundaryPaths(m, n, N - 1, i, j + 1, memo)) % M;
+		return memo[i][j][N];
 	}
 
 	/**
@@ -607,7 +602,7 @@ public class DPBootCamp {
 		if (start[0] == destination[0] && start[1] == destination[1])
 			return true;
 		int m = maze.length, n = maze[0].length;
-		int[][] dirs = new int[][] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
+		int[][] dirs = { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
 		boolean[][] visited = new boolean[m][n];
 		Queue<int[]> queue = new LinkedList<>();
 		visited[start[0]][start[1]] = true;
@@ -1235,6 +1230,8 @@ public class DPBootCamp {
 	}
 
 	public static void main(String[] args) {
+		System.out.println((int) Math.sqrt(6));
+
 		DPBootCamp solution = new DPBootCamp();
 		Assert.assertEquals(climbStairs(4, 2), 5);
 		Assert.assertEquals(climbStairs(10, 5), 464);

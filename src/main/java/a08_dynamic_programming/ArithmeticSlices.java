@@ -104,6 +104,7 @@ public class ArithmeticSlices {
 		return (int) ans;
 	}
 
+
 	public static void main(String[] args) {
 		ArithmeticSlices solution = new ArithmeticSlices();
 		int result = solution.numberOfArithmeticSlicesII(new int[] { 2, 4, 6, 8, 10 });

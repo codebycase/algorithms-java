@@ -45,5 +45,12 @@ public class ClimbingStairs {
 		System.out.println(climbStairs(3, 2));
 		System.out.println(climbStairs(4, 2));
 		System.out.println(climbStairs(10, 5));
+		
+	    int vInt = Integer.parseUnsignedInt("4294967295");
+	    System.out.println(vInt); // -1
+	    String sInt = Integer.toUnsignedString(vInt);
+	    System.out.println(sInt); // 4294967295
+	   
+		
 	}
 }
