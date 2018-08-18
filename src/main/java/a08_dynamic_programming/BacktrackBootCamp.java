@@ -109,19 +109,19 @@ public class BacktrackBootCamp {
 	private void backtrackK(List<List<Integer>> list, List<Integer> temp, int[] nums, int start, int k) {
 		if (temp.size() == k) {
 			list.add(new ArrayList<>(temp));
-		}
-		int numRemaining = k - temp.size();
-		// Just skip if not enough nums left!
-		for (int i = start; i < nums.length && numRemaining <= nums.length - i; i++) {
-			temp.add(nums[i]);
-			backtrackK(list, temp, nums, i + 1, k);
-			temp.remove(temp.size() - 1);
+		} else {
+			int numRemaining = k - temp.size();
+			// Just skip if not enough nums left!
+			for (int i = start; i < nums.length && numRemaining <= nums.length - i; i++) {
+				temp.add(nums[i]);
+				backtrackK(list, temp, nums, i + 1, k);
+				temp.remove(temp.size() - 1);
+			}
 		}
 	}
 
 	/**
-	 * Given a collection of integers that might contain duplicates, nums, return all possible
-	 * subsets.
+	 * Given a collection of integers that might contain duplicates, nums, return all possible subsets.
 	 * 
 	 * @param nums
 	 * @return
@@ -226,14 +226,14 @@ public class BacktrackBootCamp {
 	}
 
 	/**
-	 * Given a set of candidate numbers (C) (<b>without duplicates</b>) and a target number (T),
-	 * find all unique combinations in C where the candidate numbers sums to T.
+	 * Given a set of candidate numbers (C) (<b>without duplicates</b>) and a target number (T), find
+	 * all unique combinations in C where the candidate numbers sums to T.
 	 * 
 	 * The same repeated number may be chosen from C unlimited number of times.
 	 * 
-	 * Note: All numbers (including target) will be positive integers. The solution set must not
-	 * contain duplicate combinations. For example, given candidate set [2, 3, 6, 7] and target 7, A
-	 * solution set is: [ [7], [2, 2, 3] ]
+	 * Note: All numbers (including target) will be positive integers. The solution set must not contain
+	 * duplicate combinations. For example, given candidate set [2, 3, 6, 7] and target 7, A solution
+	 * set is: [ [7], [2, 2, 3] ]
 	 * 
 	 * @param nums
 	 * @param target
@@ -311,6 +311,7 @@ public class BacktrackBootCamp {
 		assert solution.subsets(nums).size() == 16;
 		assert solution.subsets2(nums).size() == 16;
 		assert solution.subsetsK(nums, 3).size() == 4;
+		System.out.println(solution.subsetsK(nums, 3));
 		assert solution.subsetsWithDup(nums).size() == 14;
 
 		assert solution.permuteUnique(nums).toString().equals(solution.permuteUnique2(nums).toString());

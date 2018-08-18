@@ -46,8 +46,10 @@ public class RegularExpressionMatching {
 
 		boolean firstMatch = i < text.length() && (pattern.charAt(j) == text.charAt(i) || pattern.charAt(j) == '.');
 		if (j + 1 < pattern.length() && pattern.charAt(j + 1) == '*') {
-			// skip 2 chars in pattern (ignore) or skip one char in text!
-			memo[i][j] = regExpMathRecursion(i, j + 2, text, pattern, memo) || (firstMatch && regExpMathRecursion(i + 1, j, text, pattern, memo));
+			// skip 2 chars in pattern (just ignore x*) since * can much zero preceding elements.
+			// skip one char in text since * can match multiple times of this preceding elements!
+			memo[i][j] = regExpMathRecursion(i, j + 2, text, pattern, memo)
+					|| (firstMatch && regExpMathRecursion(i + 1, j, text, pattern, memo));
 		} else {
 			// skip a char for both pattern and text!
 			memo[i][j] = firstMatch && regExpMathRecursion(i + 1, j + 1, text, pattern, memo);
@@ -63,7 +65,8 @@ public class RegularExpressionMatching {
 
 		for (int i = text.length(); i >= 0; i--) {
 			for (int j = pattern.length() - 1; j >= 0; j--) {
-				boolean firstMatch = i < text.length() && (pattern.charAt(j) == text.charAt(i) || pattern.charAt(j) == '.');
+				boolean firstMatch = i < text.length()
+						&& (pattern.charAt(j) == text.charAt(i) || pattern.charAt(j) == '.');
 				if (j + 1 < pattern.length() && pattern.charAt(j + 1) == '*') {
 					dp[i][j] = dp[i][j + 2] || (firstMatch && dp[i + 1][j]);
 				} else {

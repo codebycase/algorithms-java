@@ -2,7 +2,6 @@ package a18_the_honors_question;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class CountInversions {
 	/**
@@ -40,32 +39,32 @@ public class CountInversions {
 	}
 
 	public static int countInversions(List<Integer> nums) {
-		return countInversions(nums, 0, nums.size());
+		return countInversions(nums, 0, nums.size() - 1);
 	}
 
-	private static int countInversions(List<Integer> nums, int start, int end) {
-		if (end - start <= 1)
+	private static int countInversions(List<Integer> nums, int low, int high) {
+		if (low >= high)
 			return 0;
 
-		int mid = start + (end - start) / 2;
-		int count = countInversions(nums, start, mid); // exclude mid
-		count += countInversions(nums, mid, end); // include mid
-		count += mergeSortAndCountInversions(nums, start, mid, end);
+		int mid = low + (high - low) / 2;
+		int count = countInversions(nums, low, mid); // exclude mid
+		count += countInversions(nums, mid + 1, high); // include mid
+		count += mergeSortAndCountInversions(nums, low, mid, high);
 		return count;
 	}
 
 	/**
 	 * Merge two sorted sublists and count inversions across the two sublists.
 	 */
-	private static int mergeSortAndCountInversions(List<Integer> nums, int start, int mid, int end) {
+	private static int mergeSortAndCountInversions(List<Integer> nums, int low, int mid, int high) {
 		List<Integer> sortedNums = new ArrayList<>();
-		int leftStart = start, rightStart = mid, inversionCount = 0;
+		int leftStart = low, rightStart = mid + 1, inversionCount = 0;
 
-		while (leftStart < mid && rightStart < end) {
+		while (leftStart <= mid && rightStart <= high) {
 			if (Integer.compare(nums.get(leftStart), nums.get(rightStart)) <= 0) {
 				sortedNums.add(nums.get(leftStart++));
 			} else {
-				// nums[leftStart,mid) are the inversions of nums[rightStart]
+				// nums[leftStart, mid) are the inversions of nums[rightStart]
 				inversionCount += mid - leftStart;
 				sortedNums.add(nums.get(rightStart++));
 			}
@@ -73,34 +72,21 @@ public class CountInversions {
 
 		// add all the rest items
 		sortedNums.addAll(nums.subList(leftStart, mid));
-		sortedNums.addAll(nums.subList(rightStart, end));
+		sortedNums.addAll(nums.subList(rightStart, high));
 
 		// update with sorted list
 		for (Integer num : sortedNums) {
-			nums.set(start++, num);
+			nums.set(low++, num);
 		}
 
 		return inversionCount;
-	}
-
-	// O(n^2) check of inversions.
-	private static int n2Check(List<Integer> a) {
-		int count = 0;
-		for (int i = 0; i < a.size(); ++i) {
-			for (int j = i + 1; j < a.size(); ++j) {
-				if (Integer.compare(a.get(i), a.get(j)) > 0) {
-					++count;
-				}
-			}
-		}
-		System.out.println(count);
-		return count;
 	}
 
 	public static void main(String[] args) {
 		assert isIdealPermutation(new int[] { 1, 0, 2 }) == true;
 		assert isIdealPermutation(new int[] { 1, 2, 0 }) == false;
 
+		/*
 		Random r = new Random();
 		for (int times = 0; times < 10; ++times) {
 			int n;
@@ -115,5 +101,6 @@ public class CountInversions {
 			}
 			assert (n2Check(A) == countInversions(A));
 		}
+		*/
 	}
 }

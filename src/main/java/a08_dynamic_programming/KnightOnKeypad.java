@@ -47,10 +47,14 @@ public class KnightOnKeypad {
 		return matrix[length - 1][digit];
 	}
 
-	// recursive, DFS, just calculate the reached ones.
+	// recursive, DFS, with memorization, just calculate the reached ones.
+	// NOTE: the length is between [1, 10] instead of [0, 9]!
 	public int countRecursive(int digit, int length, int[][] matrix) {
 		if (length == 1)
 			return 1;
+		// already reached and cached
+		if (matrix[length - 1][digit] > 0)
+			return matrix[length - 1][digit];
 		int sum = 0;
 		for (int i : nexts[digit]) {
 			sum += countRecursive(i, length - 1, matrix);
@@ -110,29 +114,6 @@ public class KnightOnKeypad {
 		return results;
 	}
 
-	// All paths from source to target in a given directed, acyclic graph of N nodes.
-	public List<List<Integer>> allPathsWithinDAG(int[][] graph, int node) {
-		int N = graph.length;
-		List<List<Integer>> results = new ArrayList<>();
-
-		if (node == N - 1) {
-			List<Integer> path = new ArrayList<>();
-			path.add(node);
-			results.add(path);
-			// results.add(Arrays.asList(node)); // not working as the returned list is immutable
-			return results;
-		}
-
-		for (int neighbor : graph[node]) {
-			for (List<Integer> path : allPathsWithinDAG(graph, neighbor)) {
-				path.add(0, node);
-				results.add(path);
-			}
-		}
-
-		return results;
-	}
-
 	public static void main(String[] args) {
 		KnightOnKeypad solution = new KnightOnKeypad();
 		assert solution.countIterative(1, 10) == 1424;
@@ -145,8 +126,6 @@ public class KnightOnKeypad {
 		assert results.size() == 1424;
 		results = solution.permuteRecursive3(1, 10);
 		assert results.size() == 1424;
-		int[][] graph = { { 1, 2 }, { 3 }, { 3 }, {} };
-		System.out.println(solution.allPathsWithinDAG(graph, 0));
 	}
 
 }

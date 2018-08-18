@@ -1018,7 +1018,10 @@ public class DPBootCamp {
 	}
 
 	public double champagneTower(int poured, int queryRow, int queryGlass) {
-		double[][] A = new double[102][102];
+		if (queryGlass > queryRow)
+			return 0.0;
+		// query glass must in query row
+		double[][] A = new double[queryRow + 1][queryRow + 1];
 		A[0][0] = (double) poured;
 		for (int r = 0; r <= queryRow; r++) {
 			for (int c = 0; c <= r; c++) {
@@ -1252,6 +1255,8 @@ public class DPBootCamp {
 
 		A = new int[] { 9, 1, 2, 3, 9 };
 		System.out.println(solution.largestSumOfAverages(A, 3));
+
+		System.out.println(solution.champagneTower(15, 5, 5));
 	}
 
 }

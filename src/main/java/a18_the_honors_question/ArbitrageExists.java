@@ -11,7 +11,7 @@ public class ArbitrageExists {
 				edges[i] = -Math.log10(edges[i]);
 			}
 		}
-		
+
 		// use Bellman-Ford algorithm to find negative weight cycle
 		double[] distances = new double[graph.length];
 		Arrays.fill(distances, Double.MAX_VALUE);
