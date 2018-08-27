@@ -10,6 +10,24 @@ import java.util.Random;
 
 public class ArrayBootCamp {
 	/**
+	 * Given an array nums, write a function to move all 0's to the end of it while maintaining the
+	 * relative order of the non-zero elements.
+	 */
+	public void moveZeroes(int[] nums) {
+		for (int insertNonZeroAt = 0, i = 0; i < nums.length; i++) {
+			if (nums[i] != 0) {
+				// reduce extra swap
+				if (i != insertNonZeroAt) {
+					int temp = nums[i];
+					nums[i] = nums[insertNonZeroAt];
+					nums[insertNonZeroAt] = temp;
+				}
+				insertNonZeroAt++;
+			}
+		}
+	}
+
+	/**
 	 * Write an function, left rotate an array of size n by d.
 	 */
 	public void leftRotate(int[] nums, int d, int n) {
@@ -82,9 +100,9 @@ public class ArrayBootCamp {
 	}
 
 	/**
-	 * Write a program that takes an array A and an index i into A, and rearrange the elements such
-	 * that all elements less than A[i] (the "pivot") appear first, followed by elements equal to
-	 * the pivot, followed by elements greater than the pivot.
+	 * Write a program that takes an array A and an index i into A, and rearrange the elements such that
+	 * all elements less than A[i] (the "pivot") appear first, followed by elements equal to the pivot,
+	 * followed by elements greater than the pivot.
 	 */
 	public enum Color {
 		RED, WHITE, BLUE
@@ -130,8 +148,8 @@ public class ArrayBootCamp {
 
 	/**
 	 * Write a program which takes an array of n integers, where A[i] denotes the maximum you can
-	 * advance from index i, and returns whether it is possible to advance to the last index
-	 * starting from the beginning of the array.
+	 * advance from index i, and returns whether it is possible to advance to the last index starting
+	 * from the beginning of the array.
 	 */
 	public boolean canReachEnd(int[] maxAdvancedSteps) {
 		int furthestReachSoFar = 0, lastIndex = maxAdvancedSteps.length - 1;
@@ -142,8 +160,7 @@ public class ArrayBootCamp {
 	}
 
 	/**
-	 * Write a program that takes an integer argument and returns all the primes between 1 and
-	 * itself.
+	 * Write a program that takes an integer argument and returns all the primes between 1 and itself.
 	 */
 	public List<Integer> generatePrimes(int n) {
 		List<Integer> primes = new ArrayList<>();
@@ -199,16 +216,16 @@ public class ArrayBootCamp {
 	}
 
 	/**
-	 * Given an array of numbers nums, in which exactly two elements appear only once and all the
-	 * other elements appear exactly twice. Find the two elements that appear only once.
+	 * Given an array of numbers nums, in which exactly two elements appear only once and all the other
+	 * elements appear exactly twice. Find the two elements that appear only once.
 	 * 
 	 * For example:
 	 * 
 	 * Given nums = [1, 2, 1, 3, 2, 5], return [3, 5].
 	 * 
-	 * Note: The order of the result is not important. So in the above example, [5, 3] is also
-	 * correct. Your algorithm should run in linear runtime complexity. Could you implement it using
-	 * only constant space complexity?
+	 * Note: The order of the result is not important. So in the above example, [5, 3] is also correct.
+	 * Your algorithm should run in linear runtime complexity. Could you implement it using only
+	 * constant space complexity?
 	 * 
 	 */
 	public int[] singleNumberIII(int[] nums) {

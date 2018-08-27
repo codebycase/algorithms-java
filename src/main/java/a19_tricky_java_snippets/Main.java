@@ -55,7 +55,71 @@ public class Main {
 		return num;
 	}
 
+	public static String countAndSay(int n) {
+		StringBuilder curr = new StringBuilder("1");
+		StringBuilder prev;
+		int count;
+		char say;
+		for (int i = 1; i < n; i++) {
+			System.out.println(curr);
+			prev = curr;
+			curr = new StringBuilder();
+			count = 1;
+			say = prev.charAt(0);
+
+			for (int j = 1, len = prev.length(); j < len; j++) {
+				if (prev.charAt(j) != say) {
+					curr.append(count).append(say);
+					count = 1;
+					say = prev.charAt(j);
+				} else
+					count++;
+			}
+			curr.append(count).append(say);
+		}
+		return curr.toString();
+	}
+
+	public double myPow(double x, int n) {
+		long N = n;
+		if (N < 0) {
+			x = 1 / x;
+			N = -N;
+		}
+		double ans = 1;
+		double current_product = x;
+		for (long i = N; i > 0; i /= 2) {
+			if ((i % 2) == 1) {
+				ans = ans * current_product;
+			}
+			current_product = current_product * current_product;
+		}
+		return ans;
+	}
+
+	public int longestSubstring(String s, int k) {
+		return helper(s.toCharArray(), 0, s.length(), k);
+	}
+
+	public int helper(char[] s, int left, int right, int k) {
+		if (right - left < k)
+			return 0;
+		int[] count = new int[26];
+		for (int i = left; i < right; i++)
+			count[s[i] - 'a']++;
+		for (int i = left; i < right; i++) {
+			if (count[s[i] - 'a'] < k) {
+				int j = i + 1;
+				while (j < right && count[s[j] - 'a'] < k)
+					j++;
+				return Math.max(helper(s, left, i, k), helper(s, j, right, k));
+			}
+		}
+		return right - left;
+	}
+
 	public static void main(String[] args) {
 		System.out.println(gcd(3, 8));
+		System.out.println(countAndSay(6));
 	}
 }

@@ -6,7 +6,7 @@ import java.util.Arrays;
  * <pre>
 Say you have an array for which the ith element is the price of a given stock on day i.
 
-If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit.
+If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit or minimum lose.
 
 Example 1:
 Input: [7, 1, 5, 3, 6, 4]
@@ -24,23 +24,23 @@ In this case, no transaction is done, i.e. max profit = 0.
  *
  */
 public class BestTimeToBuyAndSellStock {
-	// track max current
+	// track max current and also cover minimum lose
 	public int maxProfitWithSingleTransaction(int[] prices) {
-		int maxCur = 0, maxSoFar = 0;
+		int maxCur = Integer.MIN_VALUE, maxSoFar = Integer.MIN_VALUE;
 		for (int i = 1; i < prices.length; i++) {
-			maxCur += prices[i] - prices[i - 1];
-			maxCur = Math.max(0, maxCur); // start over if maxCur < 0
+			int diff = prices[i] - prices[i - 1];
+			maxCur = diff >= 0 ? maxCur + diff : diff;
 			maxSoFar = Math.max(maxCur, maxSoFar);
 		}
 		return maxSoFar;
 	}
 
-	// track min price
+	// track min price, and also cover minimum lose
 	public int maxProfitWithSingleTransaction2(int[] prices) {
-		int minPrice = Integer.MAX_VALUE, maxProfit = 0;
+		int minPrice = Integer.MAX_VALUE, maxProfit = Integer.MIN_VALUE;
 		for (int price : prices) {
-			minPrice = Math.min(minPrice, price);
 			maxProfit = Math.max(maxProfit, price - minPrice);
+			minPrice = Math.min(minPrice, price);
 		}
 		return maxProfit;
 	}

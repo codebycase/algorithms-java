@@ -132,7 +132,7 @@ public class LinkedListBootCamp {
 		return true;
 	}
 
-	private ListNode reverseList(ListNode list) {
+	private ListNode reverseList2(ListNode list) {
 		ListNode dummy = new ListNode(0, list);
 		ListNode before = dummy;
 		ListNode middle = before.next;
@@ -143,6 +143,17 @@ public class LinkedListBootCamp {
 			before.next = after;
 		}
 		return dummy.next;
+	}
+
+	public ListNode reverseList(ListNode head) {
+		ListNode prev = null, curr = head;
+		while (curr != null) {
+			ListNode temp = curr.next;
+			curr.next = prev;
+			prev = curr;
+			curr = temp;
+		}
+		return prev;
 	}
 
 	/**
@@ -313,8 +324,6 @@ public class LinkedListBootCamp {
 		// overlapping node is not unique, we can return any node on the cycle.
 		return l1 == l2 ? l1 : root1;
 	}
-	
-	
 
 	private ListNode overlappingNoCycleLists(ListNode l1, ListNode l2) {
 		int l1Len = length(l1), l2Len = length(l2);

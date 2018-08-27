@@ -149,6 +149,17 @@ public class BitManipulation {
 	}
 
 	private static long add(long a, long b) {
+		long c = 0; // carrier
+		while (b != 0) {
+			c = a & b;
+			a = a ^ b;
+			b = c << 1;
+		}
+		return a;
+	}
+
+	@SuppressWarnings("unused")
+	private static long add2(long a, long b) {
 		long sum = 0, carryin = 0, k = 1, tempA = a, tempB = b;
 		while (tempA != 0 || tempB != 0) {
 			long ak = a & k, bk = b & k;
@@ -183,7 +194,7 @@ public class BitManipulation {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Write a program that takes a double x and an integer y and returns $$x^y$$. You can ignore
 	 * overflow and underflow.
@@ -193,16 +204,17 @@ public class BitManipulation {
 	public static double power(double x, int y) {
 		double result = 1.0;
 
-		if (y < 0) {
-			y = -y;
+		long n = y; // avoid overflow, e.g., n = Integer.MIN_VALUE
+		if (n < 0) {
 			x = 1.0 / x;
+			n = -n;
 		}
 
-		while (y != 0) {
-			if ((y & 1) == 1) // will run twice for odd number, and only once for even number!
+		while (n != 0) {
+			if ((n & 1) == 1) // will run twice for odd number, and only once for even number!
 				result *= x;
 			x *= x;
-			y >>>= 1;
+			n >>>= 1;
 		}
 
 		return result;
@@ -339,6 +351,7 @@ public class BitManipulation {
 		assert power(2.0, -2) == powerII(2.0, -2);
 		assert divide(10, 2) == 5;
 		assert multiply(2, 3) == 6;
+		assert multiply(3, 5) == 15;
 	}
 
 }

@@ -1,6 +1,9 @@
 package a06_sorting_searching;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -60,6 +63,26 @@ public class MeetingRoomsII {
 		}
 
 		return heap.size();
+	}
+
+	public List<Interval> merge(List<Interval> intervals) {
+		List<Interval> list = new ArrayList<>(); // or linked list
+		Collections.sort(intervals, (a, b) -> (a.start - b.start));
+
+		for (Interval interval : intervals) {
+			if (list.isEmpty()) {
+				list.add(interval);
+				continue;
+			}
+			Interval last = list.get(list.size() - 1);
+			if (last.end < interval.start)
+				list.add(interval);
+			else {
+				last.end = Math.max(last.end, interval.end);
+			}
+		}
+
+		return list;
 	}
 
 	private class Interval {
