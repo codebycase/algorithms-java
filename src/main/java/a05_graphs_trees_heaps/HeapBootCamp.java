@@ -56,8 +56,8 @@ public class HeapBootCamp {
 	}
 
 	/**
-	 * An array is said to be k-increasing-decreasing if elements repeatedly increase up to a
-	 * certain index after which they decrease, then again increase, a total of k times. <br>
+	 * An array is said to be k-increasing-decreasing if elements repeatedly increase up to a certain
+	 * index after which they decrease, then again increase, a total of k times. <br>
 	 * 
 	 * The solution is to decompose this list to a list of sorted sub arrays, and merge them!
 	 * 
@@ -82,12 +82,12 @@ public class HeapBootCamp {
 	}
 
 	/**
-	 * Take as input a very long sequence of numbers and prints the numbers in sorted order. Each
-	 * number is at most k away from its correctly sorted position. For example, no number in the
-	 * sequence (3, -1, 2, 6, 4, 5, 8) is more than 2 away from its final sorted position. <br>
+	 * Take as input a very long sequence of numbers and prints the numbers in sorted order. Each number
+	 * is at most k away from its correctly sorted position. For example, no number in the sequence (3,
+	 * -1, 2, 6, 4, 5, 8) is more than 2 away from its final sorted position. <br>
 	 * 
-	 * Idea: after we have read k+1 numbers, the smallest number in that group must be smaller than
-	 * all following numbers.
+	 * Idea: after we have read k+1 numbers, the smallest number in that group must be smaller than all
+	 * following numbers.
 	 * 
 	 * @param sequence
 	 * @param k
@@ -107,8 +107,8 @@ public class HeapBootCamp {
 	}
 
 	/**
-	 * Median is the middle value in an ordered integer list. If the size of the list is even, there
-	 * is no middle value. So the median is the mean of the two middle value.
+	 * Median is the middle value in an ordered integer list. If the size of the list is even, there is
+	 * no middle value. So the median is the mean of the two middle value.
 	 * 
 	 * Examples: [2, 3, 4] , the median is 3; [1, 2, 3, 9], the median is (2 + 3) / 2 = 2.5.
 	 * 
@@ -138,8 +138,8 @@ public class HeapBootCamp {
 	 * elements sorted in the max-heap. <br>
 	 * You can't modify the heap.
 	 * 
-	 * A parent node always stores value greater than or equal to the values stored at its children
-	 * (2k + 1 or 2k + 2).
+	 * A parent node always stores value greater than or equal to the values stored at its children (2k
+	 * + 1 or 2k + 2).
 	 * 
 	 * @param A
 	 * @param k
@@ -167,6 +167,49 @@ public class HeapBootCamp {
 		}
 
 		return result;
+	}
+
+	public double findMedianSortedArrays(int[] A, int[] B) {
+		if (A.length > B.length) { // use the small one for binary search
+			int[] temp = A;
+			A = B;
+			B = temp;
+		}
+		// prone to use left for odd numbers
+		int left = 0, right = A.length, halfLen = (A.length + B.length + 1) / 2;
+		while (left <= right) {
+			int i = (left + right) / 2;
+			int j = halfLen - i;
+			if (i < right && B[j - 1] > A[i]) {
+				left = i + 1; // i is too small
+			} else if (i > left && A[i - 1] > B[j]) {
+				right = i - 1; // i is too big
+			} else { // i is perfect
+				int maxLeft = 0;
+				if (i == 0) {
+					maxLeft = B[j - 1];
+				} else if (j == 0) {
+					maxLeft = A[i - 1];
+				} else {
+					maxLeft = Math.max(A[i - 1], B[j - 1]);
+				}
+				if ((A.length + B.length) % 2 == 1) {
+					return maxLeft;
+				}
+
+				int minRight = 0;
+				if (i == A.length) {
+					minRight = B[j];
+				} else if (j == B.length) {
+					minRight = A[i];
+				} else {
+					minRight = Math.min(B[j], A[i]);
+				}
+
+				return (maxLeft + minRight) / 2.0;
+			}
+		}
+		return 0.0;
 	}
 
 	public static void main(String[] args) {

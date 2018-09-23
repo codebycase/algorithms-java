@@ -173,6 +173,7 @@ public class BacktrackBootCamp {
 		}
 	}
 
+
 	// If contains duplicates!
 	public List<List<Integer>> permuteUnique(int[] nums) {
 		List<List<Integer>> list = new ArrayList<>();
@@ -303,6 +304,24 @@ public class BacktrackBootCamp {
 			if (s.charAt(low++) != s.charAt(high--))
 				return false;
 		return true;
+	}
+
+	public int minCut(String s) {
+		int n = s.length();
+		int[] dp = new int[n]; // min cut for s[0:i) to be patitioned
+		boolean[][] isPal = new boolean[n][n]; // true means s[i:j) is a valid palindrome
+
+		for (int i = 0; i < n; i++) {
+			int min = i;
+			for (int j = 0; j <= i; j++) {
+				if (s.charAt(j) == s.charAt(i) && (j + 1 > i - 1 || isPal[j + 1][i - 1])) {
+					isPal[j][i] = true;
+					min = j == 0 ? 0 : Math.min(min, dp[j - 1] + 1);
+				}
+			}
+			dp[i] = min;
+		}
+		return dp[n - 1];
 	}
 
 	public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package a08_dynamic_programming;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class CoinsQuestions {
@@ -115,15 +116,13 @@ public class CoinsQuestions {
 	 * @param coins
 	 * @return
 	 */
-	public static int pickUpCoins(List<Integer> coins) {
+	public int pickUpCoins(List<Integer> coins) {
 		return computeMaximum(coins, 0, coins.size() - 1, new int[coins.size()][coins.size()]);
 	}
 
-	private static int computeMaximum(List<Integer> coins, int a, int b, int[][] maximumRevenue) {
-		if (a > b) {
-			// No coins left.
-			return 0;
-		}
+	private int computeMaximum(List<Integer> coins, int a, int b, int[][] maximumRevenue) {
+		if (a > b)
+			return 0; // No coins left.
 		if (maximumRevenue[a][b] == 0) {
 			int maximumRevenueA = coins.get(a) + Math.min(computeMaximum(coins, a + 2, b, maximumRevenue),
 					computeMaximum(coins, a + 1, b - 1, maximumRevenue));
@@ -132,6 +131,41 @@ public class CoinsQuestions {
 			maximumRevenue[a][b] = Math.max(maximumRevenueA, maximumRevenueB);
 		}
 		return maximumRevenue[a][b];
+	}
+
+	public boolean predictWinner(int[] nums) {
+		Integer[][] memo = new Integer[nums.length][nums.length];
+		return predictWinner(nums, 0, nums.length - 1, memo) >= 0;
+	}
+
+	public int predictWinner(int[] nums, int s, int e, Integer[][] memo) {
+		if (s == e)
+			return nums[s];
+		// remove duplicate calls
+		if (memo[s][e] != null)
+			return memo[s][e];
+		// pick from left, and minus player 2's max
+		int a = nums[s] - predictWinner(nums, s + 1, e, memo);
+		// pick from right, and minus player 2's max
+		int b = nums[e] - predictWinner(nums, s, e - 1, memo);
+		// pick the bigger one!
+		memo[s][e] = Math.max(a, b);
+		return memo[s][e];
+	}
+
+	// The current effective score isn't dependent on the elements outside the range [x,y].
+	// dp[i,j] = max(nums[i] − dp[i + 1][j], nums[j] − dp[i][j−1])
+	public boolean predictWinner2(int[] nums) {
+		int[] dp = new int[nums.length];
+		// starts from the right side
+		for (int s = nums.length; s >= 0; s--) {
+			for (int e = s + 1; e < nums.length; e++) {
+				int a = nums[s] - dp[e];
+				int b = nums[e] - dp[e - 1];
+				dp[e] = Math.max(a, b);
+			}
+		}
+		return dp[nums.length - 1] >= 0;
 	}
 
 	public int coinChangeFewest(int[] coins, int amount) {
@@ -163,6 +197,11 @@ public class CoinsQuestions {
 	public static void main(String[] args) {
 		CoinsQuestions coinQuestions = new CoinsQuestions();
 		System.out.println(coinQuestions.coinChangeCombinations(new int[] { 1, 2, 5 }, 5));
+
+		System.out.println(coinQuestions.pickUpCoins(Arrays.asList(1, 5, 2, 4, 6)));
+		System.out.println(coinQuestions.pickUpCoins(Arrays.asList(1, 5, 233, 7)));
+		System.out.println(coinQuestions.predictWinner(new int[] { 1, 5, 2, 4, 6 }));
+		System.out.println(coinQuestions.predictWinner(new int[] { 1, 5, 233, 7 }));
 	}
 
 }

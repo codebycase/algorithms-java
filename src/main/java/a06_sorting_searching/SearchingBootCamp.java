@@ -9,8 +9,8 @@ import java.util.List;
 
 public class SearchingBootCamp {
 	/**
-	 * Write a method that takes a sorted array and a key and returns the index of the first
-	 * occurrence of that key in the array.
+	 * Write a method that takes a sorted array and a key and returns the index of the first occurrence
+	 * of that key in the array.
 	 */
 	public int searchFirstOccurance(List<Integer> A, int k) {
 		int left = 0, right = A.size() - 1, result = -1;
@@ -29,14 +29,48 @@ public class SearchingBootCamp {
 		return result;
 	}
 
+	// returns leftmost (or rightmost) index at which `target` should be
+	// inserted in sorted array `nums` via binary search.
+	private int extremeInsertionIndex(int[] nums, int target, boolean left) {
+		int lo = 0;
+		int hi = nums.length;
+
+		while (lo < hi) {
+			int mid = (lo + hi) / 2;
+			if (nums[mid] > target || (left && target == nums[mid])) {
+				hi = mid;
+			} else {
+				lo = mid + 1;
+			}
+		}
+
+		return lo;
+	}
+
+	public int[] searchRange(int[] nums, int target) {
+		int[] targetRange = { -1, -1 };
+
+		int leftIdx = extremeInsertionIndex(nums, target, true);
+
+		// assert that `leftIdx` is within the array bounds and that `target`
+		// is actually in `nums`.
+		if (leftIdx == nums.length || nums[leftIdx] != target) {
+			return targetRange;
+		}
+
+		targetRange[0] = leftIdx;
+		targetRange[1] = extremeInsertionIndex(nums, target, false) - 1;
+
+		return targetRange;
+	}
+
 	/**
-	 * Suppose an array sorted in ascending order is rotated at some pivot unknown to you
-	 * beforehand.
+	 * Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
 	 * 
 	 * (i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
 	 * 
-	 * You are given a target value to search. If found in the array return its index, otherwise
-	 * return -1.
+	 * You are given a target value to search. If found in the array return its index, otherwise return
+	 * -1.
 	 * 
 	 * You may assume no duplicate exists in the array.
 	 * 
@@ -118,9 +152,9 @@ public class SearchingBootCamp {
 	}
 
 	/**
-	 * Write a program which takes a nonnegative integer and returns the largest integer whose
-	 * square is less than or equal to the given integer. For example, if the input is 16, return 4;
-	 * if the input is 300, return 17, since 17^2 = 289 < 300.
+	 * Write a program which takes a nonnegative integer and returns the largest integer whose square is
+	 * less than or equal to the given integer. For example, if the input is 16, return 4; if the input
+	 * is 300, return 17, since 17^2 = 289 < 300.
 	 */
 	public int computeSquareRootInt(int k) {
 		long left = 0, right = k;
@@ -138,8 +172,8 @@ public class SearchingBootCamp {
 	}
 
 	/**
-	 * Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has
-	 * the following properties:
+	 * Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the
+	 * following properties:
 	 * 
 	 * Integers in each row are sorted in ascending from left to right. Integers in each column are
 	 * sorted in ascending from top to bottom.
@@ -182,8 +216,8 @@ public class SearchingBootCamp {
 	}
 
 	/**
-	 * Design an algorithm to find the min and max elements in an array. For example, if A = [3, 2,
-	 * 5, 1, 2, 4], you should return 1 for the min and 5 for the max.
+	 * Design an algorithm to find the min and max elements in an array. For example, if A = [3, 2, 5,
+	 * 1, 2, 4], you should return 1 for the min and 5 for the max.
 	 */
 	public static MinMax findMinMax(List<Integer> A) {
 		if (A.size() == 1)
@@ -221,8 +255,8 @@ public class SearchingBootCamp {
 	}
 
 	/**
-	 * Find the kth largest element in an unsorted array. Note that it is the kth largest element in
-	 * the sorted order, not the kth distinct element.
+	 * Find the kth largest element in an unsorted array. Note that it is the kth largest element in the
+	 * sorted order, not the kth distinct element.
 	 * 
 	 * For example, Given [3,2,1,5,6,4] and k = 2, return 5.
 	 * 
@@ -315,9 +349,9 @@ public class SearchingBootCamp {
 	}
 
 	/**
-	 * You are given an array of n integers, each between 0 and n - 1, inclusive. Exactly one
-	 * element appears twice, implying that exactly one number between 0 and n - 1 is missing from
-	 * the array. How would you compute the duplicate and missing numbers?
+	 * You are given an array of n integers, each between 0 and n - 1, inclusive. Exactly one element
+	 * appears twice, implying that exactly one number between 0 and n - 1 is missing from the array.
+	 * How would you compute the duplicate and missing numbers?
 	 * 
 	 */
 	public int[] findDuplicateMissingNumber(int[] A) {
@@ -369,8 +403,8 @@ public class SearchingBootCamp {
 	}
 
 	/**
-	 * If car starts at A and can not reach B. Any station between A and B can not reach B. If the
-	 * total number of Gas is bigger than the total number of Cost, There must be a solution.
+	 * If car starts at A and can not reach B. Any station between A and B can not reach B. If the total
+	 * number of Gas is bigger than the total number of Cost, There must be a solution.
 	 * 
 	 * @param gas
 	 * @param cost
@@ -400,8 +434,8 @@ public class SearchingBootCamp {
 	/**
 	 * Given service times for a set of queries, compute a schedule for processing the queries that
 	 * minimizes the total waiting time. The time a query waits before its turn comes is called its
-	 * waiting time. For example, if the service times are <2, 5, 1, 3>, the minimum waiting time is
-	 * 10 = (0 + (1) + (1 + 2) + (1 + 2 + 3))
+	 * waiting time. For example, if the service times are <2, 5, 1, 3>, the minimum waiting time is 10
+	 * = (0 + (1) + (1 + 2) + (1 + 2 + 3))
 	 */
 	public int minimumTotalWaitingTime(List<Integer> serviceTimes) {
 		// Sort the service times in increasing order

@@ -99,29 +99,32 @@ public class LRUCache {
 		}
 	}
 
-	public class LRUCache2 {
-		private LinkedHashMap<Integer, Integer> map;
+	public class LRUCache2<K, V> {
+		private Map<K, V> map;
 		protected int maxCapacity; // cache capacity
 
 		public LRUCache2(int maxCapacity) {
-			map = new LinkedHashMap<Integer, Integer>(maxCapacity, 0.75f, true) {
+			// Keys are sorted on the basis of access order e.g Invoking the put, putIfAbsent, get,
+			// getOrDefault, compute, computeIfAbsent, computeIfPresent, or merge methods results in an access
+			// to the corresponding entry.
+			map = new LinkedHashMap<K, V>(maxCapacity, 0.75f, true) {
 				private static final long serialVersionUID = 1L;
 
-				protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
+				protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
 					return size() > maxCapacity;
 				}
 			};
 		}
 
-		public int get(int key) {
-			return map.getOrDefault(key, -1);
+		public V get(K key) {
+			return map.getOrDefault(key, null);
 		}
 
-		public void set(int key, int value) {
+		public void set(K key, V value) {
 			map.put(key, value);
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		LRUCache cache = new LRUCache(2);
 		cache.put(1, 1);

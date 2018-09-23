@@ -1,7 +1,13 @@
 package a02_arrays_strings;
 
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class StringBootCamp {
 	/**
@@ -15,6 +21,25 @@ public class StringBootCamp {
 			result = result * 26 + (colId.charAt(i) - 'A' + 1);
 		}
 		return result;
+	}
+
+	public List<String> findRepeatedDnaSequences(String s) {
+		List<String> res = new ArrayList<>();
+		if (s == null || s.length() < 10)
+			return res;
+
+		Set<String> set = new HashSet<>();
+		Set<String> ans = new HashSet<>();
+		for (int i = 0; i < s.length() - 9; i++) {
+			String temp = s.substring(i, i + 10);
+			if (set.contains(temp)) {
+				ans.add(temp);
+			} else {
+				set.add(temp);
+			}
+		}
+		res.addAll(ans);
+		return res;
 	}
 
 	/**
@@ -250,6 +275,97 @@ public class StringBootCamp {
 		return -1; // s is not a substring of t.
 	}
 
+	public List<List<String>> groupStrings(String[] strings) {
+		Map<String, List<String>> patternGroups = new HashMap<>();
+
+		for (String str : strings) {
+			String pattern = generatePattern(str);
+			List<String> currentGroup = patternGroups.getOrDefault(pattern, new ArrayList<>());
+			patternGroups.put(pattern, currentGroup);
+			currentGroup.add(str);
+		}
+
+		List<List<String>> result = new ArrayList<>();
+		for (List<String> group : patternGroups.values())
+			result.add(group);
+
+		return result;
+	}
+
+	private String generatePattern(String str) {
+		StringBuilder pattern = new StringBuilder();
+		int n = str.length();
+		for (int i = 1; i < n; i++) {
+			// use s[i]-s[i-1] can also handle different shitting steps
+			// e.g. the first letter shift 1 step, second 2 steps...
+			int diff = str.charAt(i) - str.charAt(i - 1);
+			if (diff < 0)
+				diff += 26;
+			pattern.append(diff);
+			if (i < n - 1)
+				pattern.append("-");
+		}
+		return pattern.toString();
+	}
+
+	public int compareVersion(String version1, String version2) {
+		int l1 = version1.length(), l2 = version2.length();
+		int i = 0, j = 0;
+		while (i < l1 || j < l2) {
+			int num1 = 0, num2 = 0;
+			num2 = 0;
+			while (i < l1 && version1.charAt(i) != '.') {
+				num1 = num1 * 10 + version1.charAt(i++) - '0';
+			}
+			while (j < l2 && version2.charAt(j) != '.') {
+				num2 = num2 * 10 + version2.charAt(j++) - '0';
+			}
+			if (num1 > num2)
+				return 1;
+			else if (num1 < num2)
+				return -1;
+			else {
+				i++;
+				j++;
+			}
+		}
+		return 0;
+	}
+
+	public boolean canJump(int[] nums) {
+		int pos = 0;
+		for (int i = 0; i < nums.length; i++) {
+			if (pos >= nums.length - 1) {
+				return true;
+			} else if (i > pos) {
+				// can't jump to next
+				return false;
+			} else {
+				pos = Math.max(pos, nums[i] + i);
+			}
+		}
+		return false;
+	}
+
+	public int minJump(int[] A) {
+		if (A.length < 2)
+			return 0;
+		int jumps = 0, curEnd = 0, maxEnd = 0;
+		for (int i = 0; i < A.length - 1; i++) {
+			if (i + A[i] > maxEnd) {
+				maxEnd = i + A[i];
+				// break it!
+				if (maxEnd >= A.length - 1)
+					return jumps + 1;
+			}
+			if (i == curEnd) {
+				jumps++;
+				curEnd = maxEnd;
+			}
+		}
+		return jumps;
+	}
+
 	public static void main(String[] args) {
 		StringBootCamp camp = new StringBootCamp();
 		assert camp.decodeColumnId("AA") == 27;
@@ -264,5 +380,9 @@ public class StringBootCamp {
 		assert camp.rabinKarp("GACGCCA", "CGC") == 2;
 		assert camp.rabinKarp("CGC", "CGC") == 0;
 		assert camp.rabinKarp("GATACCCATCGAGTCGGATCGAGT", "GAG") == 10;
+
+		List<List<String>> result = camp
+				.groupStrings(new String[] { "abc", "bcd", "acef", "xyz", "az", "ba", "a", "z" });
+		assert result.toString().equals("[[a], [z], [bcd], [ba], [abc], [az], [xyz], [acef]]");
 	}
 }

@@ -2,18 +2,21 @@ package a03_linked_lists;
 
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Stack;
 
 import util.ListNode;
+import util.TreeNode;
 
 public class LinkedListBootCamp {
 	/**
 	 * Given a singly linked list and an integer k, write a program to remove the kth last element.
 	 */
-	public ListNode deleteKthLast(ListNode l, int k) {
-		ListNode dummyHead = new ListNode(0, l);
+	public ListNode removeNthFromEnd(ListNode head, int n) {
+		ListNode dummyHead = new ListNode(0);
+		dummyHead.next = head;
 
 		ListNode first = dummyHead.next; // start with next!
-		while (k-- > 0) {
+		while (n-- > 0) {
 			first = first.next;
 		}
 
@@ -195,6 +198,28 @@ public class LinkedListBootCamp {
 		return dummy.next;
 	}
 
+	public void flattenBinaryTree(TreeNode root) {
+		if (root == null)
+			return;
+
+		TreeNode left = root.left;
+		TreeNode right = root.right;
+
+		root.left = null;
+
+		flattenBinaryTree(left);
+		flattenBinaryTree(right);
+
+		root.right = left;
+		TreeNode cur = root;
+
+		// all the way to max left!
+		while (cur.right != null)
+			cur = cur.right;
+
+		cur.right = right;
+	}
+
 	public ListNode detectCycle(ListNode head) {
 		ListNode slow = head, fast = head;
 
@@ -214,6 +239,20 @@ public class LinkedListBootCamp {
 		}
 
 		return null;
+	}
+
+	public ListNode oddEvenList(ListNode head) {
+		if (head == null)
+			return null;
+		ListNode odd = head, even = head.next, evenHead = even;
+		while (even != null && even.next != null) {
+			odd.next = even.next;
+			odd = odd.next;
+			even.next = odd.next;
+			even = even.next;
+		}
+		odd.next = evenHead;
+		return head;
 	}
 
 	/**
@@ -276,6 +315,36 @@ public class LinkedListBootCamp {
 			l2 = (l2 == null) ? l2 : l2.next;
 		}
 		return head.next;
+	}
+
+	public ListNode addTwoNumbersII(ListNode l1, ListNode l2) {
+		Stack<Integer> stack1 = new Stack<>();
+		Stack<Integer> stack2 = new Stack<>();
+
+		while (l1 != null) {
+			stack1.push(l1.val);
+			l1 = l1.next;
+		}
+
+		while (l2 != null) {
+			stack2.push(l2.val);
+			l2 = l2.next;
+		}
+
+		int sum = 0;
+		ListNode node = new ListNode(0);
+		while (!stack1.isEmpty() || !stack2.isEmpty()) {
+			if (!stack1.isEmpty())
+				sum += stack1.pop();
+			if (!stack2.isEmpty())
+				sum += stack2.pop();
+			node.val = sum % 10;
+			ListNode head = new ListNode(sum /= 10);
+			head.next = node;
+			node = head;
+		}
+
+		return node.val == 0 ? node.next : node;
 	}
 
 	/**

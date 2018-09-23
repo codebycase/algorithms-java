@@ -3,11 +3,14 @@ package a05_graphs_trees_heaps;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 
 import util.TreeNode;
 
@@ -24,9 +27,9 @@ import util.TreeNode;
  */
 public class BinaryTreeBootCamp {
 	/**
-	 * Given a binary tree, determine if it is height-balanced. A height-balanced binary tree is
-	 * defined as a binary tree in which the depth of the two subtrees of every node never differ by
-	 * more than 1.
+	 * Given a binary tree, determine if it is height-balanced. A height-balanced binary tree is defined
+	 * as a binary tree in which the depth of the two subtrees of every node never differ by more than
+	 * 1.
 	 *
 	 */
 	public boolean isBalanced(TreeNode root) {
@@ -134,7 +137,7 @@ public class BinaryTreeBootCamp {
 	 *
 	 */
 	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-		if (root == null || root == p || root == q)
+		if (root == null || root.val == p.val || root.val == q.val)
 			return root;
 		TreeNode left = lowestCommonAncestor(root.left, p, q);
 		TreeNode right = lowestCommonAncestor(root.right, p, q);
@@ -145,8 +148,8 @@ public class BinaryTreeBootCamp {
 	}
 
 	/**
-	 * Given two nodes in a binary tree, design an algorithm that computes their LCA. Assume that
-	 * each node has a parent pointer.
+	 * Given two nodes in a binary tree, design an algorithm that computes their LCA. Assume that each
+	 * node has a parent pointer.
 	 * 
 	 * @param node0
 	 * @param node1
@@ -207,8 +210,8 @@ public class BinaryTreeBootCamp {
 	}
 
 	/**
-	 * Consider a binary tree in which each node contains a binary digit. Design an algorithm to
-	 * compute the sum of the binary numbers represented by the root-to-leaf paths.
+	 * Consider a binary tree in which each node contains a binary digit. Design an algorithm to compute
+	 * the sum of the binary numbers represented by the root-to-leaf paths.
 	 * 
 	 * @param root
 	 * @return
@@ -299,9 +302,9 @@ public class BinaryTreeBootCamp {
 	 * Assume nodes have parent fields.
 	 * 
 	 * Idea: To complete this algorithm, we need to know when we return to a parent if the just
-	 * completed subtree was the parent's left child (in which case we need to visit the parent and
-	 * then traverse its right subtree) or a right substree (in which case we have completed
-	 * traversing the parent).
+	 * completed subtree was the parent's left child (in which case we need to visit the parent and then
+	 * traverse its right subtree) or a right substree (in which case we have completed traversing the
+	 * parent).
 	 * 
 	 * @param root
 	 * @return
@@ -361,8 +364,8 @@ public class BinaryTreeBootCamp {
 
 	/**
 	 * We can compute the nodes on the path from the root to the leftmost leaf and the leaves in the
-	 * left subtree in one traversal. After that, we find the leaves in the right subtree followed
-	 * by the nodes from the rightmost leaf to the root with another traversal.
+	 * left subtree in one traversal. After that, we find the leaves in the right subtree followed by
+	 * the nodes from the rightmost leaf to the root with another traversal.
 	 * 
 	 * @param root
 	 * @return
@@ -426,6 +429,98 @@ public class BinaryTreeBootCamp {
 			}
 			node = node.next;
 		}
+	}
+
+	public List<Integer> rightSideView(TreeNode root) {
+		Map<Integer, Integer> rightmostValueAtDepth = new HashMap<Integer, Integer>();
+		int maxDepth = -1;
+
+		/* These two stacks are always synchronized, providing an implicit
+		 * association values with the same offset on each stack. */
+		Stack<TreeNode> nodeStack = new Stack<TreeNode>();
+		Stack<Integer> depthStack = new Stack<Integer>();
+		nodeStack.push(root);
+		depthStack.push(0);
+
+		while (!nodeStack.isEmpty()) {
+			TreeNode node = nodeStack.pop();
+			int depth = depthStack.pop();
+
+			if (node != null) {
+				maxDepth = Math.max(maxDepth, depth);
+
+				/* The first node that we encounter at a particular depth contains
+				* the correct value. */
+				if (!rightmostValueAtDepth.containsKey(depth)) {
+					rightmostValueAtDepth.put(depth, node.val);
+				}
+
+				nodeStack.push(node.left);
+				nodeStack.push(node.right);
+				depthStack.push(depth + 1);
+				depthStack.push(depth + 1);
+			}
+		}
+
+		/* Construct the solution based on the values that we end up with at the
+		 * end. */
+		List<Integer> rightView = new ArrayList<Integer>();
+		for (int depth = 0; depth <= maxDepth; depth++) {
+			rightView.add(rightmostValueAtDepth.get(depth));
+		}
+
+		return rightView;
+	}
+
+	public List<Integer> rightSideView2(TreeNode root) {
+		List<Integer> res = new ArrayList<Integer>();
+		if (root == null)
+			return res;
+		dfs(root, res, 0);
+		return res;
+	}
+
+	public void dfs(TreeNode root, List<Integer> res, int level) {
+		if (root == null)
+			return;
+
+		if (res.size() == level)
+			res.add(root.val);
+
+		dfs(root.right, res, level + 1);
+		dfs(root.left, res, level + 1);
+	}
+
+	public List<List<Integer>> findLeaves(TreeNode root) {
+		List<List<Integer>> res = new ArrayList<>();
+		height(root, res);
+		return res;
+	}
+
+	private int height(TreeNode node, List<List<Integer>> res) {
+		if (null == node)
+			return -1;
+		int level = 1 + Math.max(height(node.left, res), height(node.right, res));
+		if (res.size() < level + 1)
+			res.add(new ArrayList<>());
+		res.get(level).add(node.val);
+		return level;
+	}
+
+	
+	public int[][] matrixMultiply(int[][] A, int[][] B) {
+		int rowsA = A.length, colsA = A[0].length, colsB = B[0].length;
+		int[][] result = new int[rowsA][colsB];
+		for (int xA = 0; xA < rowsA; xA++) {
+			for (int yA = 0; yA < colsA; yA++) {
+				if (A[xA][yA] != 0) {
+					for (int yB = 0; yB < colsB; yB++) {
+						result[xA][yB] += A[xA][yA] * B[yA][yB];
+					}
+				}
+			}
+		}
+		return result;
 	}
 
 	public static void main(String[] args) {

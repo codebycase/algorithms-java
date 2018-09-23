@@ -2,6 +2,8 @@ package a18_the_honors_question;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PalindromePairs {
@@ -68,6 +70,41 @@ public class PalindromePairs {
 			index = -1;
 			list = new ArrayList<>();
 		}
+	}
+
+	// say this pair of words: {"dcbab","cd"}, we need check both "dcbabcd" and "cddcbab"
+	public List<List<Integer>> palindromePairs2(String[] words) {
+		List<List<Integer>> pairs = new LinkedList<>();
+		if (words == null || words.length == 0)
+			return pairs;
+		HashMap<String, Integer> map = new HashMap<>();
+		// add reversed words to map!
+		for (int i = 0; i < words.length; i++)
+			map.put(new StringBuilder(words[i]).reverse().toString(), i);
+		for (int i = 0; i < words.length; i++) {
+			String word = words[i];
+			int l = 0, r = 0;
+			while (l <= r) {
+				Integer j = map.get(word.substring(l, r));
+				// check both left and right side
+				if (j != null && i != j && isPalindrome(word.substring(l == 0 ? r : 0, l == 0 ? word.length() : l)))
+					pairs.add(l == 0 ? Arrays.asList(i, j) : Arrays.asList(j, i));
+				if (r < word.length())
+					r++;
+				else
+					l++;
+			}
+		}
+		return pairs;
+	}
+
+	private boolean isPalindrome(String word) {
+		int i = 0, j = word.length() - 1;
+		while (i < j) {
+			if (word.charAt(i++) != word.charAt(j--))
+				return false;
+		}
+		return true;
 	}
 
 	public static void main(String[] args) {

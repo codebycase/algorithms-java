@@ -1,8 +1,10 @@
 package a02_arrays_strings;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <pre>
@@ -23,6 +25,34 @@ A solution set is:
  *
  */
 public class ThreeSumEquals {
+	public int[] twoSum(int[] numbers, int target) {
+		int[] result = new int[2];
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		for (int i = 0; i < numbers.length; i++) {
+			if (map.containsKey(target - numbers[i])) {
+				result[1] = i;
+				result[0] = map.get(target - numbers[i]);
+				return result;
+			}
+			map.put(numbers[i], i);
+		}
+		return result;
+	}
+
+	public int[] twoSum2(int[] numbers, int target) {
+		int i = 0, j = numbers.length - 1;
+		while (i < j) {
+			int sum = numbers[i] + numbers[j];
+			if (sum == target)
+				return new int[] { i + 1, j + 1 };
+			else if (sum < target)
+				i++;
+			else
+				j--;
+		}
+		return new int[] { -1, -1 };
+	}
+
 	// skip equal elements to avoid duplicates
 	public List<List<Integer>> threeSum(int[] nums) {
 		Arrays.sort(nums);

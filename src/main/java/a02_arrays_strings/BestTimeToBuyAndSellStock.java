@@ -29,7 +29,7 @@ public class BestTimeToBuyAndSellStock {
 		int maxCur = Integer.MIN_VALUE, maxSoFar = Integer.MIN_VALUE;
 		for (int i = 1; i < prices.length; i++) {
 			int diff = prices[i] - prices[i - 1];
-			maxCur = diff >= 0 ? maxCur + diff : diff;
+			maxCur = maxCur >= 0 ? maxCur + diff : diff;
 			maxSoFar = Math.max(maxCur, maxSoFar);
 		}
 		return maxSoFar;
