@@ -8,10 +8,10 @@ import java.util.Set;
 
 public class SlidingPuzzle {
 	public int slidingPuzzle(int[][] board) {
-		int m = board.length, n = board[0].length;
+		int r = board.length, c = board[0].length;
 		int sr = 0, sc = 0;
-		search: for (sr = 0; sr < m; sr++)
-			for (sc = 0; sc < n; sc++)
+		search: for (sr = 0; sr < r; sr++)
+			for (sc = 0; sc < c; sc++)
 				if (board[sr][sc] == 0)
 					break search;
 
@@ -34,10 +34,10 @@ public class SlidingPuzzle {
 				int neiR = dir[0] + node.zeroR;
 				int neiC = dir[1] + node.zeroC;
 
-				if (neiR < 0 || neiR >= m || neiC < 0 || neiC >= n)
+				if (neiR < 0 || neiR >= r || neiC < 0 || neiC >= c)
 					continue;
 
-				int[][] newBoard = new int[m][n];
+				int[][] newBoard = new int[r][c];
 				int t = 0;
 				for (int[] row : node.curBoard)
 					newBoard[t++] = row.clone();
