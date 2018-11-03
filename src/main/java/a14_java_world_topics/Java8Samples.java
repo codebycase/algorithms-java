@@ -1,8 +1,11 @@
 package a14_java_world_topics;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.Properties;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -35,8 +38,7 @@ public class Java8Samples {
 	}
 
 	public static void main(String[] args) {
-		Animal[] animalArr = { new Animal("Lion"), new Animal("Crocodile"), new Animal("Tiger"),
-				new Animal("Elephant") };
+		Animal[] animalArr = { new Animal("Lion"), new Animal("Crocodile"), new Animal("Tiger"), new Animal("Elephant") };
 		Arrays.sort(animalArr, Animal::animalCompare);
 		assert Arrays.toString(animalArr).equals("[Crocodile, Elephant, Lion, Tiger]");
 
@@ -48,6 +50,12 @@ public class Java8Samples {
 		numList.add(new Integer(30));
 		numList.add(new Integer(40));
 		numList.add(new Integer(50));
+
+		File[] hiddenFiles = new File(".").listFiles(File::isHidden);
+		for (File file : hiddenFiles) {
+			System.out.println(file);
+		}
+		System.out.println(hiddenFiles);
 
 		assert count(numList, n -> true) == 5;
 		assert count(numList, n -> false) == 0;
@@ -68,5 +76,6 @@ public class Java8Samples {
 		highNums = sequentialStream.filter(a -> a > 90);
 		highNums.forEach(p -> System.out.println("High Nums sequential=" + p));
 	}
+
 
 }

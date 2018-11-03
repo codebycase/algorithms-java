@@ -132,7 +132,8 @@ public class DPBootCamp {
         dp[0] = true;
 
         for (int num : nums) {
-            for (int i = target; i >= num; i--) {
+            for (int i = num; i <= target; i++) {
+            //for (int i = target; i >= num; i--) {
                 dp[i] = dp[i] || dp[i - num]; // not pick it or pick it!
             }
             // System.out.println(num + ": " + Arrays.toString(dp));
@@ -1354,7 +1355,7 @@ public class DPBootCamp {
         List<Integer> playScores = Arrays.asList(2, 3, 7);
         Assert.assertTrue(4 == combinationsForFinalScore(12, playScores));
         Assert.assertTrue(1 == combinationsForFinalScore(5, playScores));
-        Assert.assertTrue(solution.canPartitionArray(new int[] { 1, 5, 11, 5 }));
+        Assert.assertTrue(solution.canPartitionArray(new int[] { 1, 5, 11, 5, 3, 1, 2 }));
 
         int[] array = new int[] { -10, -5, 2, 2, 2, 3, 4, 7, 9, 12, 13 };
         assert solution.magicIndexWithDups(array) == 2;
