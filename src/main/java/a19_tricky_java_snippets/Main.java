@@ -2,11 +2,15 @@ package a19_tricky_java_snippets;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 
 public class Main {
@@ -345,7 +349,7 @@ public class Main {
 
 		printTerrian();
 	}
-
+	
 	public static void printTerrian() {
 		int[] heights = { 5, 4, 2, 1, 2, 3, 2, 1, 0, 1, 2, 4 };
 		int m = Arrays.stream(heights).max().getAsInt() + 1;
@@ -405,6 +409,96 @@ public class Main {
 		for (char[] row : grid) {
 			System.out.println(row);
 		}
+	}
+
+	public int[] productExceptSelf(int[] nums) {
+		int[] res = new int[nums.length];
+		int left = 1;
+		for (int i = 0; i < nums.length; i++) {
+			res[i] = left;
+			left *= nums[i];
+		}
+		int right = 1;
+		for (int j = nums.length - 1; j >= 0; j--) {
+			res[j] *= right;
+			right *= nums[j];
+		}
+		return res;
+	}
+
+	public List<int[]> getSkyline(int[][] buildings) {
+		List<int[]> result = new ArrayList<>();
+		List<int[]> heights = new ArrayList<>();
+
+		for (int[] building : buildings) {
+			heights.add(new int[] { building[0], -building[2] });
+			heights.add(new int[] { building[1], building[2] });
+		}
+		Collections.sort(heights, (a, b) -> (a[0] == b[0] ? a[1] - b[1] : a[0] - b[0]));
+		Queue<Integer> queue = new PriorityQueue<>((a, b) -> (b - a));
+		queue.offer(0);
+		int prev = 0;
+		for (int[] height : heights) {
+			if (height[1] < 0)
+				queue.offer(-height[1]);
+			else
+				queue.remove(height[1]);
+			int curr = queue.peek();
+			if (curr != prev) {
+				result.add(new int[] { height[0], curr });
+				prev = curr;
+			}
+		}
+		return result;
+	}
+
+	public static int findFirstMissingPositive(List<Integer> A) {
+		for (int i = 0; i < A.size(); i++) {
+			int j = A.get(i);
+			while (0 < j && j <= A.size() && !A.get(j - 1).equals(j)) {
+				Collections.swap(A, i, j - 1);
+			}
+		}
+		for (int i = 0; i < A.size(); i++) {
+			if (A.get(i) != i + 1)
+				return i + 1;
+		}
+		return A.size() + 1;
+	}
+
+	public boolean wordBreak3(String s, List<String> wordDict) {
+		Set<String> wordDictSet = new HashSet<>(wordDict);
+		boolean[] found = new boolean[s.length() + 1];
+		found[0] = true;
+		for (int i = 1; i < s.length(); i++) {
+			for (int j = 0; j < i; j++) {
+				if (found[j] && wordDictSet.contains(s.substring(j, i))) {
+					found[i] = true;
+					break;
+				}
+			}
+		}
+		return found[s.length()];
+	}
+	
+	public boolean canCross2(int[] stones) {
+		Map<Integer, Set<Integer>> map = new HashMap<>();
+		for (int i = 0; i < stones.length; i++) {
+			map.put(stones[i], new HashSet<Integer>());
+		}
+		map.get(0).add(0);
+		for (int i = 0; i < stones.length; i++) {
+			int position = stones[i];
+			for (int k : map.get(position)) {
+				for (int step = k - 1; step <= k + 1; step++) {
+					if (step > 0 && map.containsKey(position + step)) {
+						map.get(position + step).add(step);
+					}
+				}
+			}
+		}
+
+		return map.get(stones[stones.length - 1]).size() > 0;
 	}
 
 }
