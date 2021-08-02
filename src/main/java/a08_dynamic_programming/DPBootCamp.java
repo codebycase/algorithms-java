@@ -749,7 +749,7 @@ public class DPBootCamp {
      * 
      * Time complexity: O(mn*log(mn)); Space complexity: O(mn)
      */
-    public int shortestDistanceInMaze(int[][] maze, int[] start, int[] destination) {
+    public int shortestDistanceInMazeII(int[][] maze, int[] start, int[] destination) {
         int m = maze.length, n = maze[0].length;
         int[][] lens = new int[m][n];
         for (int i = 0; i < m * n; i++)
