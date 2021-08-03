@@ -12,3 +12,9 @@
 4. Word Search with Trie
 	* https://www.codebycase.com/algorithms/a06-sorting-and-searching.html#word-search
 5. Quick Sort & Merge Sorted List
+6. Union find
+	https://leetcode.com/problems/accounts-merge/
+7. Double pointer
+	https://leetcode.com/problems/container-with-most-water/
+8. Treemap
+	https://leetcode.com/problems/the-skyline-problem/
