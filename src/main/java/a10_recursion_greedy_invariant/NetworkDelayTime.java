@@ -25,38 +25,37 @@ import java.util.Queue;
  *
  */
 public class NetworkDelayTime {
-	public int networkDelayTime(int[][] times, int N, int K) {
-		List<List<int[]>> graph = new ArrayList<>();
-		for (int i = 0; i <= N; i++) {
-			graph.add(new ArrayList<>());
-		}
-		for (int[] edge : times) {
-			graph.get(edge[0]).add(new int[] { edge[1], edge[2] });
-		}
+  public int networkDelayTime(int[][] times, int N, int K) {
+    Map<Integer, List<int[]>> graph = new HashMap<>();
+    for (int[] edge : times) {
+      graph.putIfAbsent(edge[0], new ArrayList<>());
+      graph.get(edge[0]).add(new int[] { edge[1], edge[2] });
+    }
 
-		Queue<int[]> heap = new PriorityQueue<>((a, b) -> a[1] - b[1]);
-		heap.offer(new int[] { K, 0 }); // node -> distance
+    Queue<int[]> heap = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+    heap.offer(new int[] { K, 0 }); // [node, distance]
 
-		// distance of shortest s -> v path
-		Map<Integer, Integer> distances = new HashMap<>();
-		while (!heap.isEmpty()) {
-			int[] item = heap.poll();
-			int node = item[0], delay = item[1];
-			if (distances.containsKey(node))
-				continue;
-			distances.put(node, delay);
-			for (int[] edge : graph.get(node)) {
-				int node2 = edge[0], delay2 = edge[1];
-				if (!distances.containsKey(node2))
-					heap.offer(new int[] { node2, delay + delay2 });
-			}
-		}
+    // Cache distances of shortest path from A -> B
+    Map<Integer, Integer> distances = new HashMap<>();
+    while (!heap.isEmpty()) {
+      int[] info = heap.poll();
+      if (distances.containsKey(info[0])) {
+        continue; // Alreay visited
+      }
+      distances.put(info[0], info[1]);
+      if (graph.containsKey(info[0])) {
+        for (int[] edge : graph.get(info[0])) {
+          if (!distances.containsKey(edge[0]))
+            heap.offer(new int[] { edge[0], info[1] + edge[1] });
+        }
+      }
+    }
 
-		if (distances.size() != N)
-			return -1;
-		int answer = 0;
-		for (int delay : distances.values())
-			answer = Math.max(answer, delay);
-		return answer;
-	}
+    if (distances.size() != N)
+      return -1;
+    int answer = 0;
+    for (int delay : distances.values())
+      answer = Math.max(answer, delay);
+    return answer;
+  }
 }

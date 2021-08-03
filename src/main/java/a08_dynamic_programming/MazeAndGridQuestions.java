@@ -174,101 +174,11 @@ public class MazeAndGridQuestions {
     return false;
   }
 
-  public int shortestDistance(int[][] maze, int[] start, int[] destination) {
-    int m = maze.length, n = maze[0].length;
-    int[][] lens = new int[m][n];
-    for (int i = 0; i < m * n; i++)
-      lens[i / n][i % n] = Integer.MAX_VALUE;
-
-    int[][] dirs = new int[][] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
-    Queue<int[]> queue = new PriorityQueue<>((a, b) -> (a[2] - b[2]));
-    queue.offer(new int[] { start[0], start[1], 0 });
-
-    while (!queue.isEmpty()) {
-      int[] p = queue.poll();
-      if (lens[p[0]][p[1]] <= p[2]) // already found shorter route
-        continue;
-      lens[p[0]][p[1]] = p[2];
-      for (int[] dir : dirs) {
-        int x = p[0], y = p[1], l = p[2];
-        while (x >= 0 && x < m && y >= 0 && y < n && maze[x][y] == 0) {
-          x += dir[0];
-          y += dir[1];
-          l++;
-        }
-        // Minus over stepped one
-        x -= dir[0];
-        y -= dir[1];
-        l--;
-        queue.offer(new int[] { x, y, l });
-      }
-    }
-
-    return lens[destination[0]][destination[1]] == Integer.MAX_VALUE ? -1 : lens[destination[0]][destination[1]];
-  }
-
-  class Point implements Comparable<Point> {
-    int x, y, l;
-    String s;
-
-    public Point(int x, int y) {
-      this(x, y, Integer.MAX_VALUE, "");
-    }
-
-    public Point(int x, int y, int l, String s) {
-      this.x = x;
-      this.y = y;
-      this.l = l;
-      this.s = s;
-    }
-
-    public int compareTo(Point p) {
-      return l == p.l ? s.compareTo(p.s) : l - p.l;
-    }
-  }
-
-  public String findShortestWay(int[][] maze, int[] ball, int[] hole) {
-    int m = maze.length, n = maze[0].length;
-    Point[][] points = new Point[m][n];
-    for (int i = 0; i < m * n; i++)
-      points[i / n][i % n] = new Point(i / n, i % n);
-    int[][] dirs = new int[][] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
-    String[] directions = new String[] { "u", "r", "d", "l" };
-    Queue<Point> queue = new PriorityQueue<>(); // using priority queue
-    queue.offer(new Point(ball[0], ball[1], 0, ""));
-    while (!queue.isEmpty()) {
-      Point p = queue.poll();
-      if (points[p.x][p.y].compareTo(p) <= 0)
-        continue; // if we have already found a route shorter
-      points[p.x][p.y] = p;
-      for (int i = 0; i < dirs.length; i++) {
-        int x = p.x, y = p.y, l = p.l;
-        while (x >= 0 && x < m && y >= 0 && y < n && maze[x][y] == 0 && (x != hole[0] || y != hole[1])) {
-          x += dirs[i][0];
-          y += dirs[i][1];
-          l++;
-        }
-        if (x != hole[0] || y != hole[1]) { // check the hole
-          x -= dirs[i][0];
-          y -= dirs[i][1];
-          l--;
-        }
-        queue.offer(new Point(x, y, l, p.s + directions[i]));
-      }
-    }
-    return points[hole[0]][hole[1]].l == Integer.MAX_VALUE ? "impossible" : points[hole[0]][hole[1]].s;
-  }
-
   public int shortestDistance2(int[][] maze, int[] start, int[] dest) {
     int[][] distance = new int[maze.length][maze[0].length];
     for (int[] row : distance)
       Arrays.fill(row, Integer.MAX_VALUE);
     distance[start[0]][start[1]] = 0;
-    dijkstra(maze, start, distance);
-    return distance[dest[0]][dest[1]] == Integer.MAX_VALUE ? -1 : distance[dest[0]][dest[1]];
-  }
-
-  public void dijkstra(int[][] maze, int[] start, int[][] distance) {
     int[][] dirs = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } };
     PriorityQueue<int[]> queue = new PriorityQueue<>((a, b) -> a[2] - b[2]);
     queue.offer(new int[] { start[0], start[1], 0 });
@@ -291,5 +201,94 @@ public class MazeAndGridQuestions {
         }
       }
     }
+    return distance[dest[0]][dest[1]] == Integer.MAX_VALUE ? -1 : distance[dest[0]][dest[1]];
+  }
+
+  public int shortestDistance(int[][] maze, int[] start, int[] destination) {
+    int m = maze.length, n = maze[0].length;
+    int[][] lens = new int[m][n];
+    for (int i = 0; i < m * n; i++)
+      lens[i / n][i % n] = Integer.MAX_VALUE;
+
+    int[][] dirs = new int[][] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
+    Queue<int[]> queue = new PriorityQueue<>((a, b) -> (a[2] - b[2]));
+    queue.offer(new int[] { start[0], start[1], 0 });
+
+    while (!queue.isEmpty()) {
+      int[] p = queue.poll();
+      if (lens[p[0]][p[1]] <= p[2]) // Already found shorter route
+        continue;
+      lens[p[0]][p[1]] = p[2];
+      for (int[] dir : dirs) {
+        int x = p[0], y = p[1], l = p[2];
+        while (x >= 0 && x < m && y >= 0 && y < n && maze[x][y] == 0) {
+          x += dir[0];
+          y += dir[1];
+          l++;
+        }
+        // Retreat an overstepped one
+        x -= dir[0];
+        y -= dir[1];
+        l--;
+        if (l < lens[x][y]) {
+          queue.offer(new int[] { x, y, l });
+        }
+      }
+    }
+
+    return lens[destination[0]][destination[1]] == Integer.MAX_VALUE ? -1 : lens[destination[0]][destination[1]];
+  }
+
+  class Point implements Comparable<Point> {
+    int x, y, len;
+    String path;
+
+    public Point(int x, int y, int len, String path) {
+      this.x = x;
+      this.y = y;
+      this.len = len;
+      this.path = path;
+    }
+
+    public int compareTo(Point p) {
+      return len == p.len ? path.compareTo(p.path) : len - p.len;
+    }
+  }
+
+  public String findShortestWay(int[][] maze, int[] ball, int[] hole) {
+    int m = maze.length, n = maze[0].length;
+    Point[][] points = new Point[m][n];
+    for (int i = 0; i < m * n; i++)
+      points[i / n][i % n] = new Point(i / n, i % n, Integer.MAX_VALUE, "");
+    int[][] dirs = { { -1, 0 }, { 0, 1 }, { 1, 0, }, { 0, -1 } };
+    String[] directions = { "u", "r", "d", "l" };
+
+    Queue<Point> queue = new PriorityQueue<>(); // using priority queue
+    queue.offer(new Point(ball[0], ball[1], 0, ""));
+    while (!queue.isEmpty()) {
+      Point point = queue.poll();
+      if (points[point.x][point.y].compareTo(point) <= 0)
+        continue; // Already found a route shorter
+      points[point.x][point.y] = point;
+      for (int i = 0; i < dirs.length; i++) {
+        int[] dir = dirs[i];
+        int x = point.x, y = point.y, len = point.len;
+        while (x >= 0 && x < m && y >= 0 && y < n && maze[x][y] == 0 && (x != hole[0] || y != hole[1])) {
+          x += dir[0];
+          y += dir[1];
+          len++;
+        }
+        // Retreat an overstepped one
+        if (x != hole[0] || y != hole[1]) { // Check not in the hole yet
+          x -= dir[0];
+          y -= dir[1];
+          len--;
+        }
+        if (len < points[x][y].len) {
+          queue.offer(new Point(x, y, len, point.path + directions[i]));
+        }
+      }
+    }
+    return points[hole[0]][hole[1]].len == Integer.MAX_VALUE ? "impossible" : points[hole[0]][hole[1]].path;
   }
 }
