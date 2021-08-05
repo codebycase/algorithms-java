@@ -89,7 +89,7 @@ public class MazeAndGridQuestions {
     if (col < 0 || row < 0 || !maze[row][col]) // Out of bounds or not available
       return false;
 
-    Point p = new Point(row, col);
+    Point p = new Point(row, col, Integer.MAX_VALUE, "");
 
     if (failedPoints.contains(p)) // Already visited this cell
       return false;

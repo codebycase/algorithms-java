@@ -4,9 +4,11 @@
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#compute-permutations
 - https://leetcode.com/problems/permutations-ii/
 
-### Path Sum III
+### Path/Array Sum III
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#path-sum-iii
 - https://leetcode.com/problems/path-sum-iii/
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#three-sum-equals
+- https://leetcode.com/problems/3sum/
 
 ### Shortest Distance (Dijkstra's Algorithm)
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#shortest-paths
@@ -16,6 +18,8 @@
 
 ### Word Search with Trie
 - https://www.codebycase.com/algorithms/a06-sorting-and-searching.html#word-search
+- https://leetcode.com/problems/word-search/
+- https://leetcode.com/problems/word-search-ii/
 
 ### Quick & Merge Sort
 - https://www.codebycase.com/algorithms/a06-sorting-and-searching.html#quick-sort-sample
@@ -23,6 +27,12 @@
 - https://leetcode.com/problems/sort-an-array/
 - https://leetcode.com/problems/sort-list/
 - https://leetcode.com/problems/merge-k-sorted-lists/
+
+### Buy and Sell Stock
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#buy-and-sell-stock
+- https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/
+- 
+
 
 ### Union find
 - https://leetcode.com/problems/accounts-merge/
