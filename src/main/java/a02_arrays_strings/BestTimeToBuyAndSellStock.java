@@ -83,6 +83,12 @@ public class BestTimeToBuyAndSellStock {
     return maxProfit;
   }
 
+  /*
+   * DP to store the previous result to reduce redundant calculations.
+   * (k >= len / 2) means we will not reach the limit no matter how we try, can simply deal as max transactions.
+   * Time Complexity: O(nk) if 2k ≤ n, O(n) if 2k > n where n is the length of the prices sequence, since we have two for-loop.
+   * Space Complexity: O(nk) without state-compressed, and O(k) with state-compressed, where n is the length of the prices sequence.
+   */
   public int maxProfitWithMaxKTransactions(int k, int[] prices) {
     int len = prices.length;
     if (k >= len / 2)
@@ -119,13 +125,37 @@ public class BestTimeToBuyAndSellStock {
     return maxProfits[maxProfits.length - 1];
   }
 
+  /*
+   * Simple One Pass: Crawling over the slope and keep on adding the profit obtained from every consecutive transaction.
+   */
   public int maxProfitWithMaxTransactions(int[] prices) {
-    int cash = 0, hold = -prices[0];
+    int maxProfit = 0;
     for (int i = 1; i < prices.length; i++) {
-      cash = Math.max(cash, hold + prices[i]);
-      hold = Math.max(hold, cash - prices[i]);
+      if (prices[i] > prices[i - 1]) {
+        maxProfit += prices[i] - prices[i - 1];
+      }
     }
-    return cash;
+    return maxProfit;
+  }
+
+  /* 
+   * Peak Valley Approach: The key point is we need to consider every peak immediately following a valley to maximize the profit. 
+   */
+  public int maxProfitWithMaxTransactions2(int[] prices) {
+    int i = 0;
+    int valley = prices[0];
+    int peak = prices[0];
+    int maxProfit = 0;
+    while (i < prices.length - 1) {
+      while (i < prices.length - 1 && prices[i] >= prices[i + 1])
+        i++;
+      valley = prices[i];
+      while (i < prices.length - 1 && prices[i] <= prices[i + 1])
+        i++;
+      peak = prices[i];
+      maxProfit += peak - valley;
+    }
+    return maxProfit;
   }
 
   /*
@@ -133,10 +163,11 @@ public class BestTimeToBuyAndSellStock {
    * + prices[i] - fee) or buy a stock hold = max(hold, cash - prices[i])
    */
   public int maxProfitWithMaxTransactionsAndFee(int[] prices, int fee) {
-    int cash = 0, hold = -prices[0];
+    int cash = 0; // max profit if we sell in past
+    int hold = -prices[0]; // max profit if we buy in past
     for (int i = 1; i < prices.length; i++) {
-      cash = Math.max(cash, hold + prices[i] - fee);
-      hold = Math.max(hold, cash - prices[i]);
+      cash = Math.max(cash, hold + prices[i] - fee); // Let's sell and find max profit
+      hold = Math.max(hold, cash - prices[i]); // Let's buy and find max profit
     }
     return cash;
   }
@@ -162,12 +193,13 @@ public class BestTimeToBuyAndSellStock {
   }
 
   public int maxProfitWithMaxTransactionsAndCooldown2(int[] prices) {
-    int sell = 0, prev_sell = 0, buy = Integer.MIN_VALUE, prev_buy;
+    int sell = 0, prevSell = 0;
+    int buy = Integer.MIN_VALUE, prevBuy;
     for (int price : prices) {
-      prev_buy = buy;
-      buy = Math.max(prev_sell - price, prev_buy);
-      prev_sell = sell;
-      sell = Math.max(prev_buy + price, prev_sell);
+      prevBuy = buy;
+      buy = Math.max(prevSell - price, prevBuy);
+      prevSell = sell;
+      sell = Math.max(prevBuy + price, prevSell);
     }
     return sell;
   }

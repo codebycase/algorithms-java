@@ -1,5 +1,11 @@
 # Algorithms
 
+## Templates
+
+- https://leetcode.com/discuss/interview-question/1380561/template-for-dynamic-programming
+
+## Problems - From Liqun
+
 ### Compute Permutations
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#compute-permutations
 - https://leetcode.com/problems/permutations-ii/
@@ -30,9 +36,18 @@
 
 ### Buy and Sell Stock
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#buy-and-sell-stock
+- https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
+- https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
+- https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/
 - https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/
-- 
+- https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 
+### Topological Ordering
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#topological-ordering
+- https://leetcode.com/problems/course-schedule-iii/
+
+
+## Problems - From Jiang
 
 ### Union find
 - https://leetcode.com/problems/accounts-merge/
