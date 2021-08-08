@@ -34,6 +34,7 @@ public class PathSumIII {
   public int pathSumIII(TreeNode root, int target) {
     AtomicInteger count = new AtomicInteger(0);
     Map<Integer, Integer> sumMap = new HashMap<>();
+    // sumMap.put(0, 1); // Also able to add a default zero
     recurseTree(root, count, sumMap, 0, target);
     return count.get();
   }
@@ -47,6 +48,7 @@ public class PathSumIII {
     prefixSum += node.val;
 
     // Continous subarray starts from the beggining of the array
+    // Can skip this section if used sumMap.put(0, 1)
     if (prefixSum == targetSum) {
       count.addAndGet(1);
     }

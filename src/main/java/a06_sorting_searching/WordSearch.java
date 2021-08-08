@@ -101,16 +101,11 @@ public class WordSearch {
       result.add(node.word);
       node.word = null; // Avoid duplicate
       // Gradually prune up all leaves in Trie during the backtracking.
-      boolean pruned = false;
       Node n = node;
       while (n.count == 0 && n.parent != null) {
         n.parent.next[n.chr - 'a'] = null;
         n.parent.count--;
         n = n.parent;
-      }
-      // Abort here since pruned!
-      if (pruned) {
-        return;
       }
     }
 

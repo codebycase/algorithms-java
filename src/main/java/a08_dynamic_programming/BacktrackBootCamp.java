@@ -190,6 +190,7 @@ public class BacktrackBootCamp {
     } else {
       for (int i = 0; i < nums.length; i++) {
         // used[i - 1] to bind nums[i] and nums[i - 1] together!
+        // either use[i - 1] or !use[i - 1] works for this case 
         if (used[i] || (i > 0 && nums[i] == nums[i - 1] && used[i - 1]))
           continue;
         used[i] = true;
