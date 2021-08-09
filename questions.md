@@ -50,6 +50,7 @@
 ## Problems - From Jiang
 
 ### Union find
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#accounts-merge
 - https://leetcode.com/problems/accounts-merge/
 
 ### Double pointer
