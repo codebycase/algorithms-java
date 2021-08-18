@@ -44,6 +44,8 @@
 
 ### Topological Ordering
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#topological-ordering
+- https://leetcode.com/problems/course-schedule/
+- https://leetcode.com/problems/course-schedule-ii/
 - https://leetcode.com/problems/course-schedule-iii/
 
 
