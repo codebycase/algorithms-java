@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
@@ -290,5 +291,64 @@ public class MazeAndGridQuestions {
       }
     }
     return points[hole[0]][hole[1]].len == Integer.MAX_VALUE ? "impossible" : points[hole[0]][hole[1]].path;
+  }
+
+  /**
+   * You are given an m x n integer array grid where grid[i][j] could be:
+   * 
+   * <pre>
+  1 representing the starting square. There is exactly one starting square.
+  2 representing the ending square. There is exactly one ending square.
+  0 representing empty squares we can walk over.
+  -1 representing obstacles that we cannot walk over.
+   * </pre>
+   * 
+   * Return the number of 4-directional walks from the starting square to the ending square, that walk
+   * over every non-obstacle square exactly once.
+   */
+  public int uniquePathsIII(int[][] grid) {
+    AtomicInteger count = new AtomicInteger(0);
+    int remain = 0, startRow = 0, startCol = 0;
+
+    // Find the start cell
+    for (int row = 0; row < grid.length; ++row)
+      for (int col = 0; col < grid[0].length; ++col) {
+        int cell = grid[row][col];
+        if (cell >= 0)
+          remain += 1;
+        if (cell == 1) {
+          startRow = row;
+          startCol = col;
+        }
+      }
+
+    backtrack(grid, startRow, startCol, remain, count);
+
+    return count.get();
+  }
+
+  protected void backtrack(int[][] grid, int row, int col, int remain, AtomicInteger pathCount) {
+    if (grid[row][col] == 2 && remain == 1) {
+      pathCount.addAndGet(1); // Reached the destination
+      return;
+    }
+
+    int temp = grid[row][col];
+
+    grid[row][col] = -4; // Visited
+    remain -= 1; // One less square to visit
+
+    int[][] dirs = { { -1, 0 }, { 0, 1 }, { 1, 0, }, { 0, -1 } };
+    for (int[] dir : dirs) {
+      int i = row + dir[0];
+      int j = col + dir[1];
+
+      if (0 > i || i >= grid.length || 0 > j || j >= grid[row].length || grid[i][j] < 0)
+        continue;
+
+      backtrack(grid, i, j, remain, pathCount);
+    }
+
+    grid[row][col] = temp;
   }
 }

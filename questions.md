@@ -20,7 +20,9 @@
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#shortest-paths
 - https://leetcode.com/problems/the-maze-ii/
 - https://leetcode.com/problems/the-maze-iii/
+- https://leetcode.com/problems/unique-paths-iii/
 - https://leetcode.com/problems/network-delay-time/
+
 
 ### Word Search with Trie
 - https://www.codebycase.com/algorithms/a06-sorting-and-searching.html#word-search
@@ -47,6 +49,11 @@
 - https://leetcode.com/problems/course-schedule/
 - https://leetcode.com/problems/course-schedule-ii/
 - https://leetcode.com/problems/course-schedule-iii/
+- https://leetcode.com/problems/course-schedule-iv/
+
+### Text Justification
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#text-justification
+- https://leetcode.com/problems/text-justification/
 
 
 ## Problems - From Jiang
@@ -59,4 +66,6 @@
 - https://leetcode.com/problems/container-with-most-water/
 
 ### Treemap
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#draw-the-skyline
 - https://leetcode.com/problems/the-skyline-problem/
+- https://leetcode.com/problems/max-increase-to-keep-city-skyline/

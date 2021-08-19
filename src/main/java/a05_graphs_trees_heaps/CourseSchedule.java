@@ -3,6 +3,9 @@ package a05_graphs_trees_heaps;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.BitSet;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -137,6 +140,61 @@ public class CourseSchedule {
       }
     }
     return queue.size();
+  }
+
+  /**
+   * There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You
+   * are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take
+   * course ai first if you want to take course bi.
+   * 
+   * For example, the pair [0, 1] indicates that you have to take course 0 before you can take course
+   * 1. Prerequisites can also be indirect. If course a is a prerequisite of course b, and course b is
+   * a prerequisite of course c, then course a is a prerequisite of course c.
+   * 
+   * You are also given an array queries where queries[j] = [uj, vj]. For the jth query, you should
+   * answer whether course uj is a prerequisite of course vj or not.
+   * 
+   * Return a boolean array answer, where answer[j] is the answer to the jth query.
+   */
+  public List<Boolean> scheduleCourseIV(int numCourses, int[][] prerequisites, int[][] queries) {
+    int[] indegrees = new int[numCourses];
+    List<List<Integer>> adjacents = new ArrayList<>(numCourses);
+    // Use BitSet to track the previous courses been taken
+    List<BitSet> previousCourses = new ArrayList<>(numCourses);
+    for (int i = 0; i < numCourses; i++) {
+      adjacents.add(new ArrayList<>());
+      previousCourses.add(new BitSet(numCourses));
+    }
+    for (int[] edge : prerequisites) {
+      indegrees[edge[1]]++;
+      adjacents.get(edge[0]).add(edge[1]);
+    }
+    Deque<Integer> toVisit = new LinkedList<>();
+    for (int i = 0; i < numCourses; i++) {
+      if (indegrees[i] == 0) {
+        toVisit.push(i);
+      }
+    }
+    while (!toVisit.isEmpty()) {
+      int index = toVisit.pop();
+      for (int v : adjacents.get(index)) {
+        previousCourses.get(v).set(index);
+        previousCourses.get(v).or(previousCourses.get(index));
+        indegrees[v]--;
+        if (indegrees[v] == 0) {
+          toVisit.push(v);
+        }
+      }
+    }
+    List<Boolean> result = new ArrayList<>(queries.length);
+    for (int[] query : queries) {
+      if (previousCourses.get(query[1]).get(query[0])) {
+        result.add(true);
+      } else {
+        result.add(false);
+      }
+    }
+    return result;
   }
 
   public static void main(String[] args) {
