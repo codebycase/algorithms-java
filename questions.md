@@ -22,7 +22,7 @@
 - https://leetcode.com/problems/the-maze-iii/
 - https://leetcode.com/problems/unique-paths-iii/
 - https://leetcode.com/problems/network-delay-time/
-
+- https://leetcode.com/problems/robot-room-cleaner/
 
 ### Word Search with Trie
 - https://www.codebycase.com/algorithms/a06-sorting-and-searching.html#word-search
@@ -44,6 +44,9 @@
 - https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/
 - https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#delete-and-earn
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#max-money-rob-house
+
 ### Topological Ordering
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#topological-ordering
 - https://leetcode.com/problems/course-schedule/
@@ -54,6 +57,13 @@
 ### Text Justification
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#text-justification
 - https://leetcode.com/problems/text-justification/
+
+### 2+ Dimensions Sorting
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#minimum-cost-to-hire-k-workers
+
+### Partition to Subsets
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#partition-to-k-equal-sum-subsets
+- https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
 
 
 ## Problems - From Jiang
