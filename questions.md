@@ -44,6 +44,7 @@
 - https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/
 - https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#min-cost-climbing-stairs
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#delete-and-earn
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#max-money-rob-house
 
@@ -63,7 +64,10 @@
 
 ### Partition to Subsets
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#partition-to-k-equal-sum-subsets
+- https://leetcode.com/problems/partition-equal-subset-sum/
 - https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
+- https://leetcode.com/problems/partition-array-for-maximum-sum/
+- https://leetcode.com/problems/partition-array-into-disjoint-intervals/
 
 
 ## Problems - From Jiang

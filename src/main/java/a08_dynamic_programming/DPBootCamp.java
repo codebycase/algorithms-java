@@ -115,12 +115,12 @@ public class DPBootCamp {
    * of the current value nums[i] and the remaining composed of other previous numbers. <br>
    * Thus, the transition function is dp[i][j] = dp[i-1][j] || dp[i-1][j-nums[i]]
    * 
-   * @author lchen
-   *
-   *
+   * We could further optimize it to use 1D array, as for any array element i, we need results of the
+   * previous iteration (i - 1) only.
+   * 
    */
-  public boolean canPartitionArray(int[] nums) {
-    int subgroups = 2;
+  public boolean canPartitionEqually(int[] nums) {
+    int subgroups = 2; // partition equally!
     int sum = Arrays.stream(nums).sum();
 
     if (sum % subgroups != 0)
@@ -131,11 +131,10 @@ public class DPBootCamp {
     dp[0] = true;
 
     for (int num : nums) {
-      for (int i = num; i <= target; i++) {
-        // for (int i = target; i >= num; i--) {
-        dp[i] = dp[i] || dp[i - num]; // not pick it or pick it!
+      for (int i = target; i >= num; i--) {
+        // true once reached to the dp[0]!
+        dp[i] |= dp[i - num]; // not pick it or pick it!
       }
-      // System.out.println(num + ": " + Arrays.toString(dp));
     }
 
     return dp[target];
@@ -147,28 +146,40 @@ public class DPBootCamp {
       sum += n;
     if (sum % k != 0)
       return false;
+    int target = sum / k;
+
+    // sort nums in favor of DFS
     Arrays.sort(nums);
+
+    // some tricks to speedup, not neccessary
+    int index = nums.length - 1;
+    if (nums[index] > target)
+      return false;
+    while (index >= 0 && nums[index] == target) {
+      index--;
+      k--;
+    }
     return partitionDFS(0, k, 0, sum / k, nums, new boolean[nums.length]);
   }
 
   // DFS with Backtrack
-  public boolean partitionDFS(int i, int k, int sum, int target, int[] nums, boolean[] visit) {
+  public boolean partitionDFS(int i, int k, int sum, int target, int[] nums, boolean[] visited) {
     if (k == 0)
       return true;
     if (target == sum)
       // start a new group
-      return partitionDFS(0, k - 1, 0, target, nums, visit);
+      return partitionDFS(0, k - 1, 0, target, nums, visited);
     if (i == nums.length || sum > target)
       return false;
 
     // move forward without using current value
-    boolean result = partitionDFS(i + 1, k, sum, target, nums, visit);
+    boolean result = partitionDFS(i + 1, k, sum, target, nums, visited);
 
-    if (!result && !visit[i]) {
+    if (!result && !visited[i]) {
       // dfs with using current value
-      visit[i] = true;
-      result = partitionDFS(i + 1, k, sum + nums[i], target, nums, visit);
-      visit[i] = false;
+      visited[i] = true;
+      result = partitionDFS(i + 1, k, sum + nums[i], target, nums, visited);
+      visited[i] = false;
     }
 
     return result;
@@ -239,6 +250,75 @@ public class DPBootCamp {
       }
     }
     return dp[m - 1];
+  }
+
+  /**
+   * Given an integer array arr, partition the array into (contiguous) subarrays of length at most k.
+   * After partitioning, each subarray has their values changed to become the maximum value of that
+   * subarray.
+   * 
+   * Return the largest sum of the given array after partitioning. Test cases are generated so that
+   * the answer fits in a 32-bit integer.
+   * 
+   * <pre>
+   *   Input: arr = [1,15,7,9,2,5,10], k = 3
+   *   Output: 84
+   *   Explanation: arr becomes [15,15,15,9,10,10,10]
+   * </pre>
+   * 
+   * Solution: Bottom up DP, O(n*k) O(n)
+   */
+  public int maxSumAfterPartitioning(int[] arr, int k) {
+    int len = arr.length;
+    int[] dp = new int[len + 1];
+
+    for (int i = len - 1; i >= 0; i--) {
+      int ans = Integer.MIN_VALUE, max = Integer.MIN_VALUE;
+      for (int j = 0; j < k && i + j < len; j++) {
+        max = Math.max(max, arr[i + j]);
+        ans = Math.max(ans, max * (j + 1) + dp[i + j + 1]);
+      }
+      dp[i] = ans;
+    }
+    return dp[0];
+  }
+
+  /**
+   * Given an integer array nums, partition it into two (contiguous) subarrays left and right so that:
+   * 
+   * Every element in left is less than or equal to every element in right. left and right are
+   * non-empty. left has the smallest possible size. Return the length of left after such a
+   * partitioning.
+   * 
+   * <pre>
+   *   Input: nums = [5,0,3,8,6]
+   *   Output: 3
+   *   Explanation: left = [5,0,3], right = [8,6]
+   * </pre>
+   * 
+   * Solution:
+   * 
+   * As we iterate over nums we can keep track of the largest number seen so far that must be in the
+   * left subarray (curr_max) and the largest number seen so far that could possibly be in the left
+   * subarray (possible_max). Whenever a number is less than curr_max then that number and all of the
+   * numbers to its left must belong to the left subarray, and curr_max becomes the largest number
+   * seen so far (possible_max).
+   */
+  public int partitionDisjoint(int[] nums) {
+    int currMax = nums[0];
+    int possibleMax = nums[0];
+    int length = 1;
+
+    for (int i = 1; i < nums.length; ++i) {
+      if (nums[i] < currMax) {
+        length = i + 1;
+        currMax = possibleMax;
+      } else {
+        possibleMax = Math.max(possibleMax, nums[i]);
+      }
+    }
+
+    return length;
   }
 
   /**
