@@ -1463,7 +1463,7 @@ public class DPBootCamp {
     List<Integer> playScores = Arrays.asList(2, 3, 7);
     Assert.assertTrue(4 == combinationsForFinalScore(12, playScores));
     Assert.assertTrue(1 == combinationsForFinalScore(5, playScores));
-    Assert.assertTrue(solution.canPartitionArray(new int[] { 1, 5, 11, 5, 3, 1, 2 }));
+    Assert.assertTrue(solution.canPartitionEqually(new int[] { 1, 5, 11, 5, 3, 1, 2 }));
 
     int[] array = new int[] { -10, -5, 2, 2, 2, 3, 4, 7, 9, 12, 13 };
     assert solution.magicIndexWithDups(array) == 2;
