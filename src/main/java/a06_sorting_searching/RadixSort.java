@@ -20,12 +20,13 @@ public class RadixSort {
       count[(nums[i] / exp) % 10]--;
     }
 
-    // Copy the output array to nums, so that nums now contains sorted numbers according to current digit
+    // Copy the output array to nums, so that nums now contains sorted numbers according to current
+    // digit
     for (int i = 0; i < len; i++)
       nums[i] = output[i];
   }
 
-  static void radixsort(int[] nums) {
+  static void radixSort(int[] nums) {
     int max = 0;
     for (int num : nums) {
       max = Math.max(max, num);
@@ -37,7 +38,7 @@ public class RadixSort {
 
   public static void main(String[] args) {
     int nums[] = { 170, 45, 75, 90, 802, 24, 2, 66 };
-    radixsort(nums);
+    radixSort(nums);
     for (int i = 0; i < nums.length; i++)
       System.out.print(nums[i] + " ");
   }
