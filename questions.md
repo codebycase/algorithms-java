@@ -69,12 +69,19 @@
 - https://leetcode.com/problems/partition-array-for-maximum-sum/
 - https://leetcode.com/problems/partition-array-into-disjoint-intervals/
 
+### Arithmetic Slices
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#arithmetic-slices
+- https://leetcode.com/problems/arithmetic-slices/
+- https://leetcode.com/problems/arithmetic-slices-ii-subsequence/
+- https://leetcode.com/problems/longest-arithmetic-subsequence/
+- https://leetcode.com/problems/longest-arithmetic-subsequence-of-given-difference/
 
 ## Problems - From Jiang
 
 ### Union find
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#accounts-merge
 - https://leetcode.com/problems/accounts-merge/
+
 
 ### Double pointer
 - https://leetcode.com/problems/container-with-most-water/
