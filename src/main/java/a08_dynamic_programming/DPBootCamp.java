@@ -401,7 +401,7 @@ public class DPBootCamp {
 
   private boolean isValid(int[] nums, double mid, int k) {
     double sum = 0, prev = 0;
-    // find whether there is a subarray whose sum is bigger than 0
+    // find whether there is a subarray whose difference's sum is bigger than 0
     // ((a1 + a2 + a3 ... + aj) >= j * mid) or ((a1 - mid) + (a2 - mid) + (a3 - mid) + ... + (aj - mid)
     // >= 0)
     for (int i = 0; i < k; i++)
@@ -411,6 +411,7 @@ public class DPBootCamp {
     for (int i = k; i < nums.length; i++) {
       sum += nums[i] - mid;
       prev += nums[i - k] - mid;
+      // Negative prev is not helpful to make a bigger sum
       if (prev < 0) {
         sum -= prev;
         prev = 0;
@@ -419,6 +420,58 @@ public class DPBootCamp {
         return true;
     }
     return false;
+  }
+
+  /**
+   * You are given an integer array nums.
+   * 
+   * You should move each element of nums into one of the two arrays A and B such that A and B are
+   * non-empty, and average(A) == average(B).
+   * 
+   * Return true if it is possible to achieve that and false otherwise.
+   * 
+   * Note that for an array arr, average(arr) is the sum of all the elements of arr over the length of
+   * arr.
+   */
+  public boolean splitArraySameAverage(int[] nums) {
+    int sum = 0;
+    for (int num : nums) {
+      sum += num;
+    }
+
+    for (int count = 1; count < nums.length - 1; count++) {
+      if ((sum * count) % nums.length == 0) {
+        if (isPossible(nums, 0, count, (sum * count) / nums.length, new HashMap<String, Boolean>())) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  private boolean isPossible(int[] nums, int i, int count, int sum, Map<String, Boolean> map) {
+    if (sum == 0 && count == 0)
+      return true;
+
+    if (i == nums.length || count == 0)
+      return false;
+
+    String key = i + "*" + count + "*" + sum;
+
+    if (map.containsKey(key))
+      return map.get(key);
+
+    if (sum - nums[i] >= 0) {
+      boolean case1 = isPossible(nums, i + 1, count - 1, sum - nums[i], map);
+      boolean case2 = isPossible(nums, i + 1, count, sum, map);
+      map.put(key, case1 || case2);
+      return case1 || case2;
+    }
+
+    boolean case2 = isPossible(nums, i + 1, count, sum, map);
+    map.put(key, case2);
+    return case2;
   }
 
   public int orderOfLargestPlusSign(int N, int[][] mines) {

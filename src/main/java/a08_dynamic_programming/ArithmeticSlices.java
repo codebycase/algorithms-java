@@ -44,7 +44,7 @@ public class ArithmeticSlices {
     return sum;
   }
 
-  // we can also one variable, and update the sum at the very end,
+  // we can also one variable, and update the sum at the very end base on formual n*(n+1)/2
   public int numberOfArithmeticSlices2(int[] A) {
     int count = 0, sum = 0;
     for (int i = 2; i < A.length; i++) {
@@ -97,9 +97,10 @@ public class ArithmeticSlices {
         int diff = (int) delta;
         // previous found subsequences
         int sum = counts.get(j).getOrDefault(diff, 0);
-        int origin = counts.get(i).getOrDefault(diff, 0);
+        // weak subsequences
+        int weak = counts.get(i).getOrDefault(diff, 0);
         // cache all new subsequences (include weak ones)
-        counts.get(i).put(diff, origin + sum + 1);
+        counts.get(i).put(diff, weak + sum + 1);
         ans += sum;
       }
     }
@@ -107,8 +108,8 @@ public class ArithmeticSlices {
   }
 
   /**
-   * Given an integer array arr and an integer difference, return the length of the longest
-   * subsequence in arr which is an arithmetic sequence such that the difference between adjacent
+   * Given an integer array nums and an integer difference, return the length of the longest
+   * subsequence in nums which is an arithmetic sequence such that the difference between adjacent
    * elements in the subsequence equals difference.
    * 
    * Solution:

@@ -68,6 +68,7 @@
 - https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
 - https://leetcode.com/problems/partition-array-for-maximum-sum/
 - https://leetcode.com/problems/partition-array-into-disjoint-intervals/
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#max-average-difference
 
 ### Arithmetic Slices
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#arithmetic-slices
@@ -75,6 +76,13 @@
 - https://leetcode.com/problems/arithmetic-slices-ii-subsequence/
 - https://leetcode.com/problems/longest-arithmetic-subsequence/
 - https://leetcode.com/problems/longest-arithmetic-subsequence-of-given-difference/
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#final-score-combinations
+
+### Maximum Average
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#max-average-difference
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#largest-sum-of-averages
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#maximum-average-subarray
+- https://leetcode.com/problems/split-array-with-same-average/
 
 ## Problems - From Jiang
 
