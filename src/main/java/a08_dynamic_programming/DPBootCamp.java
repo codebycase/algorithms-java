@@ -432,16 +432,24 @@ public class DPBootCamp {
    * 
    * Note that for an array arr, average(arr) is the sum of all the elements of arr over the length of
    * arr.
+   * 
+   * Solution:
+   * 
+   * Since sum1 / len1 = (total - sum1) / (n - len1) => sum1 = (len1 * total) / n
+   * 
+   * So finally our problem is reduced to check each possible length and finding a subsequence of the
+   * given array of this length such that the sum of the elements in this is equal to sum1 (which has
+   * a logic of 0/1 knapsack).
    */
   public boolean splitArraySameAverage(int[] nums) {
-    int sum = 0;
+    int total = 0;
     for (int num : nums) {
-      sum += num;
+      total += num;
     }
 
     for (int count = 1; count < nums.length - 1; count++) {
-      if ((sum * count) % nums.length == 0) {
-        if (isPossible(nums, 0, count, (sum * count) / nums.length, new HashMap<String, Boolean>())) {
+      if ((total * count) % nums.length == 0) { // Able to split array
+        if (isPossible(nums, 0, count, (total * count) / nums.length, new HashMap<String, Boolean>())) {
           return true;
         }
       }
@@ -457,21 +465,19 @@ public class DPBootCamp {
     if (i == nums.length || count == 0)
       return false;
 
-    String key = i + "*" + count + "*" + sum;
+    String key = i + "-" + count + "-" + sum;
 
     if (map.containsKey(key))
       return map.get(key);
 
-    if (sum - nums[i] >= 0) {
-      boolean case1 = isPossible(nums, i + 1, count - 1, sum - nums[i], map);
-      boolean case2 = isPossible(nums, i + 1, count, sum, map);
-      map.put(key, case1 || case2);
-      return case1 || case2;
+    boolean result = isPossible(nums, i + 1, count, sum, map);
+    
+    if (!result && sum - nums[i] >= 0) {
+      result = isPossible(nums, i + 1, count - 1, sum - nums[i], map);
     }
-
-    boolean case2 = isPossible(nums, i + 1, count, sum, map);
-    map.put(key, case2);
-    return case2;
+    
+    map.put(key, result);
+    return result;
   }
 
   public int orderOfLargestPlusSign(int N, int[][] mines) {

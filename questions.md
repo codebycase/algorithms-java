@@ -82,7 +82,7 @@
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#max-average-difference
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#largest-sum-of-averages
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#maximum-average-subarray
-- https://leetcode.com/problems/split-array-with-same-average/
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#split-array-with-same-average
 
 ## Problems - From Jiang
 
