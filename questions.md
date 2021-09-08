@@ -22,6 +22,7 @@
 - https://leetcode.com/problems/the-maze-iii/
 - https://leetcode.com/problems/unique-paths-iii/
 - https://leetcode.com/problems/network-delay-time/
+- https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#cheapest-flights-with-k-stops
 - https://leetcode.com/problems/robot-room-cleaner/
 
 ### Word Search with Trie

@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 
 import util.Interval;
@@ -46,7 +47,7 @@ public class GreedyBootCamp {
 			graph.get(flight[0]).add(flight);
 		}
 
-		PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> (a[1] - b[1]));
+		Queue<int[]> pq = new PriorityQueue<>((a, b) -> (a[1] - b[1]));
 		// city, cost, stop
 		pq.add(new int[] { src, 0, -1 });
 
