@@ -9,6 +9,8 @@
 ### Compute Permutations
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#compute-permutations
 - https://leetcode.com/problems/permutations-ii/
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#n-pairs-of-parentheses
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#sudoku-solver
 
 ### Path/Array Sum III
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#path-sum-iii
