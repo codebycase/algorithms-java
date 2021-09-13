@@ -12,94 +12,69 @@ import java.util.List;
  *
  */
 public class NQueensChessBoards {
-	public static int GRID_SIZE = 8;
+  public List<List<String>> solveNQueens(int n) {
+    List<List<String>> boards = new ArrayList<>();
+    List<int[]> results = new ArrayList<>();
+    // Store column index for each row
+    int[] columns = new int[n];
+    // Initialize column index as -1
+    Arrays.fill(columns, -1);
+    placeQueens(0, columns, results);
+    for (int[] result : results) {
+      boards.add(drawBoard(result));
+    }
+    return boards;
+  }
 
-	/* Check if (row1, column1) is a valid spot for a queen by checking if there
-	 * is a queen in the same column or diagonal. We don't need to check it for queens
-	 * in the same row because the calling placeQueen only attempts to place one queen at
-	 * a time. We know this row is empty. 
-	 */
-	public static boolean checkValid(int[] columns, int row1, int column1) {
-		for (int row2 = 0; row2 < row1; row2++) {
-			if (columns[row2] != -1) {
-				int column2 = columns[row2];
-				/* Check if (row2, column2) invalidates (row1, column1) as a queen spot. */
+  public void placeQueens(int row, int[] columns, List<int[]> results) {
+    if (row == columns.length) {
+      results.add(columns.clone());
+      return;
+    }
+    // Try to place queue at all possible columns
+    for (int col = 0; col < columns.length; col++) {
+      if (checkValid(columns, row, col)) {
+        columns[row] = col; // Place queue
+        placeQueens(row + 1, columns, results);
+      }
+    }
+  }
 
-				/* Check if rows have a queen in the same column */
-				if (column1 == column2) {
-					return false;
-				}
+  public boolean checkValid(int[] columns, int row1, int col1) {
+    for (int row2 = 0; row2 < row1; row2++) {
+      int col2 = columns[row2];
+      // Check if rows have a queen in the same column
+      if (col1 == col2)
+        return false;
+      // Check diagonals: means they have same distances.
+      int colDistance = Math.abs(col1 - col2);
+      int rowDistance = row1 - row2;
 
-				/* Check diagonals: if the distance between the columns equals the distance
-				 * between the rows, then they’re in the same diagonal. */
-				int columnDistance = Math.abs(column2 - column1);
-				int rowDistance = row1 - row2; // row1 > row2, so no need to use absolute value
-				if (columnDistance == rowDistance) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+      if (colDistance == rowDistance)
+        return false;
+    }
+    return true;
+  }
 
-	public static void placeQueens(int row, int[] columns, List<int[]> results) {
-		if (row == GRID_SIZE) { // Found valid placement
-			results.add(columns.clone());
-		} else {
-			for (int col = 0; col < GRID_SIZE; col++) {
-				if (checkValid(columns, row, col)) {
-					columns[row] = col; // Place queen
-					// Why don't we need to clone columns here?!
-					placeQueens(row + 1, columns, results);
-				}
-			}
-		}
-	}
+  public List<String> drawBoard(int[] columns) {
+    List<String> board = new ArrayList<>();
+    for (int i = 0; i < columns.length; i++) {
+      char[] row = new char[columns.length];
+      Arrays.fill(row, '.');
+      for (int j = 0; j < columns.length; j++) {
+        if (columns[i] == j) {
+          row[j] = 'Q';
+        }
+      }
+      board.add(new String(row));
+    }
+    return board;
+  }
 
-	public static void clear(int[] columns) {
-		for (int i = 0; i < GRID_SIZE; i++) {
-			columns[i] = -1;
-		}
-	}
-
-	public static void printBoard(int[] columns) {
-		drawLine();
-		for (int i = 0; i < GRID_SIZE; i++) {
-			System.out.print("|");
-			for (int j = 0; j < GRID_SIZE; j++) {
-				if (columns[i] == j) {
-					System.out.print("Q|");
-				} else {
-					System.out.print(" |");
-				}
-			}
-			System.out.print("\n");
-			drawLine();
-		}
-		System.out.println("");
-	}
-
-	private static void drawLine() {
-		StringBuilder line = new StringBuilder();
-		for (int i = 0; i < GRID_SIZE * 2 + 1; i++)
-			line.append('-');
-		System.out.println(line.toString());
-	}
-
-	public static void printBoards(ArrayList<int[]> boards) {
-		for (int i = 0; i < boards.size(); i++) {
-			int[] board = boards.get(i);
-			printBoard(board);
-		}
-	}
-
-	public static void main(String[] args) {
-		ArrayList<int[]> results = new ArrayList<int[]>();
-		int[] columns = new int[GRID_SIZE];
-		Arrays.fill(columns, -1);
-		placeQueens(0, columns, results);
-		printBoards(results);
-		System.out.println(results.size());
-	}
-
+  public static void main(String[] args) {
+    NQueensChessBoards solution = new NQueensChessBoards();
+    List<List<String>> results = solution.solveNQueens(8);
+    System.out.println(results);
+    System.out.println(results.size());
+  }
 }

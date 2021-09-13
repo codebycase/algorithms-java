@@ -10,6 +10,7 @@
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#compute-permutations
 - https://leetcode.com/problems/permutations-ii/
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#n-pairs-of-parentheses
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#n-queens-chessboard
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#sudoku-solver
 
 ### Path/Array Sum III
@@ -86,6 +87,13 @@
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#largest-sum-of-averages
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#maximum-average-subarray
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#split-array-with-same-average
+
+### Hit/Token Counter
+- 
+- https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#heavy-hitter-tokens
+- https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#frog-jump
+
+### 
 
 ## Problems - From Jiang
 
