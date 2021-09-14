@@ -51,6 +51,7 @@
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#min-cost-climbing-stairs
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#delete-and-earn
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#max-money-rob-house
+- https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#pour-water-in-histogram
 
 ### Topological Ordering
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#topological-ordering
@@ -89,18 +90,19 @@
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#split-array-with-same-average
 
 ### Hit/Token Counter
-- 
+- https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#design-hit-counter
 - https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#heavy-hitter-tokens
 - https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#frog-jump
 
-### 
+### Histogram 
+- https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#largest-rectangle-in-histogram
+- https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#pour-water-in-histogram
 
 ## Problems - From Jiang
 
 ### Union find
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#accounts-merge
 - https://leetcode.com/problems/accounts-merge/
-
 
 ### Double pointer
 - https://leetcode.com/problems/container-with-most-water/
