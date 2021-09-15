@@ -84,13 +84,15 @@ class AccountsMerge {
       }
     }
 
+    // Add all union emails
     Map<Integer, List<String>> ans = new HashMap<>();
     for (String email : emailToName.keySet()) {
       int index = dsu.find(emailToID.get(email));
       ans.computeIfAbsent(index, x -> new ArrayList<>()).add(email);
     }
+    // Add name to the first place
     for (List<String> component : ans.values()) {
-      Collections.sort(component);
+      Collections.sort(component); // Sort emails first
       component.add(0, emailToName.get(component.get(0)));
     }
     return new ArrayList<>(ans.values());
@@ -112,8 +114,16 @@ class AccountsMerge {
       return parent[x];
     }
 
+    public int find2(int x) {
+      while (x != parent[x]) {
+        parent[x] = parent[parent[x]]; // path compression by halving
+        x = parent[x];
+      }
+      return x;
+    }
+
     public void union(int x, int y) {
-      parent[find(x)] = find(y);
+      parent[find(y)] = find(x);
     }
   }
 
