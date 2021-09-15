@@ -70,9 +70,9 @@ class AccountsMerge {
     Map<String, Integer> emailToID = new HashMap<>();
     int id = 0;
     for (List<String> account : accounts) {
-      String name = "";
+      String name = null;
       for (String email : account) {
-        if (name == "") {
+        if (name == null) {
           name = email;
           continue;
         }
@@ -86,10 +86,11 @@ class AccountsMerge {
 
     // Add all union emails
     Map<Integer, List<String>> ans = new HashMap<>();
-    for (String email : emailToName.keySet()) {
-      int index = dsu.find(emailToID.get(email));
-      ans.computeIfAbsent(index, x -> new ArrayList<>()).add(email);
-    }
+    emailToID.forEach((email, id2) ->
+      {
+        ans.computeIfAbsent(dsu.find(id2), x -> new ArrayList<>()).add(email);
+      });
+
     // Add name to the first place
     for (List<String> component : ans.values()) {
       Collections.sort(component); // Sort emails first
