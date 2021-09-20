@@ -94,9 +94,14 @@
 - https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#heavy-hitter-tokens
 - https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#frog-jump
 
-### Histogram 
+### Histogram Chart
 - https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#largest-rectangle-in-histogram
 - https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#pour-water-in-histogram
+
+### Math Concepts
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#max-points-on-a-line
+- Matrix Block Sum
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#median-of-two-sorted-arrays
 
 ## Problems - From Jiang
 
