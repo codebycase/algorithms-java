@@ -19,6 +19,9 @@
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#three-sum-equals
 - https://leetcode.com/problems/3sum/
 
+### Binary Search
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#median-of-two-sorted-arrays
+
 ### Shortest Distance (Dijkstra's Algorithm)
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#shortest-paths
 - https://leetcode.com/problems/the-maze-ii/
@@ -98,10 +101,14 @@
 - https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#largest-rectangle-in-histogram
 - https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#pour-water-in-histogram
 
+### Sliding Window
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#matrix-block-sum
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#sliding-window-maximum
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#sliding-window-median
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#find-median-from-data-stream
+
 ### Math Concepts
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#max-points-on-a-line
-- Matrix Block Sum
-- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#median-of-two-sorted-arrays
 
 ## Problems - From Jiang
 
