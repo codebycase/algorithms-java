@@ -24,7 +24,7 @@ public class BinaryIndexedTree {
   // Add val to tree[i] and all of its ancestores
   public void update(int index, int val) {
     index++;
-    while (index <= tree.length) {
+    while (index < tree.length) {
       tree[index] += val;
       index += (index & -index);
     }
@@ -39,4 +39,5 @@ public class BinaryIndexedTree {
     tree.update(3, 6);
     System.out.println("Sum of elements in arr[0..5]" + " after update is " + tree.getSum(5));
   }
+
 }

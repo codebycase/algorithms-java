@@ -18,6 +18,7 @@
 - https://leetcode.com/problems/path-sum-iii/
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#three-sum-equals
 - https://leetcode.com/problems/3sum/
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#maximum-subarray-sum--k
 
 ### Binary Search
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#median-of-two-sorted-arrays
@@ -116,6 +117,9 @@
 
 ### Math Concepts
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#max-points-on-a-line
+
+### Circular Array/Queue
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#circular-array-loop
 
 ## Problems - From Jiang
 

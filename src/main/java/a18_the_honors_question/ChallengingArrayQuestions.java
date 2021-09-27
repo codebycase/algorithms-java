@@ -21,6 +21,8 @@ public class ChallengingArrayQuestions {
 	 * Example 2: Given the array [-1, 2], there is no loop.
 	 */
 	public static boolean circularArrayLoop(int[] nums) {
+	  if (nums.length <= 1)
+	    return false;
 		int n = nums.length;
 		for (int i = 0; i < n; i++) {
 			// no movement
@@ -56,6 +58,9 @@ public class ChallengingArrayQuestions {
 		int n = nums.length, x = i + nums[i];
 		return x % n + (x >= 0 ? 0 : n);
 	}
+	
+	
+		
 
 	/**
 	 * Write a program for computing the minimum number of tickets to distribute to the developers,

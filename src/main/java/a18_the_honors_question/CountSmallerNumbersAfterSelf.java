@@ -49,6 +49,7 @@ public class CountSmallerNumbersAfterSelf {
     }
     int max = Integer.MIN_VALUE;
     for (int i = 0; i < nums.length; i++) {
+      // Let index starts from 1
       nums[i] = nums[i] - min + 1;
       max = Math.max(max, nums[i]);
     }
@@ -65,7 +66,7 @@ public class CountSmallerNumbersAfterSelf {
   private void updateCount(int idx, int[] tree) {
     while (idx < tree.length) {
       tree[idx]++;
-      idx += (idx & -idx); // plus right most set bit
+      idx += (idx & -idx); // plus right most set bit to get parents
     }
   }
 
@@ -74,7 +75,7 @@ public class CountSmallerNumbersAfterSelf {
     int count = 0;
     while (idx > 0) {
       count += tree[idx];
-      idx -= (idx & -idx); // minus right most set bit
+      idx -= (idx & -idx); // minus right most set bit to get children
     }
     return count;
   }
