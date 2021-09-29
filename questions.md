@@ -44,6 +44,8 @@
 - https://leetcode.com/problems/sort-list/
 - https://leetcode.com/problems/merge-k-sorted-lists/
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#count-inversions
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#count-of-range-sum
+
 
 ### Buy and Sell Stock
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#buy-and-sell-stock
@@ -114,7 +116,6 @@
 ### Binary Indexed Tree
 - https://www.codebycase.com/algorithms/a01-fundamentals.html#accelerate-bit-manipulation
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#count-smaller-numbers-after-self
-- https://leetcode.com/problems/count-of-range-sum/submissions/
 
 ### Math Concepts
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#max-points-on-a-line

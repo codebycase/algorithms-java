@@ -17,7 +17,7 @@ package a02_arrays_strings;
 public class CountRangeSum {
   // Divide and conquer O(nlog(n))
   public int countRangeSum(int[] nums, int lower, int upper) {
-    long[] sums = new long[nums.length + 1];
+    long[] sums = new long[nums.length + 1]; // easier with one extra space
     // calculate prefix sums
     for (int i = 1; i < sums.length; i++) {
       sums[i] = sums[i - 1] + nums[i - 1];
