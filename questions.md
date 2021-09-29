@@ -108,6 +108,7 @@
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#sliding-window-maximum
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#sliding-window-median
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#find-median-from-data-stream
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#find-kth-largest-element
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#maximum-product-less-than-k
 
 ### Binary Indexed Tree
