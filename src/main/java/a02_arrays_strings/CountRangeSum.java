@@ -25,18 +25,18 @@ public class CountRangeSum {
     return divide(sums, new long[sums.length], 0, sums.length - 1, lower, upper);
   }
 
-  public int divide(long[] sums, long[] temp, int left, int right, int lower, int upper) {
+  public int divide(long[] sums, long[] helper, int left, int right, int lower, int upper) {
     if (left >= right)
       return 0;
 
     int count = 0, mid = left + (right + 1 - left) / 2;
-    count += divide(sums, temp, left, mid - 1, lower, upper);
-    count += divide(sums, temp, mid, right, lower, upper);
-    count += merge(sums, temp, left, mid, right, lower, upper);
+    count += divide(sums, helper, left, mid - 1, lower, upper);
+    count += divide(sums, helper, mid, right, lower, upper);
+    count += merge(sums, helper, left, mid, right, lower, upper);
     return count;
   }
 
-  public int merge(long[] sums, long[] temp, int low, int mid, int high, int lower, int upper) {
+  public int merge(long[] sums, long[] helper, int low, int mid, int high, int lower, int upper) {
     int count = 0, start = mid, end = mid;
     for (int i = low; i < mid; i++) {
       while (start <= high && sums[start] - sums[i] < lower)
@@ -50,19 +50,22 @@ public class CountRangeSum {
     int i = low, l = low, h = mid;
     while (l < mid && h <= high) {
       if (sums[l] <= sums[h]) {
-        temp[i++] = sums[l++];
+        helper[i++] = sums[l++];
       } else {
-        temp[i++] = sums[h++];
+        helper[i++] = sums[h++];
       }
     }
     while (l < mid) {
-      temp[i++] = sums[l++];
+      helper[i++] = sums[l++];
     }
     while (h <= high) {
-      temp[i++] = sums[h++];
+      helper[i++] = sums[h++];
     }
 
-    System.arraycopy(temp, low, sums, low, high - low + 1);
+    int remaining = high - low + 1;
+    for (int j = 0; j < remaining; j++) {
+      sums[low + j] = helper[low + j];
+    }
 
     return count;
   }
