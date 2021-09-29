@@ -22,51 +22,48 @@ public class CountRangeSum {
     for (int i = 1; i < sums.length; i++) {
       sums[i] = sums[i - 1] + nums[i - 1];
     }
-    return helper(sums, new long[sums.length], 0, sums.length - 1, lower, upper);
+    return divide(sums, new long[sums.length], 0, sums.length - 1, lower, upper);
   }
 
-  public int helper(long[] sums, long[] temp, int left, int right, int lower, int upper) {
+  public int divide(long[] sums, long[] temp, int left, int right, int lower, int upper) {
     if (left >= right)
       return 0;
 
     int count = 0, mid = left + (right + 1 - left) / 2;
-    count += helper(sums, temp, left, mid - 1, lower, upper);
-    count += helper(sums, temp, mid, right, lower, upper);
+    count += divide(sums, temp, left, mid - 1, lower, upper);
+    count += divide(sums, temp, mid, right, lower, upper);
+    count += merge(sums, temp, left, mid, right, lower, upper);
+    return count;
+  }
 
-    int start = mid, end = mid;
-    for (int i = left; i < mid; i++) {
-      while (start <= right && sums[start] - sums[i] < lower)
+  public int merge(long[] sums, long[] temp, int low, int mid, int high, int lower, int upper) {
+    int count = 0, start = mid, end = mid;
+    for (int i = low; i < mid; i++) {
+      while (start <= high && sums[start] - sums[i] < lower)
         start++;
-      while (end <= right && sums[end] - sums[i] <= upper)
+      while (end <= high && sums[end] - sums[i] <= upper)
         end++;
       count += end - start;
     }
 
-    merge(sums, temp, left, right, mid);
-    return count;
-  }
-
-  public void merge(long[] sums, long[] temp, int low, int high, int mid) {
     // mid belongs to the right half
-    int index = low, left = low, right = mid;
-    while (left < mid && right <= high) {
-      if (sums[left] <= sums[right]) {
-        temp[index] = sums[left];
-        left++;
-        index++;
+    int i = low, l = low, h = mid;
+    while (l < mid && h <= high) {
+      if (sums[l] <= sums[h]) {
+        temp[i++] = sums[l++];
       } else {
-        temp[index] = sums[right];
-        right++;
-        index++;
+        temp[i++] = sums[h++];
       }
     }
-    while (left < mid) {
-      temp[index++] = sums[left++];
+    while (l < mid) {
+      temp[i++] = sums[l++];
     }
-    while (right <= high) {
-      temp[index++] = sums[right++];
+    while (h <= high) {
+      temp[i++] = sums[h++];
     }
 
     System.arraycopy(temp, low, sums, low, high - low + 1);
+
+    return count;
   }
 }
