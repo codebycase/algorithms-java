@@ -6,6 +6,10 @@
 
 ## Problems - From Liqun
 
+### Palindromes
+
+- https://leetcode.com/problems/super-palindromes/
+
 ### Compute Permutations
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#compute-permutations
 - https://leetcode.com/problems/permutations-ii/
@@ -22,6 +26,13 @@
 
 ### Binary Search
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#median-of-two-sorted-arrays
+
+### Binary Searh Tree
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#sorted-singly-list-to-bst
+
+### Binary Indexed Tree
+- https://www.codebycase.com/algorithms/a01-fundamentals.html#accelerate-bit-manipulation
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#count-smaller-numbers-after-self
 
 ### Shortest Distance (Dijkstra's Algorithm)
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#shortest-paths
@@ -112,10 +123,6 @@
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#find-median-from-data-stream
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#find-kth-largest-element
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#maximum-product-less-than-k
-
-### Binary Indexed Tree
-- https://www.codebycase.com/algorithms/a01-fundamentals.html#accelerate-bit-manipulation
-- https://www.codebycase.com/algorithms/a15-the-honors-question.html#count-smaller-numbers-after-self
 
 ### Math Concepts
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#max-points-on-a-line

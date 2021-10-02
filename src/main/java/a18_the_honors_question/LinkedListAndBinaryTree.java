@@ -64,6 +64,7 @@ public class LinkedListAndBinaryTree {
 	}
 
 	// Transform a BST into a circular sorted DLL!
+	// left subtree + node + right subtree -> make it circular
 	public TreeNode balancedBSTToSortedDDL(TreeNode node) {
 		if (node == null)
 			return null;
@@ -75,9 +76,9 @@ public class LinkedListAndBinaryTree {
 		TreeNode lTail = null;
 		if (lHead != null) {
 			lTail = lHead.left;
-			lTail.right = node;
-			node.left = lTail;
-			lTail = node;
+			lTail.right = node; // Add node after lTail
+			node.left = lTail; // Double link it
+			lTail = node; // Update lTail to node
 		} else {
 			lHead = lTail = node;
 		}
@@ -86,8 +87,8 @@ public class LinkedListAndBinaryTree {
 		TreeNode rTail = null;
 		if (rHead != null) {
 			rTail = rHead.left;
-			lTail.right = rHead;
-			rHead.left = lTail;
+			lTail.right = rHead; // Add rHead after lTail
+			rHead.left = lTail; // Double link it
 		} else {
 			rTail = lTail;
 		}
