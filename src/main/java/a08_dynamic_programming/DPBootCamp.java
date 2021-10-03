@@ -1125,7 +1125,7 @@ public class DPBootCamp {
       return -1;
     }
 
-    int midIndex = (start + end) / 2;
+    int midIndex = start + (end - start) / 2;
     int midValue = array[midIndex];
     if (midValue == midIndex)
       return midIndex;
