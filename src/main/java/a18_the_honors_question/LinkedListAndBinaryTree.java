@@ -63,7 +63,8 @@ public class LinkedListAndBinaryTree {
     return curr;
   }
 
-  // Transform a BST into a circular sorted DLL!
+  // Transform a BST into a circular sorted DLL with Postorder traversal!
+  // Circular DLL makes it easier to track head and tail
   // left subtree + node + right subtree -> make it circular
   public TreeNode balancedBSTToSortedDLL(TreeNode node) {
     if (node == null)
@@ -108,27 +109,30 @@ public class LinkedListAndBinaryTree {
     treeB.left.right = null;
     treeA.left = null;
     treeB.left = null;
-    return sortedDLLToBalancedBST(mergeTwoSortedDLLs(treeA, treeB));
+    return sortedListToBalancedBST(mergeTwoSortedDLLs(treeA, treeB));
   }
 
   private TreeNode headPointer = null;
 
-  private TreeNode sortedDLLToBalancedBST(TreeNode node) {
+  // Not required to be DLL
+  private TreeNode sortedListToBalancedBST(TreeNode node) {
     headPointer = node;
-    return sortedDLLToBalancedBST2(0, countLength(node));
+    return sortedListToBalancedBST(0, countLength(node));
   }
 
-  private TreeNode sortedDLLToBalancedBST2(int start, int end) {
+  // Use Inorder traversal with a head pointer
+  private TreeNode sortedListToBalancedBST(int start, int end) {
     if (start >= end)
       return null;
     int mid = start + (end - start) / 2;
-    TreeNode left = sortedDLLToBalancedBST2(start, mid);
+    TreeNode left = sortedListToBalancedBST(start, mid);
     TreeNode curr = new TreeNode(headPointer.val, left, null);
     headPointer = headPointer.right;
-    curr.right = sortedDLLToBalancedBST2(mid + 1, end);
+    curr.right = sortedListToBalancedBST(mid + 1, end);
     return curr;
   }
 
+  // Return sorted linked list (not neccessary to be DLL)
   private TreeNode mergeTwoSortedDLLs(TreeNode A, TreeNode B) {
     TreeNode dummyHead = new TreeNode();
     TreeNode current = dummyHead;

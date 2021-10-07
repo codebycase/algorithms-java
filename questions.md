@@ -6,9 +6,17 @@
 
 ## Problems - From Liqun
 
+### Bit Manipulation
+
+- https://www.codebycase.com/algorithms/a01-fundamentals.html#contains-all-binary-codes
+
 ### Palindromes
 
-- https://leetcode.com/problems/super-palindromes/
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#longest-valid-parentheses
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#longest-palindromic-substring
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#palindrome-permutation
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#super-palindromes
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#palindrome-pairs
 
 ### Compute Permutations
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#compute-permutations
@@ -29,6 +37,7 @@
 
 ### Binary Searh Tree
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#sorted-singly-list-to-bst
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#merge-two-bsts
 
 ### Binary Indexed Tree
 - https://www.codebycase.com/algorithms/a01-fundamentals.html#accelerate-bit-manipulation
@@ -56,7 +65,6 @@
 - https://leetcode.com/problems/merge-k-sorted-lists/
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#count-inversions
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#count-of-range-sum
-
 
 ### Buy and Sell Stock
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#buy-and-sell-stock
@@ -124,11 +132,24 @@
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#find-kth-largest-element
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#maximum-product-less-than-k
 
+### Cache Design 
+- https://www.codebycase.com/algorithms/a07-hash-cache-memory.html#design-lru-cache
+- https://www.codebycase.com/algorithms/a07-hash-cache-memory.html#design-lfu-cache
+
 ### Math Concepts
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#max-points-on-a-line
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#next-closest-time
 
 ### Circular Array/Queue
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#circular-array-loop
+
+### Regular Expression
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#regular-expression-matching
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#expression-add-operators
+
+### Codec & Compression
+
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#implement-huffman-coding
 
 ## Problems - From Jiang
 
