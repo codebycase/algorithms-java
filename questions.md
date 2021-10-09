@@ -9,6 +9,7 @@
 ### Bit Manipulation
 
 - https://www.codebycase.com/algorithms/a01-fundamentals.html#contains-all-binary-codes
+- https://www.codebycase.com/algorithms/a01-fundamentals.html#game-can-i-win
 
 ### Palindromes
 
@@ -154,7 +155,7 @@
 ### Greedy & Recursive ???
 
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#measure-with-defective-jugs
-- https://www.codebycase.com/algorithms/a15-the-honors-question.html#game-can-i-win
+
 
 ## Problems - From Jiang
 

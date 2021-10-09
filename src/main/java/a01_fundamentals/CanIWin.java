@@ -1,4 +1,4 @@
-package a18_the_honors_question;
+package a01_fundamentals;
 
 import java.util.HashMap;
 import java.util.Map;
