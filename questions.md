@@ -151,6 +151,11 @@
 
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#implement-huffman-coding
 
+### Greedy & Recursive ???
+
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#measure-with-defective-jugs
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#game-can-i-win
+
 ## Problems - From Jiang
 
 ### Union find
