@@ -39,7 +39,7 @@ public class SlidingWindowMaximum {
 		Deque<Integer> queue = new LinkedList<>();
 		for (int i = 0; i < nums.length; i++) {
 			// discard if the element is out of the k size window
-			while (!queue.isEmpty() && queue.peek() < i - k + 1) {
+			if (!queue.isEmpty() && queue.peek() < i - k + 1) {
 				queue.poll();
 			}
 			// discard elements smaller than nums[i] from the tail

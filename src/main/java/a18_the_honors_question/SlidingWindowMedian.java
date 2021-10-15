@@ -72,6 +72,7 @@ public class SlidingWindowMedian {
       if (i - k >= 0) {
         ans[i - k] = k % 2 == 0 ? ((double) nums[small.peek()] + (double) nums[large.peek()]) / 2 : (double) nums[large.peek()];
 
+        // Lazy removal of an outgoing number
         if (!small.isEmpty() && i - k == small.peek()) {
           small.poll();
           balance++;

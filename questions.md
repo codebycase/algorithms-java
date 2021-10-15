@@ -4,6 +4,10 @@
 
 - https://leetcode.com/discuss/interview-question/1380561/template-for-dynamic-programming
 
+## Pending
+
+- Top visited websites: each website maintain a HitCounter
+
 ## Problems - From Liqun
 
 ### Bit Manipulation
@@ -119,6 +123,14 @@
 ### Hit/Token Counter
 - https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#design-hit-counter
 - https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#heavy-hitter-tokens
+
+### Jump Games
+- https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#jump-game
+- https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#jump-game-ii
+- https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#jump-game-iii
+- https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#jump-game-iv
+- https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#jump-game-vi
+- https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#jump-game-vii
 - https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#frog-jump
 
 ### Histogram Chart
