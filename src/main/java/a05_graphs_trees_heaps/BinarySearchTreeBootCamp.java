@@ -311,42 +311,27 @@ public class BinarySearchTreeBootCamp {
 	 * whose left end point is 3 has length 8 - 3 = 5. The element after 3 is 6, so we continue with
 	 * the triple (5, 6, 8). The smallest interval whose left end point is 5 has length 8 - 5 = 3.
 	 * The element after 5 is 10, so we continue with the triple (10, 6, 8)...
-	 */
-	public int minDistanceInKSortedArrays(List<List<Integer>> sortedArrays) {
-		// Indices into each of the arrays
-		List<Integer> heads = new ArrayList<>(sortedArrays.size());
-		for (int i = 0; i < sortedArrays.size(); i++)
-			heads.add(0);
+	 */	
+  public int minDistanceInKSortedArrays(List<List<Integer>> sortedArrays) {
+    int result = Integer.MAX_VALUE;
+    // int[3]: arrayIdx, valueIdx, value
+    NavigableSet<int[]> currentHeads = new TreeSet<>((a, b) -> (a[2] - b[2] == 0 ? a[0] - b[0] : a[2] - b[2]));
 
-		int result = Integer.MAX_VALUE;
-		NavigableSet<ArrayData> currentHeads = new TreeSet<>(
-				(a, b) -> (a.val - b.val == 0 ? a.idx - b.idx : a.val - b.val));
+    for (int i = 0; i < sortedArrays.size(); i++) {
+      currentHeads.add(new int[] { i, 0, sortedArrays.get(i).get(0) });
+    }
 
-		for (int i = 0; i < sortedArrays.size(); i++) {
-			currentHeads.add(new ArrayData(i, sortedArrays.get(i).get(heads.get(i))));
-		}
-
-		while (true) {
-			result = Math.min(result, currentHeads.last().val - currentHeads.first().val);
-			int idxNextMin = currentHeads.first().idx;
-			heads.set(idxNextMin, heads.get(idxNextMin) + 1);
-			// Return if some array has no remaining elements.
-			if (heads.get(idxNextMin) >= sortedArrays.get(idxNextMin).size())
-				return result;
-			currentHeads.pollFirst();
-			currentHeads.add(new ArrayData(idxNextMin, sortedArrays.get(idxNextMin).get(heads.get(idxNextMin))));
-		}
-	}
-
-	private class ArrayData {
-		private int val;
-		private int idx;
-
-		public ArrayData(int idx, int val) {
-			this.idx = idx;
-			this.val = val;
-		}
-	}
+    while (true) {
+      result = Math.min(result, currentHeads.last()[2] - currentHeads.first()[2]);
+      int[] data = currentHeads.pollFirst();
+      // Return if some array has no remaining elements.
+      int nextValueIdx = data[1] + 1;
+      if (nextValueIdx >= sortedArrays.get(data[0]).size()) {
+        return result;
+      }
+      currentHeads.add(new int[] { data[0], nextValueIdx, sortedArrays.get(data[0]).get(nextValueIdx) });
+    }
+  }
 	
 	public static void main(String[] args) {
 		BinarySearchTreeBootCamp bootCamp = new BinarySearchTreeBootCamp();

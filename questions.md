@@ -37,10 +37,21 @@
 - https://leetcode.com/problems/3sum/
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#maximum-subarray-sum--k
 
+### Binary Tree
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#convert-to-balanced-bst
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#serialize-and-deserialize
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#find-exterior-of-binary-tree
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#binary-tree-right-side-view
+
+
 ### Binary Search
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#median-of-two-sorted-arrays
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#compute-k-largest-elements
 
 ### Binary Searh Tree
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#flatten-binary-tree-to-linked-list
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#find-k-closest-values
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#convert-traversal-data-to-bst
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#sorted-singly-list-to-bst
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#merge-two-bsts
 
@@ -55,7 +66,10 @@
 - https://leetcode.com/problems/unique-paths-iii/
 - https://leetcode.com/problems/network-delay-time/
 - https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#cheapest-flights-with-k-stops
-- https://leetcode.com/problems/robot-room-cleaner/
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#robot-room-cleaner
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#sentence-similarity-ii
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#shortest-distance-from-all-buildings
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#min-distance-in-k-sorted-arrays
 
 ### Word Search with Trie
 - https://www.codebycase.com/algorithms/a06-sorting-and-searching.html#word-search
@@ -67,7 +81,7 @@
 - https://www.codebycase.com/algorithms/a06-sorting-and-searching.html#merge-sort-a-linked-list
 - https://leetcode.com/problems/sort-an-array/
 - https://leetcode.com/problems/sort-list/
-- https://leetcode.com/problems/merge-k-sorted-lists/
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#sort-an-increasing-decreasing-array
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#count-inversions
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#count-of-range-sum
 
@@ -84,12 +98,20 @@
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#max-money-rob-house
 - https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#pour-water-in-histogram
 
+### Graph Boot Camp
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#kill-process
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#deadlock-detection
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#word-ladder
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#sliding-puzzle
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#bus-routes
+
 ### Topological Ordering
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#topological-ordering
 - https://leetcode.com/problems/course-schedule/
 - https://leetcode.com/problems/course-schedule-ii/
 - https://leetcode.com/problems/course-schedule-iii/
 - https://leetcode.com/problems/course-schedule-iv/
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#alien-dictionary
 
 ### Text Justification
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#text-justification
@@ -188,3 +210,7 @@
 
 ### Dynamic programming
 - https://leetcode.com/problems/matrix-block-sum/
+
+
+
+
