@@ -26,12 +26,12 @@ public class GreedyBootCamp {
 	}
 
 	public static Integer findMinimumVisits(List<Interval> intervals) {
-		Collections.sort(intervals, (a, b) -> (a.right - b.right));
+		Collections.sort(intervals, (a, b) -> (a.end - b.end));
 		int numVisits = 0;
 		int lastVisitTime = 0;
 		for (Interval interval : intervals) {
-			if (interval.left > lastVisitTime) {
-				lastVisitTime = interval.right;
+			if (interval.start > lastVisitTime) {
+				lastVisitTime = interval.end;
 				numVisits++;
 			}
 		}

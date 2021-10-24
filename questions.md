@@ -70,6 +70,7 @@
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#sentence-similarity-ii
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#shortest-distance-from-all-buildings
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#min-distance-in-k-sorted-arrays
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#employee-free-time
 
 ### Word Search with Trie
 - https://www.codebycase.com/algorithms/a06-sorting-and-searching.html#word-search
