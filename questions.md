@@ -211,6 +211,10 @@
 
 ### Dynamic programming
 - https://leetcode.com/problems/matrix-block-sum/
+- https://leetcode.com/problems/maximal-rectangle/
+
+### Stack
+- https://leetcode.com/problems/longest-valid-parentheses/
 
 
 
