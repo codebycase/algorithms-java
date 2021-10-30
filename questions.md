@@ -191,6 +191,15 @@
 
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#measure-with-defective-jugs
 
+### Parallel Computing
+
+- https://www.codebycase.com/algorithms/a10-parallel-computing.html#concurrenthashmap
+- https://www.codebycase.com/algorithms/a10-parallel-computing.html#shared-variable
+- https://www.codebycase.com/algorithms/a10-parallel-computing.html#a-semaphore-sample
+- https://www.codebycase.com/algorithms/a10-parallel-computing.html#synchronize-two-interleaving-threads
+- https://www.codebycase.com/algorithms/a10-parallel-computing.html#fix-a-concurrency-bug
+- https://www.codebycase.com/algorithms/a10-parallel-computing.html#implement-a-timer-class
+- https://www.codebycase.com/algorithms/a10-parallel-computing.html#javautilconcurrentexecutorcompletionservice
 
 ## Problems - From Jiang
 
