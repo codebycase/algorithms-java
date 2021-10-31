@@ -471,11 +471,11 @@ public class DPBootCamp {
       return map.get(key);
 
     boolean result = isPossible(nums, i + 1, count, sum, map);
-    
+
     if (!result && sum - nums[i] >= 0) {
       result = isPossible(nums, i + 1, count - 1, sum - nums[i], map);
     }
-    
+
     map.put(key, result);
     return result;
   }
@@ -656,9 +656,9 @@ public class DPBootCamp {
     for (int i = 0; i < matrix.length; i++) {
       for (int j = 0; j < matrix[i].length; j++) {
         if (matrix[i][j] == '1')
-          heights[j] += 1;
+          heights[j] += 1; // Add on continous column height
         else
-          heights[j] = 0;
+          heights[j] = 0; // Reset broken column height
       }
       maxArea = Math.max(maxArea, maxAreaInLine(heights));
     }
@@ -666,8 +666,6 @@ public class DPBootCamp {
   }
 
   private int maxAreaInLine(int[] heights) {
-    if (heights == null || heights.length == 0)
-      return 0;
     Stack<Integer> stack = new Stack<>();
     int maxArea = 0;
     for (int i = 0; i <= heights.length; i++) {
@@ -677,7 +675,7 @@ public class DPBootCamp {
       } else {
         int tp = stack.pop();
         maxArea = Math.max(maxArea, heights[tp] * (stack.isEmpty() ? i : i - 1 - stack.peek()));
-        i--; // keep trying until!
+        i--; // Keep trying until stack has no more lower height!
       }
     }
     return maxArea;
@@ -1381,7 +1379,27 @@ public class DPBootCamp {
   Output: false
    * </pre>
    */
+  
+  // DFS is the most efficient way!
   public boolean isInterleave(String s1, String s2, String s3) {
+    if (s1.length() + s2.length() != s3.length())
+      return false;
+    return dfs(s1, s2, s3, 0, 0, 0, new boolean[s1.length() + 1][s2.length() + 1]);
+  }
+
+  public boolean dfs(String s1, String s2, String s3, int i, int j, int k, boolean[][] invalid) {
+    if (invalid[i][j])
+      return false;
+    if (k == s3.length())
+      return true;
+    boolean valid = (i < s1.length() && s1.charAt(i) == s3.charAt(k) && dfs(s1, s2, s3, i + 1, j, k + 1, invalid))
+        || (j < s2.length() && s2.charAt(j) == s3.charAt(k) && dfs(s1, s2, s3, i, j + 1, k + 1, invalid));
+    if (!valid)
+      invalid[i][j] = true;
+    return valid;
+  }
+
+  public boolean isInterleave2(String s1, String s2, String s3) {
     if (s3.length() != s1.length() + s2.length())
       return false;
     boolean dp[][] = new boolean[s1.length() + 1][s2.length() + 1];
@@ -1398,7 +1416,6 @@ public class DPBootCamp {
       }
     }
     return dp[s1.length()][s2.length()];
-
   }
 
   public int numDistinct(String s, String t) {

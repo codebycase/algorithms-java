@@ -43,7 +43,6 @@
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#find-exterior-of-binary-tree
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#binary-tree-right-side-view
 
-
 ### Binary Search
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#median-of-two-sorted-arrays
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#compute-k-largest-elements
@@ -97,7 +96,6 @@
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#min-cost-climbing-stairs
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#delete-and-earn
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#max-money-rob-house
-- https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#pour-water-in-histogram
 
 ### Graph Boot Camp
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#kill-process
@@ -158,6 +156,7 @@
 
 ### Histogram Chart
 - https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#largest-rectangle-in-histogram
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#maximal-rectangle
 - https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#pour-water-in-histogram
 
 ### Sliding Window
@@ -187,9 +186,10 @@
 
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#implement-huffman-coding
 
-### Greedy & Recursive ???
+### Greedy & Recursive & DFS
 
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#measure-with-defective-jugs
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#interleaving-string
 
 ### Parallel Computing
 
