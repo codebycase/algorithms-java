@@ -1001,7 +1001,7 @@ public class DPBootCamp {
    * 
    * Your algorithm should run in O(n) complexity.
    */
-  public int longestConsecutiveSequence(int[] nums) {
+  public int longestConsecutive(int[] nums) {
     Set<Integer> set = new HashSet<>();
     for (int num : nums)
       set.add(num);

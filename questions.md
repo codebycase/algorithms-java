@@ -15,6 +15,24 @@
 - https://www.codebycase.com/algorithms/a01-fundamentals.html#contains-all-binary-codes
 - https://www.codebycase.com/algorithms/a01-fundamentals.html#game-can-i-win
 
+### Array & String
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#generate-pascal-triangle
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#random-pick-with-blacklist
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#single-number-iii
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#spiral-matrix
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#word-break
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#word-break-ii
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#custom-sort-string
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#replace-and-remove
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#group-shifted-strings
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#find-first-substring
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#decode-nested-string
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#k-similar-strings
+
+### List & Linked Lists
+- https://www.codebycase.com/algorithms/a03-list-and-linked-lists.html#combinations-of-phone-number
+- https://www.codebycase.com/algorithms/a03-list-and-linked-lists.html#add-two-numbers-ii
+
 ### Palindromes
 
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#longest-valid-parentheses

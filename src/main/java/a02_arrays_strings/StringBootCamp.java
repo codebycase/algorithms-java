@@ -280,6 +280,7 @@ public class StringBootCamp {
 
     for (String str : strings) {
       String pattern = generatePattern(str);
+      System.out.println(pattern);
       List<String> currentGroup = patternGroups.getOrDefault(pattern, new ArrayList<>());
       patternGroups.put(pattern, currentGroup);
       currentGroup.add(str);
@@ -313,7 +314,6 @@ public class StringBootCamp {
     int i = 0, j = 0;
     while (i < l1 || j < l2) {
       int num1 = 0, num2 = 0;
-      num2 = 0;
       while (i < l1 && version1.charAt(i) != '.') {
         num1 = num1 * 10 + version1.charAt(i++) - '0';
       }
