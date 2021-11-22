@@ -112,6 +112,11 @@ public class ArithmeticSlices {
    * subsequence in nums which is an arithmetic sequence such that the difference between adjacent
    * elements in the subsequence equals difference.
    * 
+   * Example:
+   * 
+   * Input: nums = [20,1,15,3,10,5,8] Output: 4 Explanation: The longest arithmetic subsequence is
+   * [20,15,10,5].
+   * 
    * Solution:
    * 
    * Traverse from the right of the array and consider it as the starting element of the AP. Determine
@@ -143,6 +148,12 @@ public class ArithmeticSlices {
   /**
    * Given an array nums of integers, return the length of the longest arithmetic subsequence (not
    * have to be adjacent) in nums.
+   * 
+   * Example:
+   * 
+   * Input: nums = [20,1,15,3,10,5,8] 
+   * Output: 4 
+   * Explanation: The longest arithmetic subsequence is [20,15,10,5].
    */
   public int longestArithSeqLength(int[] nums) {
     if (nums == null || nums.length == 0) {

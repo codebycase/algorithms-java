@@ -1022,6 +1022,28 @@ public class DPBootCamp {
     return longestStreak;
   }
 
+  public int longestConsecutive2(int[] nums) {
+    Map<Integer, Integer> map = new HashMap<>();
+    int maxLength = 0;
+    
+    for (int num : nums) {
+      if (!map.containsKey(num)) {
+        int left = map.getOrDefault(num - 1, 0);
+        int right = map.getOrDefault(num + 1, 0);
+        int total = left + right + 1;
+
+        maxLength = Math.max(maxLength, total);
+        map.put(num, total);
+
+        // Only need to update head and tail
+        map.put(num - left, total);
+        map.put(num + right, total);
+      }
+    }
+
+    return maxLength;
+  }
+  
   /**
    * Given an unsorted array of integers, find the number of longest increasing subsequence.
    * 

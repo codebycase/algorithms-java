@@ -6,7 +6,10 @@
 
 ## Pending
 
-- Top visited websites: each website maintain a HitCounter
+- Top visited websites:
+  - Publish WebsiteViewed event to a queue (ActiveMQ)
+  - Each website maintain a HitCounter
+  - In-memory datastore
 
 ## Problems - From Liqun
 
@@ -28,10 +31,16 @@
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#find-first-substring
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#decode-nested-string
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#k-similar-strings
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#longest-increasing-subsequence
 
 ### List & Linked Lists
 - https://www.codebycase.com/algorithms/a03-list-and-linked-lists.html#combinations-of-phone-number
 - https://www.codebycase.com/algorithms/a03-list-and-linked-lists.html#add-two-numbers-ii
+
+### Dynamic Programming
+
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#paint-house
+- 
 
 ### Palindromes
 
@@ -40,6 +49,9 @@
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#palindrome-permutation
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#super-palindromes
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#palindrome-pairs
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#palindrome-partitioning
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#palindrome-partition-ii
+
 
 ### Compute Permutations
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#compute-permutations
@@ -138,6 +150,7 @@
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#minimum-cost-to-hire-k-workers
 
 ### Partition to Subsets
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#partition-array-equally
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#partition-to-k-equal-sum-subsets
 - https://leetcode.com/problems/partition-equal-subset-sum/
 - https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
@@ -158,6 +171,7 @@
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#largest-sum-of-averages
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#maximum-average-subarray
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#split-array-with-same-average
+
 
 ### Hit/Token Counter
 - https://www.codebycase.com/algorithms/a09-recursion-greedy-invariant.html#design-hit-counter
