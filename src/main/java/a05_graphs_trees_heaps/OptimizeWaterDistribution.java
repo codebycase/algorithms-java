@@ -36,7 +36,8 @@ import java.util.Set;
  */
 public class OptimizeWaterDistribution {
   public int minCostToSupplyWater(int n, int[] wells, int[][] pipes) {
-    Queue<int[]> queue = new PriorityQueue<>(n, (a, b) -> (a[0] - b[0]));
+    // int[0] is house, int[1] is cost
+    Queue<int[]> queue = new PriorityQueue<>(n, (a, b) -> (a[1] - b[1]));
 
     List<List<int[]>> graph = new ArrayList<>(n + 1);
     for (int i = 0; i < n + 1; ++i) {
@@ -45,18 +46,15 @@ public class OptimizeWaterDistribution {
 
     // Add a virtual vertex 0 for the insided wells cost,
     for (int i = 0; i < wells.length; i++) {
-      int[] virtualEdge = { wells[i], i + 1 };
+      int[] virtualEdge = { i + 1, wells[i] };
       graph.get(0).add(virtualEdge);
       queue.add(virtualEdge); // starts with well!
     }
 
     // Add the bidirectional edges to the graph
     for (int i = 0; i < pipes.length; ++i) {
-      int house1 = pipes[i][0];
-      int house2 = pipes[i][1];
-      int cost = pipes[i][2];
-      graph.get(house1).add(new int[] { cost, house2 });
-      graph.get(house2).add(new int[] { cost, house1 });
+      graph.get(pipes[i][0]).add(new int[] { pipes[i][1], pipes[i][2] });
+      graph.get(pipes[i][1]).add(new int[] { pipes[i][0], pipes[i][2] });
     }
 
     Set<Integer> visited = new HashSet<>();
@@ -66,15 +64,15 @@ public class OptimizeWaterDistribution {
     // n + 1 to cover the virtual vertex 0
     while (visited.size() < n + 1) {
       int[] edge = queue.poll();
-      if (visited.contains(edge[1])) {
+      if (visited.contains(edge[0])) {
         continue;
       }
 
-      visited.add(edge[1]);
-      totalCost += edge[0];
+      visited.add(edge[0]);
+      totalCost += edge[1];
 
-      for (int[] neighbor : graph.get(edge[1])) {
-        if (!visited.contains(neighbor[1])) {
+      for (int[] neighbor : graph.get(edge[0])) {
+        if (!visited.contains(neighbor[0])) {
           queue.add(neighbor);
         }
       }
