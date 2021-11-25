@@ -25,11 +25,11 @@ package a05_graphs_trees_heaps;
  * @author lchen
  *
  */
-public class PriorityQueue {
+public class PriorityQueueDemo {
 	private Task[] heap;
 	private int heapSize, capacity;
 
-	public PriorityQueue(int capacity) {
+	public PriorityQueueDemo(int capacity) {
 		this.capacity = capacity + 1; // not using the first entry
 		heap = new Task[this.capacity];
 		heapSize = 0;
@@ -110,7 +110,7 @@ public class PriorityQueue {
 	}
 
 	public static void main(String[] args) {
-		PriorityQueue queue = new PriorityQueue(3);
+		PriorityQueueDemo queue = new PriorityQueueDemo(3);
 		queue.insert("first", 1);
 		queue.insert("second", 5);
 		queue.insert("third", 3);

@@ -8,7 +8,17 @@ import java.util.TreeSet;
 
 public class OptimalAccountBalancing {
   public int minTransfers(int[][] transactions) {
-    List<Integer> balanceList = getBalanceList(transactions);
+    // Calculate each account's balance
+    Map<Integer, Integer> balanceMap = new HashMap<>();
+    for (int[] transaction : transactions) {
+      balanceMap.put(transaction[0], balanceMap.getOrDefault(transaction[0], 0) + transaction[2]);
+      balanceMap.put(transaction[1], balanceMap.getOrDefault(transaction[1], 0) - transaction[2]);
+    }
+
+    // Need a list here, able to get value at specific index
+    // Just need a balance list as account ids are irrelevant
+    List<Integer> balanceList = new ArrayList<>();
+    balanceList.addAll(balanceMap.values());
 
     // Map the indices of balances for quick lookup to prune
     Map<Integer, TreeSet<Integer>> balanceToIdxMap = new HashMap<>();
@@ -25,12 +35,11 @@ public class OptimalAccountBalancing {
 
     int currBalance = balanceList.get(position);
 
-    if (currBalance == 0) {
-      // Skip to proceed with next one
+    // Skip zero balance and proceed with next one
+    if (currBalance == 0)
       return backTrackTransactions(balanceList, position + 1, balanceToIdxMap);
-    }
 
-    // First look for lowest index that is higher than current position, but has the opposite balance.
+    // Look for lowest index that is higher than current position, but has the opposite balance.
     int nextBalance = -currBalance;
     if (balanceToIdxMap.containsKey(nextBalance)) {
       TreeSet<Integer> set = balanceToIdxMap.get(nextBalance);
@@ -45,8 +54,8 @@ public class OptimalAccountBalancing {
       }
     }
 
-    // Second go through the rest of the list if not found an optimal balance,
-    int minTransactions = balanceList.size() - 1; // highest possible solutions
+    // Otherwise, go through the rest of the list if not found an optimal balance
+    int minTransactions = balanceList.size() - 1; // max transactions
     for (int i = position + 1; i < balanceList.size(); i++) {
       nextBalance = balanceList.get(i);
       if (nextBalance * currBalance >= 0)
@@ -58,24 +67,6 @@ public class OptimalAccountBalancing {
     }
 
     return minTransactions;
-  }
-
-  // Just need a balance list as no need to care about account ids
-  private List<Integer> getBalanceList(int[][] transactions) {
-    Map<Integer, Integer> balanceMap = new HashMap<>();
-
-    for (int[] transaction : transactions) {
-      balanceMap.put(transaction[0], balanceMap.getOrDefault(transaction[0], 0) + transaction[2]);
-      balanceMap.put(transaction[1], balanceMap.getOrDefault(transaction[1], 0) - transaction[2]);
-    }
-
-    // Need a list here, able to get value at specified index
-    List<Integer> balancesList = new ArrayList<>();
-    for (Map.Entry<Integer, Integer> standing : balanceMap.entrySet()) {
-      balancesList.add(standing.getValue());
-    }
-
-    return balancesList;
   }
 
   public static void main(String[] args) {

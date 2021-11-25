@@ -9,4 +9,11 @@ public class Pair<T> {
     this.right = right;
   }
 
+  public T getKey() {
+    return left;
+  }
+
+  public T getValue() {
+    return right;
+  }
 }
