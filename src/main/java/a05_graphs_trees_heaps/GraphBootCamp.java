@@ -223,59 +223,61 @@ public class GraphBootCamp {
 
   // https://leetcode.com/problems/shortest-distance-from-all-buildings/submissions/
   public int shortestDistance(int[][] grid) {
-    int dirs[][] = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+    int dirs[][] = { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
 
-    int rows = grid.length;
-    int cols = grid[0].length;
+    int rows = grid.length, cols = grid[0].length;
 
     // Store total distance sum for each empty cell to all houses.
-    int[][] total = new int[rows][cols];
+    int[][] totalDist = new int[rows][cols];
 
-    int emptyLandValue = 0;
-    int minDist = Integer.MAX_VALUE;
+    int minDist = 0, emptyLandValue = 0;
 
-    for (int row = 0; row < rows; ++row) {
-      for (int col = 0; col < cols; ++col) {
+    for (int row = 0; row < rows; row++) {
+      for (int col = 0; col < cols; col++) {
 
         // Start a BFS from each house.
         if (grid[row][col] == 1) {
           // Reset min distance!
           minDist = Integer.MAX_VALUE;
 
-          Queue<int[]> q = new LinkedList<>();
-          q.offer(new int[] { row, col });
+          Queue<int[]> queue = new LinkedList<>();
+          queue.offer(new int[] { row, col });
 
-          int steps = 0; // Levels
-          while (!q.isEmpty()) {
+          int steps = 0; // levels
+          while (!queue.isEmpty()) {
             steps++;
-
-            for (int i = q.size(); i > 0; --i) {
-              int[] curr = q.poll();
+            // Iterator on in the same level
+            for (int i = queue.size(); i > 0; i--) {
+              int[] curr = queue.poll();
 
               for (int[] dir : dirs) {
                 int nextRow = curr[0] + dir[0];
                 int nextCol = curr[1] + dir[1];
 
-                // For each cell with the value equal to empty land value
+                // For each cell with the value equal to empty land value,
                 // add distance and decrement the cell value by 1 in favor of tracking visited
                 if (nextRow >= 0 && nextRow < rows && nextCol >= 0 && nextCol < cols && grid[nextRow][nextCol] == emptyLandValue) {
                   grid[nextRow][nextCol]--;
-                  total[nextRow][nextCol] += steps;
+                  totalDist[nextRow][nextCol] += steps;
 
-                  q.offer(new int[] { nextRow, nextCol });
-                  minDist = Math.min(minDist, total[nextRow][nextCol]);
+                  queue.offer(new int[] { nextRow, nextCol });
+                  minDist = Math.min(minDist, totalDist[nextRow][nextCol]);
                 }
               }
             }
           }
 
+          // Abort if not found any empty land
+          if (minDist == Integer.MAX_VALUE) {
+            return -1;
+          }
           // Decrement empty land value to be searched in next iteration.
           emptyLandValue--;
         }
       }
     }
 
-    return minDist == Integer.MAX_VALUE ? -1 : minDist;
+    return minDist;
   }
 
   public static void main(String[] args) {

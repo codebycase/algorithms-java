@@ -98,6 +98,7 @@
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#robot-room-cleaner
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#sentence-similarity-ii
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#shortest-distance-from-all-buildings
+- https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#optimize-water-distribution-in-a-village
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#min-distance-in-k-sorted-arrays
 - https://www.codebycase.com/algorithms/a05-graphs-trees-heaps.html#employee-free-time
 
