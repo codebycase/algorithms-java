@@ -36,7 +36,7 @@ public class PaintHouseIII {
   }
 
   public int minCost(int[] houses, int[][] costs, int currentHouse, int prevColor, int target, int[][][] memo) {
-    if (currentHouse >= costs.length)
+    if (currentHouse >= houses.length)
       return target == 0 ? 0 : -1;
     if (target < 0)
       return -1;
@@ -46,22 +46,20 @@ public class PaintHouseIII {
 
     int minCost = -1;
     int currentColor = houses[currentHouse];
-    for (int chosenColor = 1; chosenColor <= costs[currentHouse].length; chosenColor++) {
-      // Skip already painted houses
-      if (currentColor != 0 && chosenColor != currentColor)
-        continue;
-      // No longer able to add a new neighbor
-      if (target == 0 && chosenColor != prevColor)
-        continue;
-      int nextCost = minCost(houses, costs, currentHouse + 1, chosenColor, target - (chosenColor == prevColor ? 0 : 1), memo);
-      if (nextCost == -1)
-        continue; // Not able to match target neighbors
-      int fullCost = (currentColor != 0 ? 0 : costs[currentHouse][chosenColor - 1]) + nextCost;
-      if (minCost == -1 || minCost > fullCost) {
-        minCost = fullCost;
+    if (currentColor == 0) {
+      // Try out all different colors
+      for (int chosenColor = 1; chosenColor <= costs[currentHouse].length; chosenColor++) {
+        int nextCost = minCost(houses, costs, currentHouse + 1, chosenColor, target - (chosenColor == prevColor ? 0 : 1), memo);
+        // If chosenColor can reach target eventually
+        if (nextCost != -1) {
+          nextCost = (currentColor != 0 ? 0 : costs[currentHouse][chosenColor - 1]) + nextCost;
+          minCost = minCost == -1 ? nextCost : Math.min(minCost, nextCost);
+        }
       }
+    } else {
+      int nextCost = minCost(houses, costs, currentHouse + 1, currentColor, target - (currentColor == prevColor ? 0 : 1), memo);
+      minCost = minCost == -1 ? nextCost : Math.min(minCost, nextCost);
     }
-
     if (prevColor != -1) {
       memo[currentHouse][target][prevColor] = minCost;
     }

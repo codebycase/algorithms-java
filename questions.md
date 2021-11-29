@@ -40,7 +40,7 @@
 ### Dynamic Programming
 
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#paint-house
-- 
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#paint-house-iii
 
 ### Palindromes
 
