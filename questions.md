@@ -11,6 +11,8 @@
   - Each website maintain a HitCounter
   - In-memory datastore
 
+- Reorganize string
+
 ## Problems - From Liqun
 
 ### Bit Manipulation
@@ -32,6 +34,7 @@
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#decode-nested-string
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#k-similar-strings
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#longest-increasing-subsequence
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#russian-doll-envelopes
 
 ### List & Linked Lists
 - https://www.codebycase.com/algorithms/a03-list-and-linked-lists.html#combinations-of-phone-number
@@ -223,6 +226,7 @@
 
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#measure-with-defective-jugs
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#interleaving-string
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#optimal-account-balancing
 
 ### Parallel Computing
 

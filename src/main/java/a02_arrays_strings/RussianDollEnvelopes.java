@@ -1,4 +1,4 @@
-package a01_fundamentals;
+package a02_arrays_strings;
 
 import java.util.Arrays;
 

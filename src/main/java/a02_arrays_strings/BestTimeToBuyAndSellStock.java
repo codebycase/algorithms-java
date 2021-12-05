@@ -94,12 +94,15 @@ public class BestTimeToBuyAndSellStock {
     if (k >= len / 2)
       return quickSolve(prices);
 
+    // Cash after n <= k transactions at this price
     int[][] t = new int[k + 1][len];
     for (int i = 1; i <= k; i++) {
-      int tmpMax = 0 - prices[0];
+      int buyMax = 0 - prices[0];
       for (int j = 1; j < len; j++) {
-        t[i][j] = Math.max(t[i][j - 1], prices[j] + tmpMax);
-        tmpMax = Math.max(tmpMax, t[i - 1][j - 1] - prices[j]);
+        // To sell at current price
+        t[i][j] = Math.max(t[i][j - 1], buyMax + prices[j]);
+        // To buy at current price for next transaction
+        buyMax = Math.max(buyMax, t[i - 1][j - 1] - prices[j]);
       }
     }
 
@@ -159,10 +162,25 @@ public class BestTimeToBuyAndSellStock {
   }
 
   /*
-   * To transition from the i-th day to the i+1-th day, we either sell our stock cash = max(cash, hold
-   * + prices[i] - fee) or buy a stock hold = max(hold, cash - prices[i])
+   * Best Time to Buy and Sell Stock with Transaction Fee
    */
   public int maxProfitWithMaxTransactionsAndFee(int[] prices, int fee) {
+    int sell = 0, buy = Integer.MIN_VALUE;
+    for (int price : prices) {
+      buy = Math.max(buy, sell - price);
+      sell = Math.max(sell, buy + price - fee);
+    }
+    return sell;
+  }
+
+  /*
+   * To transition from the i-th day to the i+1-th day, we either sell our stock 
+   * cash = max(cash, hold + prices[i] - fee) or buy a stock hold = max(hold, cash - prices[i]). 
+   * At the end, we want to return cash. We can transform cash first without using temporary 
+   * variables because selling and buying on the same day can't be better than just 
+   * continuing to hold the stock.
+   */
+  public int maxProfitWithMaxTransactionsAndFee2(int[] prices, int fee) {
     int cash = 0; // max profit if we sell in past
     int hold = -prices[0]; // max profit if we buy in past
     for (int i = 1; i < prices.length; i++) {
@@ -173,12 +191,27 @@ public class BestTimeToBuyAndSellStock {
   }
 
   /**
+   * Best Time to Buy and Sell Stock with Cooldown
+   */
+  public int maxProfitWithMaxTransactionsAndCooldown(int[] prices) {
+    int sell = 0, prevSell = 0;
+    int buy = Integer.MIN_VALUE, prevBuy = 0;
+    for (int price : prices) {
+      prevBuy = buy; // Preserve past buy
+      buy = Math.max(buy, prevSell - price);
+      prevSell = sell; // Preserve past sell
+      sell = Math.max(sell, prevBuy + price);
+    }
+    return sell;
+  }
+
+  /**
    * Given a list stock prices (i.e. price[0...n]), our agent would walk through each price point one
    * by one. At each point, the agent would be in one of three states (i.e. held, sold and reset) that
    * we defined before. And at each point, the agent would take one of the three actions (i.e. buy,
    * sell and rest), which then would lead to the next state at the next price point.
    */
-  public int maxProfitWithMaxTransactionsAndCooldown(int[] prices) {
+  public int maxProfitWithMaxTransactionsAndCooldown2(int[] prices) {
     int sold = Integer.MIN_VALUE, held = Integer.MIN_VALUE, reset = 0;
 
     for (int price : prices) {
@@ -190,18 +223,6 @@ public class BestTimeToBuyAndSellStock {
     }
 
     return Math.max(sold, reset);
-  }
-
-  public int maxProfitWithMaxTransactionsAndCooldown2(int[] prices) {
-    int sell = 0, prevSell = 0;
-    int buy = Integer.MIN_VALUE, prevBuy;
-    for (int price : prices) {
-      prevBuy = buy;
-      buy = Math.max(prevSell - price, prevBuy);
-      prevSell = sell;
-      sell = Math.max(prevBuy + price, prevSell);
-    }
-    return sell;
   }
 
   private int quickSolve(int[] prices) {
@@ -227,5 +248,23 @@ public class BestTimeToBuyAndSellStock {
     assert solution.maxProfitWithMaxKTransactions(3, prices) == solution.maxProfitWithMaxKTransactions2(3, prices);
     prices = new int[] { 1 };
     System.out.println(solution.maxProfitWithSingleTransaction2(prices));
+  }
+
+  public int max(int k, int[] prices) {
+    int len = prices.length;
+    if (k >= prices.length / 2) {
+      return 0; // quick resolve
+    }
+
+    int[][] t = new int[k + 1][len];
+    for (int i = 1; i <= k; i++) {
+      int tmpMax = 0 - prices[0];
+      for (int j = 1; j < len; j++) {
+        t[i][j] = Math.max(t[i][j - 1], tmpMax + prices[i]);
+        tmpMax = Math.max(tmpMax, t[i - 1][j - 1] - prices[i]);
+      }
+    }
+
+    return t[k][prices.length - 1];
   }
 }

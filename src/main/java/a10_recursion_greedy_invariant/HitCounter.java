@@ -11,7 +11,6 @@ import java.util.LinkedList;
  * calls are being made to the system in chronological order (i.e., timestamp is monotonically
  * increasing). Several hits may arrive roughly at the same time.
  * 
- * @author lchen676
  *
  */
 public class HitCounter {
