@@ -31,48 +31,58 @@ import java.util.List;
  *
  */
 public class TextJustification {
-	public List<String> fullJustify(String[] words, int maxWidth) {
-		List<String> result = new ArrayList<>();
-		int start = 0, end = 0;
-		while (start < words.length) {
-			int count = words[start].length();
-			// end is excluded!
-			end = start + 1;
-			while (end < words.length) {
-				if (words[end].length() + count + 1 > maxWidth)
-					break;
-				count += words[end].length() + 1;
-				end++;
-			}
+  public List<String> fullJustify(String[] words, int maxWidth) {
+    List<String> result = new ArrayList<>();
+    int start = 0, end = 0;
+    while (start < words.length) {
+      int count = words[start].length();
+      // end is excluded!
+      end = start + 1;
+      while (end < words.length) {
+        // count in the spaces
+        if (count + 1 + words[end].length() > maxWidth)
+          break;
+        count += 1 + words[end].length();
+        end++;
+      }
 
-			StringBuilder builder = new StringBuilder();
-			int gaps = end - start - 1;
-			// left or middle justified
-			if (end == words.length || gaps == 0) {
-				for (int i = start; i < end; i++) {
-					builder.append(words[i]);
-					if (i < end - 1)
-						builder.append(" ");
-				}
-				for (int i = builder.length(); i < maxWidth; i++) {
-					builder.append(" ");
-				}
-			} else {
-				int spaces = (maxWidth - count) / gaps;
-				int rest = (maxWidth - count) % gaps;
-				for (int i = start; i < end; i++) {
-					builder.append(words[i]);
-					if (i < end - 1) {
-						builder.append(" ");
-						for (int j = 0; j < spaces + (i - start < rest ? 1 : 0); j++)
-							builder.append(" ");
-					}
-				}
-			}
-			result.add(builder.toString());
-			start = end;
-		}
+      StringBuilder builder = new StringBuilder();
+      int gaps = end - 1 - start;
+      // left or middle justified
+      if (end == words.length || gaps == 0) {
+        for (int i = start; i < end; i++) {
+          builder.append(words[i]);
+          if (i < end - 1)
+            builder.append(" ");
+        }
+        for (int i = builder.length(); i < maxWidth; i++) {
+          builder.append(" ");
+        }
+      } else {
+        int spaces = (maxWidth - count) / gaps;
+        int rest = (maxWidth - count) % gaps;
+        for (int i = start; i < end; i++) {
+          builder.append(words[i]);
+          if (i < end - 1) {
+            builder.append(" ");
+            for (int j = 0; j < spaces + (i - start < rest ? 1 : 0); j++)
+              builder.append(" ");
+          }
+        }
+      }
+      result.add(builder.toString());
+      start = end;
+    }
 
-		return result;
-	}
+    return result;
+  }
+
+  public static void main(String[] args) {
+    String[] words = { "Science", "is", "what", "we", "understand", "well", "enough", "to", "explain", "to", "a", "computer.", "Art", "is",
+        "everything", "else", "we", "do" };
+    TextJustification solution = new TextJustification();
+    for (String line : solution.fullJustify(words, 20)) {
+      System.out.println(line);
+    }
+  }
 }

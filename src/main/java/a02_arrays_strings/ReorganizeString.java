@@ -115,7 +115,7 @@ public class ReorganizeString {
 
   // Use priority queue
   public String rearrangeString2(String s, int k) {
-    if (k == 0) {
+    if (k <= 1) {
       return s;
     }
 

@@ -35,6 +35,7 @@
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#k-similar-strings
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#longest-increasing-subsequence
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#russian-doll-envelopes
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#reorganize-string
 
 ### List & Linked Lists
 - https://www.codebycase.com/algorithms/a03-list-and-linked-lists.html#combinations-of-phone-number
@@ -237,6 +238,27 @@
 - https://www.codebycase.com/algorithms/a10-parallel-computing.html#fix-a-concurrency-bug
 - https://www.codebycase.com/algorithms/a10-parallel-computing.html#implement-a-timer-class
 - https://www.codebycase.com/algorithms/a10-parallel-computing.html#javautilconcurrentexecutorcompletionservice
+
+### Practices
+- https://leetcode.com/problems/number-of-wonderful-substrings/submissions/
+- https://leetcode.com/problems/sell-diminishing-valued-colored-balls/submissions/
+- https://leetcode.com/problems/least-number-of-unique-integers-after-k-removals/submissions/
+- https://leetcode.com/problems/design-an-expression-tree-with-evaluate-function/submissions/
+- https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/submissions/
+- https://leetcode.com/problems/search-suggestions-system/submissions/
+- https://leetcode.com/problems/minimum-cost-to-connect-sticks/submissions/
+- https://leetcode.com/problems/connecting-cities-with-minimum-cost/submissions/
+- https://leetcode.com/problems/robot-bounded-in-circle/submissions/
+- https://leetcode.com/problems/k-closest-points-to-origin/submissions/
+- https://leetcode.com/problems/flip-string-to-monotone-increasing/
+- https://leetcode.com/problems/snakes-and-ladders/submissions/
+- https://leetcode.com/problems/sum-of-subarray-minimums/
+- https://leetcode.com/problems/design-in-memory-file-system/submissions/
+- https://leetcode.com/problems/range-addition/submissions/
+- https://leetcode.com/problems/design-tic-tac-toe/submissions/
+
+- https://leetcode.com/problems/analyze-user-website-visit-pattern/
+- https://leetcode.com/problems/minimum-cost-to-merge-stones/submissions/
 
 ## Problems - From Jiang
 

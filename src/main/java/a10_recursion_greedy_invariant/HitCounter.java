@@ -13,39 +13,41 @@ import java.util.LinkedList;
  * 
  *
  */
+
+// Use double linked list
 public class HitCounter {
   private int total;
+  private int window;
   private Deque<int[]> hits;
 
-  /** Initialize your data structure here. */
   public HitCounter() {
     total = 0;
+    window = 5 * 60; // 5 mins window
     hits = new LinkedList<int[]>();
   }
 
-  /**
-   * Record a hit.
-   * 
-   * @param timestamp - The current timestamp (in seconds granularity).
-   */
   public void hit(int timestamp) {
     if (hits.isEmpty() || hits.getLast()[0] != timestamp) {
       hits.add(new int[] { timestamp, 1 });
     } else {
-      hits.add(new int[] { timestamp, hits.removeLast()[1] + 1 });
+      hits.getLast()[1]++;
+      // hits.add(new int[] { timestamp, hits.removeLast()[1] + 1 });
+    }
+    // Prevent from growing too much
+    if (hits.size() > window) {
+      purge(timestamp);
     }
     total++;
   }
 
-  /**
-   * Return the number of hits in the past 5 minutes.
-   * 
-   * @param timestamp - The current timestamp (in seconds granularity).
-   */
   public int getHits(int timestamp) {
-    while (!hits.isEmpty() && timestamp - hits.getFirst()[0] >= 300) {
+    purge(timestamp);
+    return total;
+  }
+
+  private void purge(int timestamp) {
+    while (!hits.isEmpty() && timestamp - hits.getFirst()[0] >= window) {
       total -= hits.removeFirst()[1];
     }
-    return total;
   }
 }

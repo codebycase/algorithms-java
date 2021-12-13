@@ -77,6 +77,19 @@ public class MergeSort {
     return preHead.next;
   }
 
+  public int maximumUnits(int[][] boxTypes, int truckSize) {
+    Arrays.sort(boxTypes, (a, b) -> b[1] - a[1]);
+    int maxUnits = 0;
+    for (int[] boxType : boxTypes) {
+      int fitInBoxes = Math.min(truckSize, boxType[0]);
+      if (fitInBoxes == 0)
+        break;
+      maxUnits += fitInBoxes * boxType[1];
+      truckSize -= fitInBoxes;
+    }
+    return maxUnits;
+  }
+
   public static void main(String[] args) {
     int[] array = new int[] { 1, 4, 5, 2, 8, 9 };
     mergeSort(array);

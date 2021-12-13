@@ -58,12 +58,12 @@ public class HashTableBootCamp {
       for (char c : s.toCharArray())
         count[c - 'a']++;
 
-      System.out.println();
       StringBuilder sb = new StringBuilder("");
       for (int i = 0; i < 26; i++) {
         sb.append('#');
         sb.append(count[i]);
       }
+      
       String key = sb.toString();
       // String key = Arrays.toString(count);
       if (!ans.containsKey(key))
@@ -176,7 +176,7 @@ public class HashTableBootCamp {
   public int longestConsecutive2(int[] nums) {
     Map<Integer, Integer> map = new HashMap<>();
     int maxLength = 0;
-    
+
     for (int num : nums) {
       if (!map.containsKey(num)) {
         int left = map.getOrDefault(num - 1, 0);
@@ -340,7 +340,7 @@ public class HashTableBootCamp {
   public static void main(String[] args) {
     HashTableBootCamp bootCamp = new HashTableBootCamp();
     String[] strs = new String[] { "eat", "tea", "tan", "ate", "nat", "bat" };
-    assert bootCamp.groupAnagrams(strs).toString().equals("[[eat, tea, ate], [bat], [tan, nat]]");
+    assert bootCamp.groupAnagrams2(strs).toString().equals("[[eat, tea, ate], [bat], [tan, nat]]");
     int[] array = new int[] { 3, -2, 7, 9, 8, 1, 2, 0, -1, 5, 8 };
     assert bootCamp.longestConsecutive(array) == 6;
     assert bootCamp.minWindowSubsequence("abcdebdde", "bde").equals("bcde");
