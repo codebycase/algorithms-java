@@ -19,6 +19,7 @@
 
 - https://www.codebycase.com/algorithms/a01-fundamentals.html#contains-all-binary-codes
 - https://www.codebycase.com/algorithms/a01-fundamentals.html#game-can-i-win
+- https://www.codebycase.com/algorithms/a01-fundamentals.html#number-of-wonderful-substrings
 
 ### Array & String
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#generate-pascal-triangle
@@ -45,6 +46,7 @@
 
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#paint-house
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#paint-house-iii
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#burst-balloons
 
 ### Palindromes
 
@@ -55,6 +57,7 @@
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#palindrome-pairs
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#palindrome-partitioning
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#palindrome-partition-ii
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#make-a-string-palindrome
 
 
 ### Compute Permutations
@@ -203,6 +206,7 @@
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#find-median-from-data-stream
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#find-kth-largest-element
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#maximum-product-less-than-k
+- 
 
 ### Cache Design 
 - https://www.codebycase.com/algorithms/a07-hash-cache-memory.html#design-lru-cache
@@ -240,7 +244,7 @@
 - https://www.codebycase.com/algorithms/a10-parallel-computing.html#javautilconcurrentexecutorcompletionservice
 
 ### Practices
-- https://leetcode.com/problems/number-of-wonderful-substrings/submissions/
+- https://www.codebycase.com/algorithms/a01-fundamentals.html#number-of-wonderful-substrings
 - https://leetcode.com/problems/sell-diminishing-valued-colored-balls/submissions/
 - https://leetcode.com/problems/least-number-of-unique-integers-after-k-removals/submissions/
 - https://leetcode.com/problems/design-an-expression-tree-with-evaluate-function/submissions/
@@ -257,8 +261,9 @@
 - https://leetcode.com/problems/range-addition/submissions/
 - https://leetcode.com/problems/design-tic-tac-toe/submissions/
 
-- https://leetcode.com/problems/analyze-user-website-visit-pattern/
-- https://leetcode.com/problems/minimum-cost-to-merge-stones/submissions/
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#analyze-user-website-visit-pattern
+- https://www.codebycase.com/algorithms/a08-dynamic-programming.html#minimum-cost-to-merge-stones
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#subarrays-with-k-different-integers
 
 ## Problems - From Jiang
 
