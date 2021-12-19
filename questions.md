@@ -245,7 +245,7 @@
 
 ### Practices
 - https://www.codebycase.com/algorithms/a01-fundamentals.html#number-of-wonderful-substrings
-- https://leetcode.com/problems/sell-diminishing-valued-colored-balls/submissions/
+- https://leetcode.com/problems/concatenated-words/submissions/
 - https://leetcode.com/problems/least-number-of-unique-integers-after-k-removals/submissions/
 - https://leetcode.com/problems/design-an-expression-tree-with-evaluate-function/submissions/
 - https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/submissions/
@@ -256,14 +256,22 @@
 - https://leetcode.com/problems/k-closest-points-to-origin/submissions/
 - https://leetcode.com/problems/flip-string-to-monotone-increasing/
 - https://leetcode.com/problems/snakes-and-ladders/submissions/
-- https://leetcode.com/problems/sum-of-subarray-minimums/
 - https://leetcode.com/problems/design-in-memory-file-system/submissions/
 - https://leetcode.com/problems/range-addition/submissions/
 - https://leetcode.com/problems/design-tic-tac-toe/submissions/
+- https://leetcode.com/problems/concatenated-words/submissions/
+- https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together/submissions/
+- https://leetcode.com/problems/count-unique-characters-of-all-substrings-of-a-given-string/submissions/
+
 
 - https://www.codebycase.com/algorithms/a15-the-honors-question.html#analyze-user-website-visit-pattern
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#minimum-cost-to-merge-stones
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#subarrays-with-k-different-integers
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#sum-of-subarray-minimums
+
+- https://leetcode.com/problems/snakes-and-ladders/
+- https://leetcode.com/problems/sell-diminishing-valued-colored-balls/
+
 
 ## Problems - From Jiang
 
@@ -289,7 +297,4 @@
 
 ### Stack
 - https://leetcode.com/problems/longest-valid-parentheses/
-
-
-
 

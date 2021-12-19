@@ -17,34 +17,34 @@ import java.util.Queue;
  *
  */
 public class MedianFinder {
-  private Queue<Integer> small;
-  private Queue<Integer> large;
+  private Queue<Integer> small; // ascending order
+  private Queue<Integer> large; // descending order
 
   public MedianFinder() {
-    large = new PriorityQueue<>();
-    small = new PriorityQueue<>(Collections.reverseOrder());
+    small = new PriorityQueue<>();
+    large = new PriorityQueue<>(Collections.reverseOrder());
   }
 
   public void addNum(int num) {
-    if (large.size() > 0 && num > large.peek()) {
-      large.offer(num);
-    } else {
+    if (small.size() > 0 && num > small.peek()) {
       small.offer(num);
+    } else {
+      large.offer(num);
     }
-    if (small.size() - large.size() == 2) {
-      large.offer(small.poll());
-    } else if (large.size() - small.size() == 2) {
+    if (large.size() - small.size() == 2) {
       small.offer(large.poll());
+    } else if (small.size() - large.size() == 2) {
+      large.offer(small.poll());
     }
   }
 
   public double findMedian() {
-    if (small.size() > large.size()) {
-      return (double) small.peek();
-    } else if (large.size() > small.size()) {
+    if (large.size() > small.size()) {
       return (double) large.peek();
+    } else if (small.size() > large.size()) {
+      return (double) small.peek();
     } else {
-      return (small.peek() + large.peek()) / 2.0;
+      return (large.peek() + small.peek()) / 2.0;
     }
   }
 }

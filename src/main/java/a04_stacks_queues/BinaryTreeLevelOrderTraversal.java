@@ -27,8 +27,6 @@ return its level order traversal as:
 ]
  * </pre>
  * 
- * @author lchen
- *
  */
 public class BinaryTreeLevelOrderTraversal {
 	public List<List<Integer>> levelOrderWithIteration(TreeNode root) {

@@ -1,13 +1,15 @@
 package a02_arrays_strings;
 
-public class SellColoredBalls {
-  public int maxProfit(int[] inventory, int orders) {
-    int max = 0;
-    for (int in : inventory) {
-      max = Math.max(max, in);
-    }
+import java.util.Arrays;
 
-    int lo = 0, hi = max;
+/**
+ * Sell Diminishing-Valued Colored Balls
+ * 
+ * https://leetcode.com/problems/sell-diminishing-valued-colored-balls/
+ */
+public class SellDiminishingValuedColoredBalls {
+  public int maxProfit(int[] inventory, int orders) {
+    int lo = 0, hi = Arrays.stream(inventory).max().getAsInt();
     while (lo < hi) {
       int mid = lo + (hi - lo) / 2;
       if (getBallCnt(inventory, mid, orders) > orders) {
@@ -27,7 +29,7 @@ public class SellColoredBalls {
     }
     result += (long) remainMax * (long) orders;
 
-    return (int) (result % 1000000007);
+    return (int) (result % (long) (1e9 + 7));
   }
 
   private int getBallCnt(int[] inventory, int remainMax, int total) {
