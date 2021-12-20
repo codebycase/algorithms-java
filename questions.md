@@ -268,9 +268,9 @@
 - https://www.codebycase.com/algorithms/a08-dynamic-programming.html#minimum-cost-to-merge-stones
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#subarrays-with-k-different-integers
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#sum-of-subarray-minimums
+- https://www.codebycase.com/algorithms/a06-sorting-and-searching.html#sell-diminishing-valued-colored-balls
 
 - https://leetcode.com/problems/snakes-and-ladders/
-- https://leetcode.com/problems/sell-diminishing-valued-colored-balls/
 
 
 ## Problems - From Jiang
