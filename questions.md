@@ -37,6 +37,7 @@
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#longest-increasing-subsequence
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#russian-doll-envelopes
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#reorganize-string
+- https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#minimum-cost-for-tickets
 
 ### List & Linked Lists
 - https://www.codebycase.com/algorithms/a03-list-and-linked-lists.html#combinations-of-phone-number
@@ -269,8 +270,15 @@
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#subarrays-with-k-different-integers
 - https://www.codebycase.com/algorithms/a02-arrays-and-strings.html#sum-of-subarray-minimums
 - https://www.codebycase.com/algorithms/a06-sorting-and-searching.html#sell-diminishing-valued-colored-balls
+- https://www.codebycase.com/algorithms/a03-list-and-linked-lists.html#snakes-and-ladders
 
-- https://leetcode.com/problems/snakes-and-ladders/
+
+- https://www.codebycase.com/algorithms/a15-the-honors-question.html#bst-to-circular-sorted-dll
+- https://leetcode.com/problems/diagonal-traverse/submissions/
+- https://leetcode.com/problems/toeplitz-matrix/submissions/
+- https://leetcode.com/problems/maximum-swap/
+
+Cherry Pickup
 
 
 ## Problems - From Jiang

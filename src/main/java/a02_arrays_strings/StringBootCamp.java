@@ -332,6 +332,30 @@ public class StringBootCamp {
     return 0;
   }
 
+  public boolean validWordAbbreviation(String word, String abbr) {
+    int i = 0, j = 0;
+    while (i < abbr.length() && j < word.length()) {
+      if (Character.isDigit(abbr.charAt(i))) {
+        if (abbr.charAt(i) == '0')
+          return false;
+        int sum = 0;
+        while (i < abbr.length() && Character.isDigit(abbr.charAt(i))) {
+          sum = sum * 10 + (abbr.charAt(i) - '0');
+          i++;
+        }
+        j += sum;
+      } else {
+        if (word.charAt(j) == abbr.charAt(i)) {
+          i++;
+          j++;
+        } else {
+          return false;
+        }
+      }
+    }
+    return i == abbr.length() && j == word.length();
+  }
+
   public static void main(String[] args) {
     StringBootCamp camp = new StringBootCamp();
     assert camp.decodeColumnId("AA") == 27;

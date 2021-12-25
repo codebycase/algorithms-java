@@ -35,8 +35,8 @@ package a02_arrays_strings;
 public class MinimumCostForTickets {
 
   public int mincostTickets(int[] days, int[] costs) {
-    int[] ways = { 1, 7, 30 }; // 3 different ways
-    return recursiveDP(days, costs, ways, 0, new int[days.length]);
+    int[] durations = { 1, 7, 30 }; // 3 different ways
+    return recursiveDP(days, costs, durations, 0, new int[days.length]);
   }
 
   public int recursiveDP(int[] days, int[] costs, int[] durations, int i, int[] memo) {
