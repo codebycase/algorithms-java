@@ -104,26 +104,26 @@ public class LinkedListAndBinaryTree {
   // Transform a BST into a circular sorted DLL with Inorder traversal!
   // Circular DLL makes it easier to track head and tail
   // left subtree + node + right subtree -> make it circular
-  TreeNode lHead = null, rTail = null;
+  TreeNode head = null, tail = null;
 
   public TreeNode treeToDoublyList(TreeNode node) {
     if (node == null)
       return null;
 
     treeToDoublyList(node.left);
-    if (rTail != null) {
-      rTail.right = node; // link node after rTail
-      node.left = rTail;
+    if (tail != null) {
+      tail.right = node; // link node after rTail
+      node.left = tail;
     } else {
-      lHead = node; // keep the smallest as head
+      head = node; // keep the smallest as head
     }
-    rTail = node;
+    tail = node;
     treeToDoublyList(node.right);
 
     // Make it circular
-    rTail.right = lHead;
-    lHead.left = rTail;
-    return lHead;
+    tail.right = head;
+    head.left = tail;
+    return head;
   }
 
   public TreeNode mergeTwoBSTs(TreeNode treeA, TreeNode treeB) {
