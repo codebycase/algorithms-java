@@ -221,7 +221,7 @@ public class JumpGames {
    * Time/Space Complexity: O(N)/O(k)
    * 
    * https://leetcode.com/problems/jump-game-vi/ <br>
-   * https://www.codebycase.com/algorithms/a15-the-honors-question.html#sliding-window-maximum
+   * https://codebycase.github.io/algorithms/a15-the-honors-question.html#sliding-window-maximum
    * 
    */
   public int maxResult(int[] nums, int k) {
