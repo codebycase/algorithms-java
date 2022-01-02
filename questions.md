@@ -292,6 +292,13 @@
 - https://leetcode.com/problems/shortest-path-in-binary-matrix/solution/
 - https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/
 
+- https://codebycase.github.io/algorithm/a04-stacks-and-queues.html#buildings-with-an-ocean-view
+- https://codebycase.github.io/algorithm/a06-sorting-and-searching.html#first-and-last-position-in-sorted-array
+- https://codebycase.github.io/algorithm/a05-graphs-trees-heaps.html#lca-with-a-parent-pointer
+- https://leetcode.com/problems/cutting-ribbons/submissions/
+
+- https://codebycase.github.io/algorithm/a05-graphs-trees-heaps.html#word-ladder-ii
+
 ## Problems - From Jiang
 
 ### Union find
@@ -317,3 +324,14 @@
 ### Stack
 - https://leetcode.com/problems/longest-valid-parentheses/
 
+
+
+
+
+["magic","manic","mania","maria","maris","paris","parks","perks","peaks","pears","pearl"],["magic","manic","mania","maria","marta","marty","marry","parry","perry","peary","pearl"],["magic","manic","mania","maria","marta","marty","marry","merry","perry","peary","pearl"],["magic","manic","mania","maria","marta","marty","party","parry","perry","peary","pearl"]
+
+["magic","manic","mania","maria","maris","marks","parks","perks","peaks","pears","pearl"]]
+["magic","manic","mania","maria","maris","paris","parks","perks","peaks","pears","pearl"],
+["magic","manic","mania","maria","marta","marty","party","parry","perry","peary","pearl"],
+["magic","manic","mania","maria","marta","marty","marry","merry","perry","peary","pearl"],
+["magic","manic","mania","maria","marta","marty","marry","parry","perry","peary","pearl"],
