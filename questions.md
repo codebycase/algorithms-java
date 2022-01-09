@@ -197,7 +197,7 @@
 - https://codebycase.github.io/algorithm/a09-recursion-greedy-invariant.html#frog-jump
 
 ### Histogram Chart
-- https://codebycase.github.io/algorithm/a09-recursion-greedy-invariant.html#largest-rectangle-in-histogram
+- https://codebycase.github.io/algorithm/a04-stacks-and-queues.html#largest-rectangle-skyline
 - https://codebycase.github.io/algorithm/a08-dynamic-programming.html#maximal-rectangle
 - https://codebycase.github.io/algorithm/a09-recursion-greedy-invariant.html#pour-water-in-histogram
 
@@ -205,6 +205,7 @@
 - https://codebycase.github.io/algorithm/a08-dynamic-programming.html#matrix-block-sum
 - https://codebycase.github.io/algorithm/a15-the-honors-question.html#sliding-window-maximum
 - https://codebycase.github.io/algorithm/a15-the-honors-question.html#sliding-window-median
+- https://codebycase.github.io/algorithm/a05-graphs-trees-heaps.html#compute-online-median
 - https://codebycase.github.io/algorithm/a15-the-honors-question.html#find-median-from-data-stream
 - https://codebycase.github.io/algorithm/a15-the-honors-question.html#find-kth-largest-element
 - https://codebycase.github.io/algorithm/a15-the-honors-question.html#maximum-product-less-than-k
@@ -299,6 +300,12 @@
 
 - https://codebycase.github.io/algorithm/a05-graphs-trees-heaps.html#word-ladder-ii
 
+- https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/submissions/
+- https://leetcode.com/discuss/interview-question/632717/Facebook-or-Recruiting-Portal-or-Matching-Pairs
+- https://leetcode.com/discuss/interview-question/718692/facebook-training-balanced-split
+- https://leetcode.com/problems/insert-into-a-sorted-circular-linked-list/solution/
+- https://codebycase.github.io/algorithm/a06-sorting-and-searching.html#capacity-to-ship-packages-within-d-days
+
 ## Problems - From Jiang
 
 ### Union find
@@ -325,13 +332,3 @@
 - https://leetcode.com/problems/longest-valid-parentheses/
 
 
-
-
-
-["magic","manic","mania","maria","maris","paris","parks","perks","peaks","pears","pearl"],["magic","manic","mania","maria","marta","marty","marry","parry","perry","peary","pearl"],["magic","manic","mania","maria","marta","marty","marry","merry","perry","peary","pearl"],["magic","manic","mania","maria","marta","marty","party","parry","perry","peary","pearl"]
-
-["magic","manic","mania","maria","maris","marks","parks","perks","peaks","pears","pearl"]]
-["magic","manic","mania","maria","maris","paris","parks","perks","peaks","pears","pearl"],
-["magic","manic","mania","maria","marta","marty","party","parry","perry","peary","pearl"],
-["magic","manic","mania","maria","marta","marty","marry","merry","perry","peary","pearl"],
-["magic","manic","mania","maria","marta","marty","marry","parry","perry","peary","pearl"],

@@ -1,7 +1,5 @@
 package a08_dynamic_programming;
 
-import org.junit.Assert;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,6 +11,8 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
+
+import org.junit.Assert;
 
 import util.Point;
 
@@ -148,18 +148,7 @@ public class DPBootCamp {
       return false;
     int target = sum / k;
 
-    // sort nums in favor of DFS
-    Arrays.sort(nums);
-
-    // some tricks to speedup, not neccessary
-    int index = nums.length - 1;
-    if (nums[index] > target)
-      return false;
-    while (index >= 0 && nums[index] == target) {
-      index--;
-      k--;
-    }
-    return partitionDFS(0, k, 0, sum / k, nums, new boolean[nums.length]);
+    return partitionDFS(0, k, 0, target, nums, new boolean[nums.length]);
   }
 
   // DFS with Backtrack
@@ -1025,7 +1014,7 @@ public class DPBootCamp {
   public int longestConsecutive2(int[] nums) {
     Map<Integer, Integer> map = new HashMap<>();
     int maxLength = 0;
-    
+
     for (int num : nums) {
       if (!map.containsKey(num)) {
         int left = map.getOrDefault(num - 1, 0);
@@ -1043,7 +1032,7 @@ public class DPBootCamp {
 
     return maxLength;
   }
-  
+
   /**
    * Given an unsorted array of integers, find the number of longest increasing subsequence.
    * 
@@ -1401,7 +1390,7 @@ public class DPBootCamp {
   Output: false
    * </pre>
    */
-  
+
   // DFS is the most efficient way!
   public boolean isInterleave(String s1, String s2, String s3) {
     if (s1.length() + s2.length() != s3.length())

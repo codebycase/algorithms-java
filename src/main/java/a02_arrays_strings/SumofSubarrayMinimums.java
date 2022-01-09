@@ -1,5 +1,6 @@
 package a02_arrays_strings;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -22,16 +23,10 @@ import java.util.LinkedList;
  */
 public class SumofSubarrayMinimums {
 
+  // Use monotonic stack to track nums
   public int sumSubarrayMins(int[] arr) {
-    if (arr == null || arr.length == 0) {
-      return 0;
-    }
-
-    long mod = (long) 1e9 + 7;
-    // Stores counts of pre min values till to current num
     Deque<int[]> stack = new LinkedList<>();
-    int totalSum = 0, minPreSum = 0;
-
+    long totalSum = 0, minPreSum = 0;
     for (int num : arr) {
       int count = 1;
       while (!stack.isEmpty() && stack.peek()[0] > num) {
@@ -42,10 +37,41 @@ public class SumofSubarrayMinimums {
       stack.push(new int[] { num, count });
       minPreSum += count * num;
       totalSum += minPreSum;
-      totalSum %= mod;
     }
+    return (int) (totalSum % (1e9 + 7));
+  }
 
-    return (int) totalSum;
+  // Use monotonic stack to track indices
+  public int sumSubarrayMins2(int[] arr) {
+    long sum = 0;
+    Deque<Integer> stack = new ArrayDeque<>();
+    for (int i = 0; i <= arr.length; i++) {
+      while (!stack.isEmpty() && (i == arr.length || arr[stack.peek()] > arr[i])) {
+        int mid = stack.pop(); // middle min pilliar
+        int left = mid - (stack.isEmpty() ? -1 : stack.peek());
+        int right = i - mid;
+        sum += (long) arr[mid] * left * right;
+      }
+      stack.push(i);
+    }
+    return (int) (sum % (1e9 + 7));
+  }
+
+  // Use monotonic stack to track indices
+  public int sumSubarrayMins3(int[] arr) {
+    long sum = 0;
+    Deque<Integer> stack = new ArrayDeque<>();
+    stack.push(-1); // leverage a dummy index
+    for (int i = 0; i <= arr.length; i++) {
+      while (stack.peek() != -1 && (i == arr.length || arr[stack.peek()] > arr[i])) {
+        int mid = stack.pop(); // middle min pilliar
+        int left = mid - stack.peek();
+        int right = i - mid;
+        sum += (long) arr[mid] * left * right;
+      }
+      stack.push(i);
+    }
+    return (int) (sum % (1e9 + 7));
   }
 
 }
