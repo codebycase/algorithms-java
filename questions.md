@@ -306,6 +306,36 @@
 - https://leetcode.com/problems/insert-into-a-sorted-circular-linked-list/solution/
 - https://codebycase.github.io/algorithm/a06-sorting-and-searching.html#capacity-to-ship-packages-within-d-days
 
+
+### Practices III
+
+- https://codebycase.github.io/algorithm/a06-sorting-and-searching.html#balanced-split
+- https://codebycase.github.io/algorithm/a06-sorting-and-searching.html#k-closest-points-to-origin
+- https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
+- https://leetcode.com/problems/bulls-and-cows/
+- https://leetcode.com/problems/smallest-rectangle-enclosing-black-pixels/
+- https://leetcode.com/problems/find-duplicate-subtrees/submissions/
+- https://leetcode.com/problems/maximum-points-you-can-obtain-from-cards/
+- https://leetcode.com/problems/strange-printer/
+- https://leetcode.com/problems/asteroid-collision/submissions/
+- https://leetcode.com/problems/car-fleet/
+- https://leetcode.com/problems/number-of-matching-subsequences/submissions/ **
+- https://leetcode.com/problems/distinct-subsequences-ii/solution/ **
+- https://leetcode.com/problems/snapshot-array/
+- https://leetcode.com/problems/prefix-and-suffix-search
+- https://leetcode.com/problems/longest-string-chain/
+- https://leetcode.com/problems/stream-of-characters/ **
+- https://leetcode.com/problems/swap-adjacent-in-lr-string/submissions/ -- skip
+- https://leetcode.com/problems/minimum-number-of-refueling-stops/submissions/
+- canCompleteCircuit car gas station
+- https://leetcode.com/problems/student-attendance-record-ii/
+- https://leetcode.com/problems/array-of-doubled-pairs/solution/ - skip
+- https://leetcode.com/problems/minimum-number-of-flips-to-convert-binary-matrix-to-zero-matrix/
+- https://leetcode.com/problems/detect-squares
+- https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination
+- https://leetcode.com/problems/max-value-of-equation/ ??
+- https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid
+
 ## Problems - From Jiang
 
 ### Union find
