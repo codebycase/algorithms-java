@@ -1,35 +1,32 @@
 package a06_sorting_searching;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// 
 public class TimeBaseKeyValueStore {
-  class Data {
-    String val;
-    int time;
-
-    Data(String val, int time) {
-      this.val = val;
-      this.time = time;
-    }
-  }
 
   class TimeMap {
+    class Data {
+      String value;
+      int timestamp;
 
-    /** Initialize your data structure here. */
-    Map<String, List<Data>> map;
+      Data(String value, int timestamp) {
+        this.value = value;
+        this.timestamp = timestamp;
+      }
+    }
+
+    private Map<String, List<Data>> map;
 
     public TimeMap() {
       map = new HashMap<String, List<Data>>();
     }
 
     public void set(String key, String value, int timestamp) {
-      if (!map.containsKey(key))
-        map.put(key, new ArrayList<Data>());
-      map.get(key).add(new Data(value, timestamp));
+      map.computeIfAbsent(key, k -> new ArrayList<>()).add(new Data(value, timestamp));
     }
 
     public String get(String key, int timestamp) {
@@ -38,20 +35,22 @@ public class TimeBaseKeyValueStore {
       return binarySearch(map.get(key), timestamp);
     }
 
-    protected String binarySearch(List<Data> list, int time) {
+    // find floor entry!
+    private String binarySearch(List<Data> list, int timestamp) {
       int low = 0, high = list.size() - 1;
       while (low < high) {
         int mid = (low + high) >> 1;
-        if (list.get(mid).time == time)
-          return list.get(mid).val;
-        if (list.get(mid).time < time) {
-          if (list.get(mid + 1).time > time)
-            return list.get(mid).val;
+        Data data = list.get(mid);
+        if (data.timestamp == timestamp)
+          return data.value;
+        if (data.timestamp < timestamp) {
+          if (list.get(mid + 1).timestamp > timestamp)
+            return data.value;
           low = mid + 1;
         } else
           high = mid - 1;
       }
-      return list.get(low).time <= time ? list.get(low).val : "";
+      return list.get(low).timestamp <= timestamp ? list.get(low).value : "";
     }
   }
 }

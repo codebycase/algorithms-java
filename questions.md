@@ -200,6 +200,7 @@
 - https://codebycase.github.io/algorithm/a04-stacks-and-queues.html#largest-rectangle-skyline
 - https://codebycase.github.io/algorithm/a08-dynamic-programming.html#maximal-rectangle
 - https://codebycase.github.io/algorithm/a09-recursion-greedy-invariant.html#pour-water-in-histogram
+- https://codebycase.github.io/algorithm/a09-recursion-greedy-invariant.html#trapping-water-in-2d-matrix
 
 ### Sliding Window
 - https://codebycase.github.io/algorithm/a08-dynamic-programming.html#matrix-block-sum
@@ -335,6 +336,40 @@
 - https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination
 - https://leetcode.com/problems/max-value-of-equation/ ??
 - https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid
+
+
+### Practices IV
+- https://codebycase.github.io/algorithm/a02-arrays-and-strings.html#three-sum-equals
+- https://codebycase.github.io/algorithm/a09-recursion-greedy-invariant.html#design-hit-counter
+
+- https://leetcode.com/problems/maximum-number-of-visible-points/ 
+- https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination
+- https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid
+- https://leetcode.com/problems/minimum-number-of-flips-to-convert-binary-matrix-to-zero-matrix/
+- https://leetcode.com/problems/prefix-and-suffix-search/ ***
+- https://leetcode.com/problems/minimum-number-of-refueling-stops/
+- https://leetcode.com/problems/longest-string-chain/ **
+- https://leetcode.com/problems/number-of-matching-subsequences/ **
+- https://leetcode.com/problems/minimum-number-of-refueling-stops/ (5)
+- https://leetcode.com/problems/rle-iterator/
+- https://leetcode.com/problems/time-based-key-value-store/
+- https://leetcode.com/problems/maximum-number-of-points-with-cost/
+- https://leetcode.com/problems/remove-all-ones-with-row-and-column-flips/
+- https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/
+- https://leetcode.com/problems/find-original-array-from-doubled-array/ 
+
+- Union Find: https://leetcode.com/problems/satisfiability-of-equality-equations/
+- **Union Find: https://leetcode.com/problems/find-all-people-with-secret/**
+- Find Squares: https://leetcode.com/problems/count-square-submatrices-with-all-ones/
+- Finger Print: https://leetcode.com/problems/strings-differ-by-one-character/
+- Priority Queue: https://leetcode.com/problems/single-threaded-cpu/
+- Tree Map: https://leetcode.com/problems/stock-price-fluctuation/
+- Sliding Window: https://leetcode.com/problems/max-value-of-equation/
+- DFS Matrix: https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+- Binary Search: https://leetcode.com/problems/split-array-largest-sum/
+- Text Just: https://leetcode.com/problems/sentence-screen-fitting/
+- Bucket: https://leetcode.com/problems/minimum-time-difference/
+
 
 ## Problems - From Jiang
 

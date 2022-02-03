@@ -2,13 +2,13 @@ package a02_arrays_strings;
 
 public class FindOriginalArray {
   public int[] findOriginalArray(int[] changed) {
-    if (changed.length == 0 || changed.length % 2 != 0)
+    int length = changed.length;
+    if (length == 0 || length % 2 != 0)
       return new int[0];
 
-    int[] ans = new int[changed.length / 2];
     int max = Integer.MIN_VALUE;
-    for (int i = 0; i < changed.length; i++) {
-      max = Math.max(max, changed[i]);
+    for (int c : changed) {
+      max = Math.max(max, c);
     }
 
     // bucket sort + frequency
@@ -17,6 +17,7 @@ public class FindOriginalArray {
       freq[i]++;
     }
 
+    int[] ans = new int[length / 2];
     int idx = 0;
     for (int i = 0; i < freq.length; i++) {
       if (freq[i] == 0)
@@ -32,6 +33,7 @@ public class FindOriginalArray {
         // not enough bigger nums to pair
         if (2 * i >= freq.length || freq[2 * i] < freq[i])
           return new int[0];
+        // collect valid numbers
         for (int j = 0; j < freq[i]; j++) {
           ans[idx++] = i;
         }

@@ -38,7 +38,7 @@ public class NumberOfMatchingSubsequences {
           heads[node.word.charAt(node.index) - 'a'].add(node);
         }
       }
-      oldBucket.clear();
+      // oldBucket.clear();
     }
 
     return result;

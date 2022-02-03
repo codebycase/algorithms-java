@@ -22,10 +22,9 @@ public class FindAllPeopleWithSecret {
       Set<Integer> pool = new HashSet<>();
 
       while (i < meetings.length && curTime == meetings[i][2]) {
-        int[] currentMeeting = meetings[i];
-        uf.union(currentMeeting[0], currentMeeting[1]);
-        pool.add(currentMeeting[0]);
-        pool.add(currentMeeting[1]);
+        uf.union(meetings[i][0], meetings[i][1]);
+        pool.add(meetings[i][0]);
+        pool.add(meetings[i][1]);
         i++;
       }
 

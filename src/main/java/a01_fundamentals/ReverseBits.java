@@ -1,5 +1,7 @@
 package a01_fundamentals;
 
+import org.junit.Assert;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +16,7 @@ public class ReverseBits {
 	public int reverseBits(int n) {
 		int result = 0;
 		for (int i = 0; i < 32; i++) {
-			result += n & 1;
+			result |= n & 1;
 			n >>>= 1; // must do unsigned shift
 			if (i < 31) // for last digit, don't shift!
 				result <<= 1;
@@ -56,6 +58,6 @@ public class ReverseBits {
 
 	public static void main(String[] args) {
 		ReverseBits solution = new ReverseBits();
-		assert solution.reverseBits(43261596) == solution.reverseBits2(43261596);
+		Assert.assertTrue(solution.reverseBits(43261596) == solution.reverseBits2(43261596));
 	}
 }

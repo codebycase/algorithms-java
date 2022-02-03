@@ -8,6 +8,8 @@ import java.util.Set;
 // https://leetcode.com/problems/minimum-number-of-flips-to-convert-binary-matrix-to-zero-matrix/
 // O(m * n * 2 ^ (m * n)), Space: O(2 ^ (m * n)).
 public class MinimumFlips {
+  /**
+   */
   public int minFlips(int[][] mat) {
     int[] d = { 0, 0, 1, 0, -1, 0 };
     int start = 0, m = mat.length, n = mat[0].length;
