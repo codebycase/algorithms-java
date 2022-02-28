@@ -1,4 +1,4 @@
-package a02_arrays_strings;
+package a00_collections;
 
 import org.junit.Assert;
 
@@ -20,7 +20,7 @@ import java.util.Stack;
 import a03_linked_lists.Node;
 import util.TreeNode;
 
-public class CodeByCase {
+public class Collections {
   public int[] longestContinuousIncreasingSubarray(int[] nums) {
     int start = 0, end = 0;
     int max = 0, anchor = 0; // anchor is slow pointer
@@ -2099,7 +2099,7 @@ public class CodeByCase {
    * 
    */
   public static void main(String[] args) {
-    CodeByCase solution = new CodeByCase();
+    Collections solution = new Collections();
     int[] machines = { 1, 5, 7, 8, 15, 66, 67, 90 };
     Assert.assertEquals("2, 3, 4, 6, 9-14, 16-65, 68-89, 91-99", solution.findIdleMachines(machines));
 
