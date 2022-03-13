@@ -159,7 +159,7 @@ public class CourseSchedule {
   public List<Boolean> scheduleCourseIV(int numCourses, int[][] prerequisites, int[][] queries) {
     int[] indegrees = new int[numCourses];
     List<List<Integer>> adjacents = new ArrayList<>(numCourses);
-    // Use BitSet to track the previous courses been taken
+    // Use BitFunctions to track the previous courses been taken
     List<BitSet> previousCourses = new ArrayList<>(numCourses);
     for (int i = 0; i < numCourses; i++) {
       adjacents.add(new ArrayList<>());

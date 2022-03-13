@@ -21,6 +21,23 @@ import a03_linked_lists.Node;
 import util.TreeNode;
 
 public class Collections {
+  // Calculate 2^n in a recursive way
+  public int f1(int n) {
+    if (n <= 0) {
+      return 1;
+    }
+    return f1(n - 1) + f1(n - 1);
+  }
+
+  // Calculate 2^n in an iterative way
+  public int f2(int n) {
+    int r = 1;
+    for (int i = 0; i < n; i++) {
+      r += r;
+    }
+    return r;
+  }
+
   public int[] longestContinuousIncreasingSubarray(int[] nums) {
     int start = 0, end = 0;
     int max = 0, anchor = 0; // anchor is slow pointer
@@ -2105,6 +2122,13 @@ public class Collections {
 
     String pathText = "dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext";
     Assert.assertEquals(32, solution.longestAbsoluteFilePath(pathText));
+
+    for (int i = 0; i < 10; i++) {
+      Assert.assertEquals(solution.f1(i), solution.f2(i));
+      System.out.println(solution.f2(i));
+    }
+
+    System.out.println(16 & (16 - 1));
   }
 
 }
