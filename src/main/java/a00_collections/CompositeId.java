@@ -1,6 +1,7 @@
 package a00_collections;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * 
@@ -66,10 +67,10 @@ public class CompositeId {
   public static void main(String[] args) {
     CompositeId solution = new CompositeId();
     long id = solution.encodeId(2, 7, 15);
-    Assert.assertEquals("0000000000000000100000000111000000000000000000000000000000001111", solution.printBits(id));
-    Assert.assertArrayEquals(new long[] { 2, 7, 15 }, solution.decodeId(id));
+    assertEquals("0000000000000000100000000111000000000000000000000000000000001111", solution.printBits(id));
+    assertArrayEquals(new long[] { 2, 7, 15 }, solution.decodeId(id));
     id = solution.updateTypeId(id, 8);
-    Assert.assertEquals("0000000000000000100000001000000000000000000000000000000000001111", solution.printBits(id));
-    Assert.assertArrayEquals(new long[] { 2, 8, 15 }, solution.decodeId(id));
+    assertEquals("0000000000000000100000001000000000000000000000000000000000001111", solution.printBits(id));
+    assertArrayEquals(new long[] { 2, 8, 15 }, solution.decodeId(id));
   }
 }

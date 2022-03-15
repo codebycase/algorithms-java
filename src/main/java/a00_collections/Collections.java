@@ -21,7 +21,7 @@ import a03_linked_lists.Node;
 import util.TreeNode;
 
 public class Collections {
-  // Calculate 2^n in a recursive way
+  // Calculate 2^n (n >= 0) in a recursive way
   public int f1(int n) {
     if (n <= 0) {
       return 1;
@@ -29,7 +29,7 @@ public class Collections {
     return f1(n - 1) + f1(n - 1);
   }
 
-  // Calculate 2^n in an iterative way
+  // Calculate 2^n (n >= 0) in an iterative way
   public int f2(int n) {
     int r = 1;
     for (int i = 0; i < n; i++) {

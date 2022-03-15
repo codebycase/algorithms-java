@@ -1,5 +1,7 @@
 package a00_collections;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  * <p>
  * Bit Vector is a perfect sample to demonstrate the common bit tasks: Sizing, Shifting, Getting and
@@ -61,13 +63,13 @@ public class BitVector {
     bitVector.set(3, true);
     bitVector.set(5, true);
     bitVector.print();
-    assert bitVector.get(3);
-    assert !bitVector.get(4);
-    assert bitVector.get(5);
+    assertTrue(bitVector.get(3));
+    assertTrue(!bitVector.get(4));
+    assertTrue(bitVector.get(5));
     bitVector.set(1, false);
     bitVector.set(3, true);
     bitVector.set(5, false);
     bitVector.print();
-    assert !bitVector.get(5);
+    assertTrue(!bitVector.get(5));
   }
 }
