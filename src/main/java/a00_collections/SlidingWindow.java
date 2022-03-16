@@ -2,8 +2,12 @@ package a00_collections;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class SlidingWindow {
   /**
@@ -55,6 +59,135 @@ public class SlidingWindow {
     }
     max = Math.max(right - left, max);
     return max;
+  }
+
+  public double[] medianSlidingWindow(int[] nums, int k) {
+    Queue<Integer> large = new PriorityQueue<>((a, b) -> nums[a] == nums[b] ? Integer.compare(a, b) : Integer.compare(nums[a], nums[b]));
+    Queue<Integer> small = new PriorityQueue<>((a, b) -> nums[a] == nums[b] ? Integer.compare(a, b) : Integer.compare(nums[b], nums[a]));
+    double[] ans = new double[nums.length - k + 1];
+    int balance = 0;
+    int i = 0;
+    while (i < nums.length) {
+      if (large.isEmpty() || nums[i] >= nums[large.peek()]) {
+        large.offer(i);
+        balance++;
+      } else {
+        small.offer(i);
+        balance--;
+      }
+      i++;
+
+      while (balance > 1 || (!large.isEmpty() && large.peek() < i - k)) {
+        int min = large.poll();
+        if (min >= i - k) {
+          small.offer(min);
+          balance -= 2;
+        }
+      }
+
+      while (balance < 0 || (!small.isEmpty() && small.peek() < i - k)) {
+        int max = small.poll();
+        if (max >= i - k) {
+          large.offer(max);
+          balance += 2;
+        }
+      }
+
+      if (i - k >= 0) {
+        ans[i - k] = k % 2 == 0 ? ((double) nums[small.peek()] + (double) nums[large.peek()]) / 2 : (double) nums[large.peek()];
+
+        // Lazy removal of an outgoing number
+        if (!small.isEmpty() && i - k == small.peek()) {
+          small.poll();
+          balance++;
+        } else if (i - k == large.peek()) {
+          large.poll();
+          balance--;
+        } else if (nums[i - k] >= nums[large.peek()]) {
+          balance--;
+        } else {
+          balance++;
+        }
+      }
+
+    }
+
+    return ans;
+  }
+
+  // Use double linked list
+  public class HitCounter {
+    private int total;
+    private int window;
+    private Deque<int[]> hits;
+
+    public HitCounter() {
+      total = 0;
+      window = 5 * 60; // 5 mins window
+      hits = new LinkedList<int[]>();
+    }
+
+    public void hit(int timestamp) {
+      if (hits.isEmpty() || hits.getLast()[0] != timestamp) {
+        hits.add(new int[] { timestamp, 1 });
+      } else {
+        hits.getLast()[1]++;
+        // hits.add(new int[] { timestamp, hits.removeLast()[1] + 1 });
+      }
+      // Prevent from growing too much
+      if (hits.size() > window) {
+        purge(timestamp);
+      }
+      total++;
+    }
+
+    public int getHits(int timestamp) {
+      purge(timestamp);
+      return total;
+    }
+
+    private void purge(int timestamp) {
+      while (!hits.isEmpty() && timestamp - hits.getFirst()[0] >= window) {
+        total -= hits.removeFirst()[1];
+      }
+    }
+  }
+
+  // Use array rotation
+  public class HitCounter2 {
+    private int total;
+    private int window;
+    private int[][] hits;
+
+    public HitCounter2() {
+      total = 0;
+      window = 5 * 60; // 5 mins window
+      hits = new int[window][2];
+    }
+
+    public void hit(int timestamp) {
+      int i = timestamp % hits.length;
+      if (hits[i][0] != timestamp) {
+        purge(i, timestamp);
+      }
+      hits[i][1]++;
+      total++;
+    }
+
+    public int getHits(int timestamp) {
+      for (int i = 0; i < hits.length; i++) {
+        if (hits[i][0] != 0 && timestamp - hits[i][0] >= window) {
+          purge(i, timestamp);
+        }
+      }
+      return total;
+    }
+
+    private void purge(int i, int timestamp) {
+      total -= hits[i][1];
+      hits[i][0] = timestamp;
+      hits[i][1] = 0;
+    }
   }
 
   public static void main(String[] args) {
