@@ -42,8 +42,10 @@ import java.util.Stack;
  * 
  */
 public class CourseSchedule {
+
+  // Track cycle with indegrees
   public int[] findOrderInBFS(int numCourses, int[][] prerequisites) {
-    // initialize directed graph
+    // Initialize directed graph
     int[] indegrees = new int[numCourses];
     List<List<Integer>> adjacents = new ArrayList<>(numCourses);
     for (int i = 0; i < numCourses; i++) {
@@ -53,7 +55,7 @@ public class CourseSchedule {
       indegrees[edge[0]]++;
       adjacents.get(edge[1]).add(edge[0]);
     }
-    // breadth first search
+    // Breadth first search
     int[] order = new int[numCourses];
     Queue<Integer> toVisit = new ArrayDeque<>();
     for (int i = 0; i < indegrees.length; i++) {
@@ -70,13 +72,13 @@ public class CourseSchedule {
           toVisit.offer(to);
       }
     }
-    // should visited all courses
+    // Should visited all courses
     return visited == indegrees.length ? order : new int[0];
   }
 
-  // track cycle with three states
+  // Track cycle with three states
   public int[] findOrderInDFS(int numCourses, int[][] prerequisites) {
-    // initialize directed graph
+    // Initialize directed graph
     List<List<Integer>> adjacents = new ArrayList<>(numCourses);
     for (int i = 0; i < numCourses; i++) {
       adjacents.add(new ArrayList<>());
