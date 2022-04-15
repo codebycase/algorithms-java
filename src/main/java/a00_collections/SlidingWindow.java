@@ -11,6 +11,33 @@ import java.util.Queue;
 
 public class SlidingWindow {
   /**
+   * Given an unsorted array of integers, find the length of longest continuous increasing subsequence
+   * (subarray).
+   * 
+   * For example, if A = [1,3,5,4,7], The longest continuous increasing subsequence is [1,3,5], its
+   * length is 3.
+   * 
+   * Solution:
+   * 
+   * For the continuous subarray issue, we can first consider using sliding window. As below, we can
+   * use an anchor to mark the start of a new increasing subsequence at nums[i].
+   */
+  public int[] longestContinuousIncreasingSubarray(int[] nums) {
+    int start = 0, end = 0;
+    int max = 0, anchor = 0; // anchor is slow pointer
+    for (int i = 0; i < nums.length; i++) {
+      if (i > 0 && nums[i - 1] >= nums[i])
+        anchor = i;
+      if (max < i - anchor + 1) {
+        max = i - anchor + 1;
+        start = anchor;
+        end = i;
+      }
+    }
+    return new int[] { start, end };
+  }
+
+  /**
    * Given a string, find the length of the longest substring without repeating characters.
    * 
    * Examples:

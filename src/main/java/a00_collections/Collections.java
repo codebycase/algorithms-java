@@ -92,20 +92,6 @@ public class Collections {
     return result;
   }
 
-  // Use map to count different's frequency
-  public int subarraySumsEqualsK(int[] nums, int k) {
-    int count = 0, sum = 0;
-    Map<Integer, Integer> map = new HashMap<>();
-    map.put(0, 1);
-    for (int i = 0; i < nums.length; i++) {
-      sum += nums[i];
-      if (map.containsKey(sum - k))
-        count += map.get(sum - k);
-      map.put(sum, map.getOrDefault(sum, 0) + 1);
-    }
-    return count;
-  }
-
   // Use map to count remainder's frequency
   public int subarraySumsDivisibleByK(int[] nums, int k) {
     if (nums == null || nums.length == 0 || k == 0)
@@ -1885,55 +1871,7 @@ public class Collections {
 
   }
 
-  /**
-   * Use binary search to simulate TreeMap <br>
-   * https://leetcode.com/problems/time-based-key-value-store/
-   */
-  class TimestampMap {
-    class Data {
-      String value;
-      int timestamp;
 
-      Data(String value, int timestamp) {
-        this.value = value;
-        this.timestamp = timestamp;
-      }
-    }
-
-    private Map<String, List<Data>> map;
-
-    public TimestampMap() {
-      map = new HashMap<>();
-    }
-
-    public void set(String key, String value, int timestamp) {
-      map.computeIfAbsent(key, k -> new ArrayList<>()).add(new Data(value, timestamp));
-    }
-
-    public String get(String key, int timestamp) {
-      if (!map.containsKey(key))
-        return "";
-      return binarySearch(map.get(key), timestamp);
-    }
-
-    // find floor entry!
-    private String binarySearch(List<Data> list, int timestamp) {
-      int low = 0, high = list.size() - 1;
-      while (low < high) {
-        int mid = (low + high) >> 1;
-        Data data = list.get(mid);
-        if (data.timestamp == timestamp)
-          return data.value;
-        if (data.timestamp < timestamp) {
-          if (list.get(mid + 1).timestamp > timestamp)
-            return data.value;
-          low = mid + 1;
-        } else
-          high = mid - 1;
-      }
-      return list.get(low).timestamp <= timestamp ? list.get(low).value : "";
-    }
-  }
 
   /**
    * https://leetcode.com/problems/prefix-and-suffix-search/
