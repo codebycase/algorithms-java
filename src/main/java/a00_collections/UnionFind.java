@@ -1,11 +1,10 @@
-package a01_fundamentals;
+package a00_collections;
 
 /**
  * The UnionFind class represents a union–find data type (also known as the disjoint-sets data
  * type). It supports the union and find operations, along with a connected operation for
  * determining whether two sites are in the same component and a count operation that returns the
  * total number of components.
- * 
  */
 public class UnionFind {
 	private int[] parent; // parent[i] = parent of i

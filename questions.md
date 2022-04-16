@@ -358,7 +358,6 @@
 - https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/
 - https://leetcode.com/problems/find-original-array-from-doubled-array/ 
 
-- Union Find: https://leetcode.com/problems/satisfiability-of-equality-equations/
 - **Union Find: https://leetcode.com/problems/find-all-people-with-secret/**
 - Find Squares: https://leetcode.com/problems/count-square-submatrices-with-all-ones/
 - Finger Print: https://leetcode.com/problems/strings-differ-by-one-character/
