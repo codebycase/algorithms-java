@@ -1,11 +1,9 @@
-package a00_collections;
+package a99_miscellaneous;
 
 import org.junit.Assert;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -17,68 +15,9 @@ import java.util.Random;
 import java.util.Set;
 import java.util.Stack;
 
-import a03_linked_lists.Node;
 import util.TreeNode;
 
 public class Collections {
-
-  /**
-   * https://leetcode.com/problems/longest-line-of-consecutive-one-in-matrix/
-   */
-  public int longestLineOfConsecutiveOneInMatrix(int[][] mat) {
-    int m = mat.length, n = mat[0].length, max = 0;
-    int[][][] dp = new int[m][n][4]; // 4 directions
-    for (int i = 0; i < m; i++) {
-      for (int j = 0; j < n; j++) {
-        if (mat[i][j] == 0)
-          continue;
-        Arrays.fill(dp[i][j], 1); // init as 1
-        if (j > 0)
-          dp[i][j][0] += dp[i][j - 1][0]; // left vertical
-        if (i > 0 && j > 0)
-          dp[i][j][1] += dp[i - 1][j - 1][1]; // up-left diagonal
-        if (i > 0)
-          dp[i][j][2] += dp[i - 1][j][2]; // up horizontal
-        if (i > 0 && j < n - 1)
-          dp[i][j][3] += dp[i - 1][j + 1][3]; // up-right anti-diagonal
-        for (int k = 0; k < 4; k++) {
-          max = Math.max(max, dp[i][j][k]);
-        }
-      }
-    }
-    return max;
-  }
-
-  // Find interval ranges and print out
-  public String findIdleMachines(int[] machines) {
-    StringBuilder sb = new StringBuilder();
-
-    int start = 1; // starts with 1
-    for (int i = 0; i < machines.length; i++) {
-      int end = machines[i] - 1;
-      printIdleRange(start, end, sb);
-      start = machines[i] + 1;
-    }
-
-    printIdleRange(start, 99, sb);
-
-    return sb.toString();
-  }
-
-  private void printIdleRange(int start, int end, StringBuilder sb) {
-    int idles = end - start + 1;
-    if (idles > 3) {
-      if (sb.length() > 0)
-        sb.append(", ");
-      sb.append(start).append("-").append(end);
-    } else if (idles > 0) {
-      for (int j = start; j <= end; j++) {
-        if (sb.length() > 0)
-          sb.append(", ");
-        sb.append(j);
-      }
-    }
-  }
 
   /**
    * How to determine a squares based on other 3 corners
@@ -95,24 +34,6 @@ public class Collections {
       }
     }
     return result;
-  }
-
-  /**
-   * https://codebycase.github.io/algorithm/a08-dynamic-programming.html#unique-paths-in-obstacle-grid
-   */
-  public int findHowManyUniquePathsInGridWithObstacles(int[][] obstacleGrid) {
-    int width = obstacleGrid[0].length;
-    int[] dp = new int[width];
-    dp[0] = 1;
-    for (int[] row : obstacleGrid) {
-      for (int j = 0; j < width; j++) {
-        if (row[j] == 1)
-          dp[j] = 0;
-        else if (j > 0)
-          dp[j] += dp[j - 1];
-      }
-    }
-    return dp[width - 1];
   }
 
   /**
@@ -235,61 +156,6 @@ public class Collections {
   }
 
   /**
-   * https://codebycase.github.io/algorithm/a05-graphs-trees-heaps.html#alien-dictionary
-   */
-  public String alienDictionaryOrder(String[] words) {
-    Map<Character, Set<Character>> map = new HashMap<>();
-    Map<Character, Integer> degree = new HashMap<>();
-    StringBuilder result = new StringBuilder();
-
-    for (String word : words) {
-      for (char c : word.toCharArray()) {
-        degree.put(c, 0);
-      }
-    }
-
-    for (int i = 0; i < words.length - 1; i++) {
-      String curr = words[i];
-      String next = words[i + 1];
-      for (int j = 0; j < Math.min(curr.length(), next.length()); j++) {
-        char c1 = curr.charAt(j);
-        char c2 = next.charAt(j);
-        if (c1 != c2) {
-          if (!map.containsKey(c1))
-            map.put(c1, new HashSet<>());
-          Set<Character> set = map.get(c1);
-          if (!set.contains(c2)) {
-            set.add(c2);
-            degree.put(c2, degree.getOrDefault(c2, 0) + 1);
-          }
-          break;
-        }
-      }
-    }
-
-    Queue<Character> queue = new LinkedList<>();
-    for (Map.Entry<Character, Integer> entry : degree.entrySet()) {
-      if (entry.getValue() == 0)
-        queue.add(entry.getKey());
-    }
-    while (!queue.isEmpty()) {
-      char c = queue.remove();
-      result.append(c);
-      if (map.containsKey(c)) {
-        for (char c2 : map.get(c)) {
-          degree.put(c2, degree.get(c2) - 1);
-          if (degree.get(c2) == 0)
-            queue.add(c2);
-        }
-      }
-    }
-    if (result.length() != degree.size())
-      result.setLength(0);
-
-    return result.toString();
-  }
-
-  /**
    * Binary tree to find track path with DFS
    * https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/
    */
@@ -347,25 +213,6 @@ public class Collections {
     }
     return a;
   }
-
-  // https://leetcode.com/problems/find-leaves-of-binary-tree/
-  public List<List<Integer>> findLeavesOfBinaryTree(TreeNode root) {
-    List<List<Integer>> result = new ArrayList<>();
-    heightDfs(root, result);
-    return result;
-  }
-
-  private int heightDfs(TreeNode node, List<List<Integer>> result) {
-    if (node == null)
-      return -1;
-    int level = 1 + Math.max(heightDfs(node.left, result), heightDfs(node.right, result));
-    if (result.size() <= level)
-      result.add(new ArrayList<>());
-    result.get(level).add(node.val);
-    node.left = node.right = null; // remove leaves
-    return level;
-  }
-
   /**
    * Use dp and track both ways <br>
    * https://leetcode.com/problems/maximum-number-of-points-with-cost/
@@ -1361,9 +1208,7 @@ public class Collections {
     return st.pop();
   }
 
-
-
-  /**
+  /** xxxx
    * https://leetcode.com/problems/random-pick-with-weight/
    */
   class RandomPickWithWeight {
@@ -1512,8 +1357,6 @@ public class Collections {
       return result;
     }
   }
-
-  
 
   /**
    * https://leetcode.com/problems/prefix-and-suffix-search/
@@ -1697,8 +1540,6 @@ public class Collections {
    */
   public static void main(String[] args) {
     Collections solution = new Collections();
-    int[] machines = { 1, 5, 7, 8, 15, 66, 67, 90 };
-    Assert.assertEquals("2, 3, 4, 6, 9-14, 16-65, 68-89, 91-99", solution.findIdleMachines(machines));
 
     String pathText = "dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext";
     Assert.assertEquals(32, solution.longestAbsoluteFilePath(pathText));

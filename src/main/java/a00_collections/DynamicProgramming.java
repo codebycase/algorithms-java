@@ -97,6 +97,45 @@ public class DynamicProgramming {
     }
   }
 
+  public int findHowManyUniquePathsInGridWithObstacles(int[][] obstacleGrid) {
+    int width = obstacleGrid[0].length;
+    int[] dp = new int[width];
+    dp[0] = 1;
+    for (int[] row : obstacleGrid) {
+      for (int j = 0; j < width; j++) {
+        if (row[j] == 1)
+          dp[j] = 0;
+        else if (j > 0)
+          dp[j] += dp[j - 1];
+      }
+    }
+    return dp[width - 1];
+  }
+
+  public int longestLineOfConsecutiveOneInMatrix(int[][] mat) {
+    int m = mat.length, n = mat[0].length, max = 0;
+    int[][][] dp = new int[m][n][4]; // 4 directions
+    for (int i = 0; i < m; i++) {
+      for (int j = 0; j < n; j++) {
+        if (mat[i][j] == 0)
+          continue;
+        Arrays.fill(dp[i][j], 1); // init as 1
+        if (j > 0)
+          dp[i][j][0] += dp[i][j - 1][0]; // left vertical
+        if (i > 0 && j > 0)
+          dp[i][j][1] += dp[i - 1][j - 1][1]; // up-left diagonal
+        if (i > 0)
+          dp[i][j][2] += dp[i - 1][j][2]; // up horizontal
+        if (i > 0 && j < n - 1)
+          dp[i][j][3] += dp[i - 1][j + 1][3]; // up-right anti-diagonal
+        for (int k = 0; k < 4; k++) {
+          max = Math.max(max, dp[i][j][k]);
+        }
+      }
+    }
+    return max;
+  }
+
   // Recursion with memoization
   public boolean wordBreak1(String s, List<String> wordDict) {
     return wordBreak1(s, new HashSet<String>(wordDict), 0, new Boolean[s.length()]);
