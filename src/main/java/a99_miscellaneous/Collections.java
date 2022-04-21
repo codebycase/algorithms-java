@@ -263,62 +263,6 @@ public class Collections {
   }
 
   /**
-   * https://leetcode.com/problems/cheapest-flights-within-k-stops/
-   */
-  public int cheapestFlightsWithinKStops(int n, int[][] flights, int src, int dst, int k) {
-    int[][] graph = new int[n][n];
-    for (int[] flight : flights) {
-      graph[flight[0]][flight[1]] = flight[2];
-    }
-
-    // minimum costs array
-    int[] costs = new int[n];
-    // shortest steps array
-    int[] stops = new int[n];
-    Arrays.fill(costs, Integer.MAX_VALUE);
-    Arrays.fill(stops, Integer.MAX_VALUE);
-    costs[src] = 0;
-    stops[src] = 0;
-
-    // priority queue would contain (node, cost, stop)
-    Queue<int[]> minHeap = new PriorityQueue<int[]>((a, b) -> a[1] - b[1]);
-    minHeap.offer(new int[] { src, 0, 0 });
-
-    while (!minHeap.isEmpty()) {
-      int[] top = minHeap.poll();
-      int city = top[0];
-      int cost = top[1];
-      int stop = top[2];
-
-      if (city == dst) {
-        return cost;
-      }
-
-      // if there are no more stops left, continue
-      if (stop == k + 1) {
-        continue;
-      }
-
-      // relax all neighboring edges if possible
-      for (int neighbor = 0; neighbor < n; neighbor++) {
-        if (graph[city][neighbor] > 0) {
-          int nextCost = cost + graph[city][neighbor];
-          if (nextCost < costs[neighbor]) { // better cost?
-            costs[neighbor] = nextCost;
-            minHeap.offer(new int[] { neighbor, nextCost, stop + 1 });
-            stops[neighbor] = stop; // does not have to be the shortest path
-          } else if (stop < stops[neighbor]) { // better steps?
-            minHeap.offer(new int[] { neighbor, nextCost, stop + 1 });
-            stops[neighbor] = stop;
-          }
-        }
-      }
-    }
-
-    return costs[dst] == Integer.MAX_VALUE ? -1 : costs[dst];
-  }
-
-  /**
    * https://leetcode.com/problems/maximum-path-quality-of-a-graph/
    */
   public int maximalPathQuality(int[] values, int[][] edges, int maxTime) {
@@ -866,41 +810,6 @@ public class Collections {
   }
 
   // https://leetcode.com/problems/smallest-rectangle-enclosing-black-pixels/
-
-  /**
-   * https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
-   */
-  public int longestIncreasingPath(int[][] matrix) {
-    if (matrix.length == 0)
-      return 0;
-    int m = matrix.length;
-    int n = matrix[0].length;
-    int[][] memo = new int[m][n];
-    int max = 1;
-    for (int i = 0; i < m; i++) {
-      for (int j = 0; j < n; j++) {
-        max = Math.max(max, longestIncreasingPathDfs(matrix, i, j, m, n, memo));
-      }
-    }
-    return max;
-  }
-
-  private int[][] dirs = new int[][] { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
-
-  private int longestIncreasingPathDfs(int[][] matrix, int i, int j, int m, int n, int[][] memo) {
-    if (memo[i][j] != 0)
-      return memo[i][j];
-    int max = 1;
-    for (int[] dir : dirs) {
-      int x = i + dir[0];
-      int y = j + dir[1];
-      if (x >= 0 && x < m && y >= 0 && y < n && matrix[x][y] > matrix[i][j]) {
-        max = Math.max(max, 1 + longestIncreasingPathDfs(matrix, x, y, m, n, memo));
-      }
-    }
-    memo[i][j] = max;
-    return max;
-  }
 
   /**
    * https://leetcode.com/problems/01-matrix/
