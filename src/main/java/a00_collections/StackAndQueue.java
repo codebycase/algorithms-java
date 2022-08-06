@@ -1,12 +1,46 @@
 package a00_collections;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Stack;
 
-import a04_stacks_queues.LongestAbsoluteFilePath;
-
 public class StackAndQueue {
+  public int evalString(String exp) {
+    int ans = 0;
+    int i = 0;
+    char operator = '+';
+    while (i < exp.length()) {
+      char c = exp.charAt(i);
+      if (Character.isDigit(c)) {
+        int start = i;
+        while (i + 1 < exp.length() && Character.isDigit(exp.charAt(i + 1))) {
+          i++;
+        }
+        int num = Integer.valueOf(exp.substring(start, i + 1));
+        switch (operator) {
+        case '+':
+          ans += num;
+          break;
+        case '-':
+          ans -= num;
+          break;
+        default:
+          break;
+        }
+      } else if (c == ' ') {
+        // nothing to do
+      } else if (c == '+') {
+        operator = c;
+      } else if (c == '-') {
+        operator = c;
+      }
+      i++;
+    }
+    return ans;
+  }
+
   public String decodeString(String s) {
     Deque<Integer> count = new LinkedList<>();
     Deque<String> result = new LinkedList<>();
@@ -58,9 +92,12 @@ public class StackAndQueue {
   }
 
   public static void main(String[] args) {
-    LongestAbsoluteFilePath solution = new LongestAbsoluteFilePath();
+    StackAndQueue solution = new StackAndQueue();
     int result = solution.lengthLongestPath("dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext");
     System.out.println(result);
+    assertEquals(32, result);
+    assertEquals("abcabccdcdcdef", solution.decodeString("2[abc]3[cd]ef"));
+    assertEquals(80, solution.evalString("3 + 89-5 - 7"));
   }
 
 }
